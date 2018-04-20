@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+   <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		  <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    html, body {margin:0;width:100%;display:-webkit-box;}
+		#main{height: 100%;width: 93%;}
+		
+		#search{background: #F4F4F4;width: 100%;height: 30px;display:-webkit-box;position:relative;top:5px;display: -webkit-box;outline:none;}
+	    #search img{width: 25px;height:auto;position:relative;top:3px}
+	   .input_t{line-height:20px;font-size:14px;position:relative;top:-5px}
+		.box_a1l{width:90%;height: 100%;}
+		.detailed_comment{margin-top:20px;width:100%;}
+		.de_com{height:220px;border-bottom:7px solid #F4F4F4;width:100%;}
+		#username{height:23%;position:relative;top:3%;width:100%;display: -webkit-box;}
+		.store_font{font-size:14px;margin-left:4%;padding-top:1%;height:45%;width:100%;}
+		.store_num_font{font-size:12px;margin-left:4%;margin-top:3px;height:45%;width:100%;color:gray;}
+		.order_comment{color: #66cc66; font-size: 14px;height:30px;width: 60px;outline:none;
+								border: 1px solid  #66cc66;border-radius:20px;float: right;margin-right: 10px;margin-top:10%;}
+		#pic_3{height:45%;position:relative;top:3%;width:100%;display: -webkit-box;}
+		.pic{height:90%;position:relative;width:30%;margin-right:3%;}
+		.pic img{height:100%;width:auto;}
+		#address{font-size:13px;color:gray;height:12%;position:relative;top:4%;width:100%;display: -webkit-box;}
+		#address img{width: auto;height:90%;position:relative;top:3px}
+		#notice{height:12%;position:relative;top:8%;width:100%;display: -webkit-box;border-top:1px solid #d4d4d4;}
+		.notice_img1{width: auto;height:80%;position:relative;top:3px}
+		.notice_font{font-size:13px;width:80%;height:100%;margin-top:2%;margin-left:5%;}
+		.notice_img2{width: auto;height:80%;position:relative;top:3px;float:right;}
+
+    </style>
+</head>
+<body>
+<div style="width:6%;height: 100%;"></div>
+<div id="main">
+			<div class="none1"></div>
+			<div class="box_a1l">
+				   <div id="search">
+                          <img src="../../icon/public/search_icon.png"	/ >
+						  <input type="text" placeholder="请输入实体店名称" class="input_t" />
+					</div>
+					<div class="detailed_comment" id="detail_comm"></div>
+		   </div>
+</div>
+<script type="text/template" id="temp">
+	    
+	   {@each datalist as item}  
+        <div class="de_com" >
+				  <div id="username" onclick="openstore(${item.id})" >
+						 <img class="sh_store_image"src="${item.logo}"	style="width:auto;height:85%;"/ >
+                         <div style="height:90%;width:68%;">
+								<div class="store_font">${item.name}</div>
+								<div class="store_num_font"></div>
+						 </div>
+						 <div style="height:100%;width:20%;">
+							  <button class="order_comment">去评价</button>
+						 </div>
+				   </div>
+                   <div id="pic_3" >
+                          <div class="pic">
+                          	<img src="${item.images[0]}" / >
+                          </div>
+						  <div class="pic">
+                          	 <img src="${item.images[1]}" / >
+                          </div>				
+                          <div class="pic">
+                          	 <img src="${item.images[2]}" / >
+                          </div>
+                    </div>
+                    <div id="address" >
+	                        <img src="../../icon/position.png"/ >
+								${item.areaName}
+                    </div>
+					<div id="notice" >
+                             <img class="notice_img1"src="../../icon/public/notice.png"/ >
+							 <div class="notice_font">门店叉叉叉消息公告</div>
+							  <img class="notice_img2"src="../../icon/public/into_black.png"	/ >
+					</div>
+           </div>
+ {@/each}	
+</script>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/juicer.js"></script>
+<script src="../../script/global_variables.js"></script>
+<script src="../../script/zepto.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+
+       get_near_store();
+
+	}; 
+	function openstore(elem)
+	{
+	
+	api.openWin({
+				name : 'store_win',
+				url : '../store_win.html',
+				pageParam:{
+                          name:elem
+                    },
+	  		    reload:true
+			});
+	}
+	function get_near_store() {
+				$.ajax({
+					type : 'get',
+					url : 'http://116.62.22.98:8080/shop/store/search/getRangeStore?area=925',
+					success : function(data, status, xmlHttpRequest) {
+						if (data.responseCode == 0) {
+							
+							console.log(JSON.stringify(data));	
+							render("temp", data.data,"detail_comm");					             						
+							data1=data.data;				 
+						} else {
+						}
+					},
+					error : function() {
+						//console.log(JSON.stringify(err));
+					}
+				});			
+			}
+	  function render(temp_id, data_item, div_id) {
+				document.getElementById(div_id).innerHTML = "";
+				var tmp = document.getElementById(temp_id);
+				var data = {
+					datalist : data_item,
+				}
+				var onelist = juicer(tmp.innerHTML, data);
+				document.getElementById(div_id).innerHTML += onelist;;
+			}
+
+</script>
+</html>

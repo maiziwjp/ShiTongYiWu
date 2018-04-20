@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				margin: 0;
+				background: #ffffff;
+				position: relative;
+			}
+			.contents {
+				padding-left: 0.5 rem;
+				padding-right: 0.5 rem;
+				position: relative;
+				display: -webkit-box;
+				margin-top: 10px;
+				float: right;
+				clear: both;
+			}
+			.contents img {
+				width: 50px;
+				height: 50px;
+			}
+			.words {
+				background: #66CC66;
+				padding: 10px;
+				line-height: 20px;
+				border: none;
+				border-radius: 5px;
+				position: relative;
+				top: -10px;
+				max-width: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="contents">
+			<p class="words">
+				你好 我是刘德就好
+			</p><div style="width:0;height:0;border:10px solid #fff;border-left-color: #66CC66;position:relative;top:10px;"></div><img src="../../image/girl.jpg" />
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			// 融云模块
+			rong = api.require('rongCloud2');
+			//聊天界面模块
+			UIChatTools = api.require('UIChatTools');
+			chatTools();
+		};
+		function chatTools() {
+			UIChatTools.open({
+				chatBox : {
+					placeholder : '聊天内容',
+					autoFocuse : true,
+					maxRows : 6
+				},
+				styles : {
+					bgColor : '#D1D1D1',
+					margin : 10,
+					// mask:{bgColor:'rgba(0,0,0,0.2)'}
+				},
+				tools : {
+					h : 35,
+					iconSize : 30,
+					recorder : {
+						normal : 'fs://UIChatTolls/recorder.png',
+						selected : 'fs://UIChatTolls/recorder1.png'
+					},
+					image : {
+						normal : 'fs://UIChatTolls/image.png',
+						selected : 'fs://UIChatTolls/image1.png'
+					},
+					video :{
+						normal : 'fs://UIChatTolls/video.png',
+						selected : 'fs://UIChatTolls/video1.png'
+					},
+					face : {
+						normal : 'fs://UIChatTolls/face2.png',
+						selected : 'fs://UIChatTolls/face1.png'
+					}
+				},
+				// 表情
+				emotions:['widget://image/basic']
+			}, function(ret) {
+				if (ret) {
+					if (ret.eventType === 'send') {
+						// 发送消息
+						sendMsg(ret.msg);
+						$api.append($api.dom('body'), ' <div class="contents"><p class="words">'+ret.msg+'</p><div style="width:0;height:0;border:10px solid #fff;border-left-color: #66CC66;position:relative;top:10px;"></div><img src="../../image/girl.jpg" /></div>');
+					}
+				}
+			});
+			// 附加按钮
+			/*UIChatTools.setAppendButton({
+			styles: {
+			row: 2,
+			column: 4,
+			iconSize: 50,
+			titleSize: 13,
+			titleColor: '#f00'
+			},
+			buttons: [
+			{
+			normal: 'widget://image/chatPage/album2.png',
+			highlight: 'widget://image/chatPage/album2.png',
+			title: '电话'
+			},{
+			normal: 'widget://image/chatPage/album2.png',
+			highlight: 'widget://image/chatPage/album2.png',
+			title: '收藏'
+			},{
+			normal: 'widget://image/chatPage/album2.png',
+			highlight: 'widget://image/chatPage/album2.png',
+			title: '发红包'
+			}
+			]
+			}, function(ret) {
+			api.alert({msg:'点击了第'+ret.index+'个按钮'});
+			});*/
+			// 监听功能按钮
+			UIChatTools.toolsListener(function(ret) {
+				if (ret.eventType == 'video') {
+					api.alert({
+						title : 'title',
+						msg : 'video',
+					}, function(ret, err) {
+						/*if (ret) {
+						 alert(JSON.stringify(ret));
+						 } else {
+						 alert(JSON.stringify(err));
+						 }*/
+					});
+				}
+			});
+			// 接入融云
+			rongyun();
+		}
+
+		function rongyun() {
+			rong.init(function(ret, err) {
+				if (ret.status == 'error')
+					api.toast({
+						msg : err.code
+					});
+			});
+			// 监听接收消息
+			receiveMsg();
+			rong.connect({
+				// 用户1
+				// token: '用户1token'
+				// 用户2
+				token : '用户2token'
+			}, function(ret, err) {
+				if (ret.status == 'success')
+					api.toast({
+						msg : ret.result.userId
+					});
+			});
+		}
+
+		// 监听接收消息
+		function receiveMsg() {
+			rong.setOnReceiveMessageListener(function(ret, err) {
+				api.sendEvent({
+					name : 'receiveMsg',
+					extra : {
+						msg : ret.result.message.content.text
+					}
+				});
+			})
+		}
+
+		function sendMsg(msg) {
+			var sendMsg;
+			
+			rong.sendTextMessage({
+				conversationType : 'PRIVATE',
+				targetId : 'testUser1',
+				text : msg,
+				extra : ''
+			}, function(ret, err) {
+				if (ret.status == 'prepare') {
+					// 获取发送的消息内容
+					sendMsg = ret.result.message.content.text;
+				} else if (ret.status == 'success') {
+					// 广播发送消息事件
+					api.sendEvent({
+						name : 'sendMsg',
+						extra : {
+							msg : sendMsg
+						}
+					});
+				} else if (ret.status == 'error') {
+					api.alert({
+						title : 'title',
+						msg : err.code,
+					}, function(ret, err) {
+						if (ret) {
+							console.log(alert(JSON.stringify(ret)));
+						} else {
+							console.log((JSON.stringify(err)));
+						}
+					});
+				}
+			});
+		}
+	</script>
+</html>

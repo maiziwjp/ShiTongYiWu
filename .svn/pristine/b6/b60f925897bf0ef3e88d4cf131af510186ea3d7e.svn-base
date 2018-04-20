@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+    
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				background: #FFFFFF;
+				-webkit-tap-highlight-color: transparent;
+			}
+			#head {
+				height: 100px;
+				background: #66cc66;
+				border-bottom: 1px solid #d6d0d0;
+			}
+			#pic {
+				width: 50%;
+				height: 100px;
+				display: -webkit-box;
+				float: left;
+			}
+			#integral {
+				width: 46%;
+				height: 100px;
+				line-height: 100px;
+				color: #fff;
+				text-align: right;
+				background-image: url(../../image/myshitong/bg.png);
+				font-size:0.42rem;
+				padding-right:0.4rem;
+				background-position: 76% 50%;
+				background-repeat: no-repeat;
+				border: none;
+				float: right;
+			}
+			.imgtest {
+				overflow: hidden;
+				width: 50%;
+			}
+			.list_ul figcaption p {
+				font-size: 12px;
+				color: #aaa;
+			}
+			.imgtest figure div {
+				display: inline-block;
+				width: 60px;
+				height: 60px;
+				border-radius: 60px;
+				border: 2px solid #fff;
+				overflow: hidden;
+				-webkit-box-shadow: 0 0 3px #ccc;
+				box-shadow: 0 0 3px #ccc;
+				position:relative;left:-18px;
+			}
+			.imgtest img {
+				width: 100%;
+				min-height: 100%;
+				text-align: center;
+			}
+			#information {
+				width: 50%;
+				height: 100px;
+				line-height: 30px;
+				position: relative;
+				top: 16px;
+				left:-4px;
+				color: #fff;
+				font-size:0.41rem;
+			}
+			.myorder {
+				height: 50px;
+				border-bottom: 1px solid #d4d4d4;
+				text-align: center;
+				border-top: 1px solid #d4d4d4;
+				line-height: 50px;
+				color: #3e3e3e;
+				width: 100%;
+				display: -webkit-box;
+			}
+			.myorder div {
+				width: 30%;
+			}
+			#lookmyorder {
+				height: 80px;
+				display: -webkit-box;
+				margin-bottom: 10px solid #d7d7d7;
+			}
+			.lookorder {
+				width: 20%;
+				height: 80px;
+				text-align: center;
+				padding-top: 10px;
+				color: #000;
+				font-size: 10px;
+				color: #323237;
+			}
+			.lookorder img {
+				width: 34px;
+				height: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="head">
+			<div id="pic">
+				<div class="imgtest">
+					<figure >
+						<div id="photo">
+							<img src="../../icon/public/photo.png" />
+						</div>
+					</figure>
+				</div>
+				<div id="information">
+					<span id="myname">点击登录</span>
+					<br/>
+					<span style="text-decoration:underline;">成为金券用户</span>
+				</div>
+			</div>
+
+			<div id="integral">金券值<span id="mycouponnumber">0</span><img src="../../icon/public/into_w.png" style="position: relative;top:4px; width: 20px; height: auto;"/></div>
+
+		</div>
+		<div class="myorder">
+
+			<div onclick="myorder()">
+				我的订单
+			</div><div></div>
+			<div style="width: 40%;" onclick="myorder_all()">
+				查看全部订单<img src="../../icon/public/into_black.png" style="position: relative;top:4px; width: 20px; height: auto;"/>
+			</div>
+
+		</div>
+		<div id="lookmyorder">
+			<div class="lookorder" id="myorder_2"><img src="../../image/myshitong/payment.png"/>
+				<br/>
+				待付款
+			</div>
+			<div class="lookorder" id="myorder_3"><img src="../../image/myshitong/DeliverGoods.png"/>
+				<br/>
+				待发货
+			</div>
+			<div class="lookorder" id="myorder_4"><img src="../../image/myshitong/GoodsReceipt.png"/>
+				<br/>
+				待收货
+			</div>
+			<div class="lookorder"id="myorder_5"><img src="../../image/myshitong/evaluate.png"/ >
+				<br/>
+				待评价
+			</div>
+			<div class="lookorder" id="CustomerService" onclick="CustomerService()"><img src="../../image/myshitong/CustomerService.png"/>
+				<br/>
+				退款/售后
+			</div>
+		</div>
+		<div class="myorder" style=" border-top:10px solid #d7d7d7;">
+			<div>
+				全部功能
+			</div>
+		</div>
+		<div id="lookmyorder">
+
+			<div class="lookorder" onclick="my_gelden_ticket()"><img src="../../icon/public/integral_blue.png"/>
+				<br/>
+				我的金券
+			</div>
+			<div class="lookorder" onclick="my_wallet_ticket()"><img src="../../image/myshitong/mywallet.png"/>
+				<br/>
+				我的钱包
+			</div>
+			<div class="lookorder" id="myfriend"><img src="../../image/myshitong/myfriend.png"/>
+				<br/>
+				我的好友
+			</div>
+			<div class="lookorder"><img src="../../image/myshitong/myshare.png"/>
+				<br/>
+				我的分享
+			</div>
+			<div class="lookorder"  id="mycomment"><img src="../../image/myshitong/myevaluate.png"/>
+				<br/>
+				我的评价
+			</div>
+		</div>
+		<div id="lookmyorder" style="border-bottom: 1px solid #d4d4d4;" >
+			<div class="lookorder"><img src="../../image/myshitong/Coupon.png"/ onclick="my_wallet_coupon()">
+				<br/>
+				优惠券
+			</div>
+			<div class="lookorder"><img src="../../image/myshitong/Collection.png"/>
+				<br/>
+				收藏管理
+			</div>
+			<div class="lookorder"><img src="../../image/myshitong/sell.png"/>
+				<br/>
+				拍卖管理
+			</div>
+			<div class="lookorder"><img src="../../image/myshitong/publicwelfare.png"/>
+				<br/>
+				公益管理
+			</div>
+			<div class="lookorder"><img src="../../image/myshitong/culture.png"/>
+				<br/>
+				文化直播管理
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			getname();
+			get_my_intergral();
+			//获取个人积分
+			
+		};
+		function get_my_intergral(){
+		$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member/getPointById',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					}
+					var mycouponnumber=document.getElementById('mycouponnumber');
+					if(data.data==undefined)
+					{mycouponnumber.innerHTML=0;}
+					else
+					{
+						mycouponnumber.innerHTML=data.data;
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		
+		}
+		function my_gelden_ticket() {
+			api.openWin({
+				name : 'my_golden_ticket',
+				url : './my_golden_ticket_win.html'
+			});
+		}
+		function my_wallet_ticket()
+		{
+			api.openWin({
+				name : 'mywallet_win',
+				url : './mywallet_win.html'
+			});
+		}
+		function my_wallet_coupon()
+		{
+			api.openWin({
+				name : 'coupon_win.html',
+				url : './coupon_win.html'
+			});
+		}
+		function getname() {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member/username',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				/*data : JSON.stringify(datavalue),*/
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+					    $api.setStorage("username",data.data);
+						document.getElementById('myname').innerHTML = data.data;
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					} else {
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+
+		document.getElementById('photo').onclick = function() {
+			api.openWin({
+				name : 'my_info_win',
+				url : './my_info_win.html'
+			});
+		};
+		document.getElementById('mycomment').onclick = function() {
+			api.openWin({
+				name : 'my_comment_all_win',
+				url : './my_comment_all_win.html'
+			});
+		};
+		document.getElementById('myname').onclick = function() {
+			api.openWin({
+				name : 'login_win',
+				url : '../login_win.html'
+			});
+		};
+		document.getElementById('myfriend').onclick=function(){
+		api.openWin({
+	        name: 'myfriend_win',
+	        url: '../news/my_friend_win.html'
+        });
+		};
+		function CustomerService() {
+			api.openWin({
+				name : 'RefundAfterSale_win',
+				url : './RefundAfterSale_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto'
+				}
+			});
+		}
+
+		function myorder_all() {
+		  if(!$api.getStorage('csrfToken')){
+		api.toast({
+								msg : '请先登录',
+								location:'middle'
+							});
+							api.openWin({
+				name : 'login_win',
+				url : '../login_win.html',
+				reload : true,
+			});
+		
+		}else{
+		api.openWin({
+				name : 'myorder_win',
+				url : './myorder_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+			$api.setStorage('myorder_flag', 1);
+		}
+		
+		
+			
+		}
+       
+		function myorder() {
+		 if(!$api.getStorage('csrfToken')){
+		api.toast({
+								msg : '请先登录',
+								location:'middle'
+							});
+							api.openWin({
+				name : 'login_win',
+				url : '../login_win.html',
+				reload : true,
+			});
+		
+		}else{
+		api.openWin({
+				name : 'myorder_win',
+				url : './myorder_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+			$api.setStorage('myorder_flag', 1);
+		
+		}
+		
+			
+			
+		}
+		document.getElementById('myorder_2').onclick = function() {
+				 if(!$api.getStorage('csrfToken')){
+		api.toast({
+								msg : '请先登录',
+								location:'middle'
+							});
+							api.openWin({
+				name : 'login_win',
+				url : '../login_win.html',
+				reload : true,
+			});
+		
+		}else{
+		api.openWin({
+				name : 'myorder_win',
+				url : './myorder_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+			$api.setStorage('myorder_flag', 2);
+		}
+			
+		};
+        document.getElementById('myorder_3').onclick = function() {
+						 if(!$api.getStorage('csrfToken')){
+		api.toast({
+								msg : '请先登录',
+								location:'middle'
+							});
+							api.openWin({
+				name : 'login_win',
+				url : '../login_win.html',
+				reload : true,
+			});
+		
+		}else{
+		api.openWin({
+				name : 'myorder_win',
+				url : './myorder_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+			$api.setStorage('myorder_flag', 3);
+			}
+		};
+		document.getElementById('myorder_4').onclick = function() {
+					 if(!$api.getStorage('csrfToken')){
+		api.toast({
+								msg : '请先登录',
+								location:'middle'
+							});
+							api.openWin({
+				name : 'login_win',
+				url : '../login_win.html',
+				reload : true,
+			});
+		
+		}else{
+			api.openWin({
+				name : 'myorder_win',
+				url : './myorder_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+			$api.setStorage('myorder_flag', 4);
+			}
+		};
+		document.getElementById('myorder_5').onclick = function() {
+					 if(!$api.getStorage('csrfToken')){
+		api.toast({
+								msg : '请先登录',
+								location:'middle'
+							});
+							api.openWin({
+				name : 'login_win',
+				url : '../login_win.html',
+				reload : true,
+			});
+		
+		}else{
+			api.openWin({
+				name : 'myorder_win',
+				url : './myorder_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+			$api.setStorage('myorder_flag', 5);
+			}
+		};
+		function cancleshitong(){
+		document.getElementById('myname').innerText="点击登录";
+		document.getElementById('mycouponnumber').innerText=0;
+		}
+	</script>
+</html>

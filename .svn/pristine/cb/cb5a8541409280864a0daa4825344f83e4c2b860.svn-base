@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				width: 100%;
+				margin: 0;
+				background: rgba(0,0,0,0.5);
+			}
+			.content {
+				width: 100%;
+				background: #fff;
+				position: fixed;
+				bottom: 0;
+			}
+			.black {
+				width: 100%;
+				height: 15.0 rem;
+			}
+			.firstpart {
+				display: -webkit-box;
+				height: 90px;
+				width: 90%;
+				margin-left: 5%;
+				margin-right: 5%;
+				border-bottom: 1px solid #f5f5f5;
+			}
+			.intro {
+				margin-left: 10px;
+				z-index: 1;
+			}
+			.intro span {
+				color: #fd2a32;
+			}
+			.cancel {
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				top: 0;
+				right: 5%;
+			}
+			#picture img {
+				height: 100px;
+				width: 100px;
+				border: 1px solid #f3f4f5;
+				border-radius: 5px;
+				position: relative;
+				top: -20px;
+			}
+			#picture {
+				height: auto;
+				width: 100px;
+			}
+			.size {
+				background: #f5f5f5;
+				text-align: center;
+				margin-right: 5%;
+				padding: 5px;
+				width: 50px;
+				height: 25px;
+				border-radius: 10px;
+				margin-bottom: 10px;
+				display: inline-block;
+			}
+			.title {
+				margin-left: 5%;
+				width: 90%;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				display: block;
+			}
+			.group {
+				width: 100%;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				display: block;
+				border-bottom: 1px solid #f5f5f5;
+			}
+			.numpart {
+				display: -webkit-box;
+				height: 100px;
+				width: 90%;
+				margin-right: 5%;
+				margin-top: 15px;
+				margin-bottom: 15px;
+			}
+			.amount {
+				width: 30px;
+				height: 30px;
+				background: #f5f5f5;
+				text-align: center;
+			}
+			.amount img {
+				width: 18px;
+				height: 18px;
+				padding: 6px;
+			}
+			.amount span {
+				position: relative;
+				top: 5px;
+			}
+			#submit {
+				outline: none;
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				background: #66cc66;
+				font-size: 20px;
+				text-align: center;
+				color: white;
+				font-size: 17px;
+				position: absolute;
+				bottom: 0;
+			}
+			.selected {
+				background: #66cc66;
+				color: #fff;
+			}
+			.nogoods{color:gray;}
+		</style>
+	</head>
+	<body>
+		<div class="black" onclick="closef();"></div>
+		<div class="content">
+			<div class="firstpart">
+				<div id="picture">
+					<img  id="pimg" src="../../image/cloth.gif"/>
+				</div>
+				<div class="intro">
+					<span id="price_low">￥100</span><span id="price_high"></span>
+					<br />
+					<div id="total">
+						库存130件
+					</div>
+					<div class="other">
+						请选择规格
+					</div>
+					<img class="cancel" src="../../icon/cancel.png" onclick="closef();"/>
+				</div>
+			</div>
+			<div id="param"></div>
+			<script type="text/template" id="temp">
+				<div class="group">
+				{@each datalist as item}
+				
+				<div class="size" id=${item.id} onclick="select(this);">
+				${item.value}
+				</div>
+				{@/each}
+				</div>
+			</script>
+			<div class="numpart">
+				<div style="margin-left:5%;">
+					购买数量
+				</div>
+				<div class="amount" style="margin-left:50%;"  onclick="minus();"><img src="../../icon/minus.png" />
+				</div>
+				<div class="amount">
+					<span id="number">1</span>
+				</div>
+				<div class="amount"  onclick="add();"><img src="../../icon/add.png" />
+				</div>
+			</div>
+			<footer id="submit" onclick="submitOrder();">
+				确定
+			</footer>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../script/juicer.js"></script>
+	<script src="../../script/global_variables.js"></script>
+	<script src="../../script/zepto.js"></script>
+	<script src="../../script/jsencrypt.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		flag=true;
+			num = 1;
+			selected = false;
+			selected_shopping=[];
+			selected_param = [];
+			good_index = 1;
+			render_arr=[];
+			actives=[];
+			shippingMethod_id=api.pageParam.shippingMethod_id,
+			store=api.pageParam.store,
+			address=api.pageParam.address;
+			shoppingId = api.pageParam.shoppingId;
+			/*选中规格*/
+			shoppingDetails = $api.getStorage('shoppingDetails');
+			shopping_param = $api.getStorage("shopping_param");
+			shoppingId = api.pageParam.shoppingId;
+			getSpecification(shoppingId);
+			
+			document.getElementById('pimg').src = shoppingDetails.image;
+			document.getElementById('price_low').innerText = shoppingDetails.price;
+			document.getElementById('total').innerText = "库存"+shopping_param[0].stock+"件";
+		};
+		function getSpecification(id) {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/goods/' + id + '/specification',
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						$api.rmStorage('shopping_param');
+						$api.setStorage("shopping_param", data.data);
+						shopping_param=data.data;
+						if (shoppingDetails.specificationItems == "" || shoppingDetails.specificationItems == "[]") {
+						} else {
+							document.getElementById('price_low').innerHTML = shoppingDetails.price;
+							render_arr=JSON.parse(shoppingDetails.specificationItems);
+							for (var i = 0; i < render_arr.length; i++) {
+								param = document.getElementById('param');
+								$api.append(param, '<div class="title" id="title' + i + '">' + JSON.parse(shoppingDetails.specificationItems)[i].name + '</div>');
+								/*for(var j=0;j<render_arr[i].entries.length;j++){
+							
+								for(var k=0;k<shopping_param.length;k++)
+								{
+								for(var m=0;m<JSON.parse(shopping_param[k].specificationValues).length;m++){
+							
+								if(render_arr[i].entries[j].value==JSON.parse(shopping_param[k].specificationValues)[m].value)
+								{
+								
+								JSON.parse(shoppingDetails.specificationItems)[i].entries[j].status="true";
+								}
+								else{
+								
+								JSON.parse(shoppingDetails.specificationItems)[i].entries[j].status="false";
+								}
+								}
+								}
+								}*/
+								
+								render("temp", render_arr[i].entries, "title" + i + '');
+							}
+							//console.log(JSON.stringify("12"+shoppingDetails.specificationItems));
+						}
+					}
+					console.log(JSON.stringify(data.data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function render(temp_id, data_item, div_id) {
+			var tmp = document.getElementById(temp_id);
+			var data = {
+				datalist : data_item
+			}
+			var onelist = juicer(tmp.innerHTML, data);
+			document.getElementById(div_id).innerHTML += onelist;
+		}
+
+		function select(tag) {
+			 flag = true;
+			var div_name = tag.parentNode.parentNode.id;
+			if (tag == $api.dom('#' + div_name + ' .size .selected')) {
+				return;
+			}
+			var esize = $api.domAll('#' + div_name + ' .size'), index = 0;
+			for (var i = 0, len = esize.length; i < len; i++) {
+				if (tag == esize[i]) {
+					index = i;
+				} else {
+					$api.removeCls(esize[i], 'selected');
+				}
+			}
+			$api.addCls(esize[index], 'selected');
+			for (var k = 0; k < JSON.parse(shoppingDetails.specificationItems).length; k++) {
+				actives = document.getElementsByClassName('selected');
+			}
+			for (var i = 0; i < actives.length; i++) {
+				selected_param[i] = actives[i].innerText;
+			}
+			for (var m = 0; m < shopping_param.length; m++) {
+				for (var i = 0; i < selected_param.length; i++) {
+					//console.log(selected_param[i] == JSON.parse(shopping_param[m].specificationValues)[i].value);
+					//console.log(selected_param[i] + JSON.parse(shopping_param[m].specificationValues)[i].value);
+					if (selected_param[i] == JSON.parse(shopping_param[m].specificationValues)[i].value) {
+						flag = true;
+					} else {
+						flag = false;
+						break;
+					}
+				}
+				if (flag) {
+					good_index = m;
+					break;
+				}
+			}
+			if (flag == false) {
+				document.getElementById('total').innerHTML = "该货无库存";
+			} else {
+				document.getElementById('price_low').innerHTML = shopping_param[good_index].price;
+				document.getElementById('total').innerHTML = "库存" + shopping_param[good_index].goods + "件";
+			}
+		}
+
+		function minus() {
+			if (num == 1) {
+			} else {
+				num--;
+			}
+			document.getElementById('number').innerHTML = num;
+		}
+
+		function add() {
+			num++;
+			document.getElementById('number').innerHTML = num;
+		}
+
+		function submitOrder() {
+		if(!flag){
+		api.toast({
+								msg : '该货无货存,请选择其他规格',
+								location:'middle'
+							});
+							}
+							else{
+			var actives = document.getElementsByClassName("selected");
+			if (actives.length < JSON.parse(shoppingDetails.specificationItems).length) {
+				api.toast({
+					msg : '请先选择参数',
+					location : 'middle'
+				});
+			} else if (shoppingDetails.specificationItems == "" || shoppingDetails.specificationItems == "[]") {
+				selected = true;
+				api.closeFrame();
+				api.openWin({
+					name : 'submit_order_win',
+					url : './submit_order_win.html',
+					reload : true,
+					pageParam : {
+						num: num,
+						selected_shopping : shopping_param[0],
+						shippingMethod_id:shippingMethod_id,
+						store:store,
+						address:address
+						
+					},
+				});
+			} else {
+				selected = true;
+				api.closeFrame();
+				api.openWin({
+					name : 'submit_order_win',
+					url : './submit_order_win.html',
+					reload : true,
+					pageParam : {
+						num: num,
+						selected_shopping : shopping_param[good_index],
+						shippingMethod_id:shippingMethod_id,
+							store:store,
+							address:address
+					}
+				});
+			}
+			}
+		}
+
+	function closef() {
+			if (shoppingDetails.specificationItems == "" || shoppingDetails.specificationItems == "[]") {
+				selected = true;
+				api.sendEvent({
+					name : 'add_baskets',
+					extra : {
+						num: num,
+						selected_shopping : shopping_param[0],
+						selected : selected
+					}
+				});
+			} else if (actives.length == JSON.parse(shoppingDetails.specificationItems).length) {
+				selected = true;
+				api.sendEvent({
+					name : 'add_baskets',
+					extra : {
+						num: num,
+						selected_shopping : shopping_param[good_index],
+						selected : selected
+					}
+				});
+			}
+			api.closeFrame();
+		}
+	</script>
+</html>

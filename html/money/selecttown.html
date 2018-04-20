@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+  	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+  	<title>选择省份</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css" />
+    <style>
+    	body{
+    		height: auto;
+        width:100%;
+        margin: 0;font-weight:600;background-color:#fff;
+    	}
+    	#back{ background:#fff; position:fixed; z-index:0; margin-bottom:6px;line-height:30px; text-align:center; font-size:0.44rem; width: 9.0rem; padding-left: 0.5rem; padding-right: 0.5rem; height: 30px; display:-webkit-box;}
+   		input{  border: 1px solid #949494; border-radius: 6px; width:2.0rem; height: 30px; outline: none; background: #fff;}
+   		.city{ z-index:1; font-size:0.44rem; width:9.0rem; height:40px; line-height:40px; text-align:center; border-top:1px solid #EEEEEE; margin-left: 0.5rem; margin-right: 0.5rem;}
+   		
+    </style>
+</head>
+<body>
+	<div id="back"><input type="button" value="选择" id="btn1" /><div style="width: 5.0rem;">城市选择</div><input  type="button" value="取消" id="btn2" /></div>
+	<div style="width:9.0rem; height: 50px;"></div>
+	<template id="dialog_tpl">
+	<div class="city"></div>
+	</template>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	var townid;
+	var townname;
+	apiready = function(){
+		//获取省市
+		$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/area/search/'+api.pageParam.townid,
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						var dialog = document.querySelector('#dialog_tpl');
+						for(var i=0;i<data.data.length;i++)
+						{
+							dialog.content.querySelector('.city').innerHTML =data.data[i].name;
+							document.body.appendChild(dialog.content.cloneNode(true));
+						}
+						var city=document.getElementsByClassName('city');
+						var flag=0;
+						for(var i=0;i<city.length;i++){ 
+            				(function(i){ 
+               				 	city[i].onclick=function(){ 
+               				 		city[flag].style.color="#000";
+               				 		city[i].style.color='#66cc66';
+               				 		townid=data.data[i].id;
+               				 		townname=data.data[i].name;
+               				 		flag=i;
+                				}
+           				 	})(i);//这是循环中的i,被作为参数传入
+        				}
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		
+	};
+		document.getElementById('btn1').onclick=function()
+		{	
+			api.sendEvent({
+    			name: 'towndetail',
+    			extra: {
+       				key1: townid,
+        			key2: townname
+    			}
+			});
+			api.closeFrame({
+				name: 'selecttown'
+			});
+		}
+		document.getElementById('btn2').onclick=function()
+		{	
+			api.closeFrame({
+				name: 'selecttown'
+			});
+		}
+</script>
+</html>

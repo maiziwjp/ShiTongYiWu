@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+ 
+		<title>修改手机号</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			body, html {
+				width: 100%;
+				height: 100%;
+				background: #e1e3e5;
+				font-family: "宋体";
+				margin: 0;
+			}
+			/*注册手机号*/
+			.input_item {
+				width:9.0rem;
+				height: 45px;
+				padding-left: 0.5rem;
+				padding-right: 0.5rem;
+				background: #ffffff;
+				margin-top: 16px;
+				border-bottom: 1px solid #e1e3e5;
+			}
+			.input_item label {
+				font-size: 15px;
+				width: 30%;
+				line-height: 45px;
+			}
+			.input_item input {
+				outline: none;
+				font-size: 15px;
+				line-height: 25px;
+				width: 65%;
+			}
+			.input_item img{ width:20px; height: auto; position:relative; top:12px; float: right;}
+			.clearbtn {
+				height: 19px;
+				position: absolute;
+				top: 45px;
+				right: 10%;
+				display: none;
+			}
+			.visuable {
+				height: 25px;
+				position: absolute;
+				top: 205px;
+				right: 10%;
+			}
+			#code {
+				width: 35%;
+				border-right: 1px solid #999999;
+			}
+			/*发送验证码*/
+			.send_code {
+				color: #66CC66;
+				position: relative;
+				right: -5%;
+				top: 0px;
+			}
+			/*提交*/
+			#submit {
+				outline: none;
+				width: 80%;
+				height: 32px;
+				line-height: 6px;
+				padding-left: 10%;
+				padding-right: 10%;
+				margin-top: 35px;
+				background: #66cc66;
+				border-radius: 5px;
+				font-size: 20px;
+				text-align: center;
+				margin-left: 10%;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="input_item" style="background: #e1e3e5; height: 30px; margin-top: 0;">
+			<label style="width: 90%; color: #676767;"> 请输入你需要绑定的手机号</label>
+		</div>
+		<div class="input_item">
+			<label style="width: 62%;"> 国家和地区</label><span>中国大陆86</span>
+			<img src="../../icon/public/into_black.png"/>
+		</div>
+		<div class="input_item" style=" margin-top: 0;">
+			<label > 新手机号</label>
+			<input type="password" id="new_pwd" placeholder="请输入手机号" />
+		</div>
+		<div class="input_item">
+			<label > 验证码</label>
+			<input  id="code" placeholder="请输入验证码" oninput="check_info()"/>
+			<button id="send_code1" class="send_code" onclick="send_code()">
+				发送验证码
+			</button>
+		</div>
+		<button id="submit">
+			提交
+		</button>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script src="../../script/clear_info_and_show_btn.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			/*密码可见按钮控制赋初值*/
+			pwd_flag = true;
+		};
+		function show_send_code() {
+			clearInterval(reflash);
+			var send_code1 = document.getElementById('send_code1');
+			send_code1.disabled = false;
+			send_code1.innerHTML = "发送验证码";
+			send_code1.style.color = "#66CC66";
+		}
+
+		function send_code() {
+			var send_code1 = document.getElementById('send_code1');
+			var time = 59;
+			send_code1.disabled = true;
+			send_code1.innerHTML = '还有一分钟';
+			send_code1.style.color = 'gray';
+			/*setInterval每隔一定的时间刷新时，不影响后面函数的执行，即异步执行*/
+			reflash = setInterval(function() {
+				send_code1.innerHTML = time + '秒后重试';
+				time--;
+			}, 1000);
+			setTimeout("show_send_code()", 60000);
+		}
+
+		function passwd_see() {
+			var change_icon = document.getElementById('visuable_style');
+			var change_type = document.getElementById('new_pwd');
+			if (pwd_flag) {
+				change_icon.src = "../icon/visuable.png";
+				change_type.type = "text";
+				pwd_flag = false;
+			} else {
+				change_icon.src = "../icon/dis_visual.png";
+				change_type.type = "password";
+				pwd_flag = true;
+			}
+		}
+	</script>
+</html><!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body></body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+	</script>
+</html>

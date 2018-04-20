@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+    
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+     html, body {margin:0;width:100%;font-weight:600;}
+    #hfix{ background:#fff;position: fixed;z-index: 1;}
+    #content{ display:-webkit-box; position: relative;top:114px;z-index: 0;}
+    #content_left{}
+    .select{ background: #f2f2f2; height:36px; text-align: center; line-height:36px; font-size: 0.40rem; border-bottom: 1px solid #cecece;border-right: 1px solid #cecece; }
+    .select img{ width: 16px; height: 16px; position: relative;top:4px;}
+    .se:hover{ background: #fff;}
+    .sel{ padding-left: 0.8rem; text-align: left;}
+    #close1,#close2{ display:none;}
+    .header1{ height: 18px; font-size:16px; width:5.0rem; margin-left:0.4rem; position:relative;top:8px; border-left:2px solid #66CC66; text-align: left; padding-left:0.4rem; line-height: 20px;}
+    .clothesname{ height: 80px; margin-left:0.4rem; display:-webkit-box;position:relative;top:16px; margin-bottom: 14px;}
+   	.clothesname img{ width:80px; height: auto;}
+    .describe{margin-left:0.2rem; font-size: 14px;}
+    .deup{ height: 56px; text-align: left; line-height: 20px;}
+    .dedown{ height: 24px; text-align: left; line-height: 20px;}
+    .dedown img{ height: 18px; width: auto; position:relative;top:4px;}
+    </style>
+</head>
+<body>
+	<div class="header1">衬衫</div>
+	<div id="content_left">
+	</div>
+	<script type="text/template" id="temp">
+			{@each datalist as item}
+			<div class="clothesname" id="${item.id}" onclick="opensigleshopping(${item.id})">
+				<div class="pic"><img src="${item.img}"/></div>
+				<div class="describe">
+					<div class="deup">${item.name}</div>
+					<div class="dedown"><span style="color:#cb4440">￥${item.price}</span><span style="color:#c4c4c4">(<img src="../../icon/public/integral_g.png"/>${item.point})</span></div>
+				</div>
+			</div>
+			{@/each}
+	</script>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/juicer.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		initialfunction();
+		document.getElementsByClassName('header1')[0].innerHTML=api.pageParam.name;
+		api.addEventListener({
+    		name: 'changeclothes'
+			}, function(ret, err) {
+			document.getElementsByClassName('header1')[0].innerHTML=ret.value.key3;
+			$.ajax({
+				type : 'post',
+				url : 'http://116.62.22.98:8080/shop/store/'+ret.value.key2+'/findGoodsByCategory/'+ret.value.key1,
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data,status, xmlHttpRequest) {
+				if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						//alert(JSON.stringify(data));
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						render("temp", data.data, "content_left");
+					}
+
+				},
+				error : function() {
+				}
+	});
+		});
+	};
+	function opensigleshopping(elem)
+	{
+		api.openWin({
+					name : 'single_shopping_win',
+					url : '../shopping/single_shopping_win.html',
+					pageParam : {
+						id : elem
+					}
+		});
+	}
+	function initialfunction()
+	{
+		$.ajax({
+				type : 'post',
+				url : 'http://116.62.22.98:8080/shop/store/31/findGoodsByCategory/2',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data,status, xmlHttpRequest) {
+				if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						//alert(JSON.stringify(data));
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						render("temp", data.data, "content_left");
+					}
+
+				},
+				error : function() {
+				}
+	});
+	}
+	function render(temp_id, data_item, div_id) {
+				document.getElementById(div_id).innerHTML = "";
+				var tmp = document.getElementById(temp_id);
+				var data = {
+					datalist : data_item
+				}
+				var onelist = juicer(tmp.innerHTML, data);
+				document.getElementById(div_id).innerHTML += onelist;
+	}
+</script>
+</html>

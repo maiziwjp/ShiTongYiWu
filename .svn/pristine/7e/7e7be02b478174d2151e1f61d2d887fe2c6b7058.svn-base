@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    html, body {margin:0;width:100%;font-weight:600;}
+   #search{position:fixed;top:25px;display: -webkit-box;text-align: center; background-color:#fff; border-bottom:1px solid #d4d4d4; width: 100%; height: 40px;line-height: 40px;font-size: 18px;}
+   #back{width: 13%; line-height: 40px;font-size: 18px; height: 40px; text-align: center;}
+   #back img,.back img{ max-height: 23px; max-width: 23px; position:relative; top:4px;}
+   #se{ width: 70%; line-height: 40px;font-size: 18px; height: 40px; text-align: center;}
+
+	 #footer {
+	 width: 100%;
+		height: 45px;
+		position: fixed;
+		bottom: 0;
+		display: -webkit-box;
+		z-index: 99999;
+   background-color: #66cc66;
+	 text-align: center;
+	 }
+
+
+		.h5{
+
+		 }
+
+    </style>
+</head>
+<body>
+	<div id="header">
+        	<div id="search">
+            	<div id="back"><img src="../../icon/public/back_black.png"/ ></div>
+            	<div id="se">
+            	    管理收货地址
+            	</div>
+            	<div class="back"></div>
+            </div>
+     </div>
+		 <div id="main">
+		 </div>
+		 	<div id="footer">
+				<div style="font-size: 17px; color: white;position:relative;left:36%;top:10px">添加新地址</div>
+			</div>
+
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var headerHeight;
+	    var systemType = api.systemType;
+	    var height=document.getElementById("search").offsetHeight;
+			var frame_height=api.winHeight-height-document.getElementById("footer").offsetHeight-30;
+		if(systemType == "ios")
+		{
+		    header.style.top="40px";
+		    headerHeight=40;
+		}
+		else
+		{
+			header.style.top="45px";
+		    headerHeight=45;
+		}
+		var main = $api.byId('main');
+		var mainPos = $api.offset(main);
+		api.openFrame({
+			name: 'address_manage_frame',
+			url: 'address_manage_frame.html',
+				bounces: true,
+				rect: {
+						x: 0,
+						y: headerHeight+25 ,
+						w:api.winWidth,
+	 					h:frame_height
+				},
+				vScrollBarEnabled:false,
+				hScrollBarEnabled:false,
+		});
+		document.getElementById("footer").onclick=function()
+		{
+			api.openWin({
+	    		name: 'an_win',
+	    		url: './an_win.html'
+    		});
+		}
+        /*关闭顶部搜索栏*/
+        document.getElementById("back").onclick=function(){
+        	api.closeWin();
+        };
+	};
+</script>
+</html>

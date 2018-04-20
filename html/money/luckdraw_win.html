@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+    <title>退款/售后</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+     html,body{
+        height: 100%;
+        position:fixed;top:30px;width:100%;
+        margin: 0;font-weight:600;background-color:#7cd8e3;
+    }
+    #winpart {
+				width: 100%;
+				height: 45px;
+				position: fixed;
+				display: -webkit-box;
+			}
+    #wrap{
+    	margin: 0;
+     	width:100%;
+        height: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-flex-flow: column;
+               flex-flow: column;
+    }
+   #search{position:fixed;display: -webkit-box;text-align: center;  width: 100%; height: 40px;line-height: 40px;font-size: 18px;}
+   #back{color:#fff; width: 1.0rem;  line-height: 40px;font-size: 18px; height: 40px; text-align: center;}
+   #back img,.back img{ max-height: 26px; max-width: 26px; position:relative; top:6px;}
+   #se{  width: 7.7rem; height:40px; line-height:40px; text-align:center; margin:0; color: #fff;}
+   
+    </style>
+</head>
+<body>
+<header id="winpart">
+	<div id="header">
+        	<div id="search">
+            	<div id="back"><img src="../../icon/public/back_white.png"/></div>
+            	<div id="se">金券抽奖</div>
+            </div>
+     </div>
+</header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var headerHeight; 
+	    var systemType = api.systemType;
+		var height=document.getElementById('winpart').offsetHeight;
+        api.openFrame({
+	        name: 'luckdraw_frame',
+	        url: './luckdraw_frame.html',
+	        rect: {
+		        x:0,
+		        y:height+30
+	        },
+	        bounces : false,
+			hScrollBarEnabled : false,
+			vScrollBarEnabled : false,
+	        reload:false
+        });
+        /*关闭顶部搜索栏*/
+        document.getElementById("back").onclick=function(){
+        	api.closeWin();
+        };
+	};
+</script>
+</html>

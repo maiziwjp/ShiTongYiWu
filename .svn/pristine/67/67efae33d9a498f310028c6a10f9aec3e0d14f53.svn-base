@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				background:#FFFFFF;
+			}
+			#head {
+				height: 100px;
+				background: #66cc66;
+				border-bottom: 1px solid #d6d0d0;
+			}
+			#pic {
+				width: 50%;
+				height: 100px;
+				display: -webkit-box;
+				float: left;
+			}
+			#integral {
+				width: 50%;
+				height: 100px;
+				line-height:100px;
+				color:#fff; 
+				text-align:center;
+				background-image:url(../../image/myshitong/bg.gif);
+				background-position:90% 50%;
+				background-repeat:no-repeat;
+				border:none;
+				float: right; 
+				
+			}
+			.imgtest {
+				overflow: hidden;
+				width:55%;
+			}
+			.list_ul figcaption p {
+				font-size: 12px;
+				color: #aaa;
+			}
+			.imgtest figure div {
+				display: inline-block;
+				width: 60px;
+				height: 60px;
+				border-radius: 60px;
+				border: 2px solid #fff;
+				overflow: hidden;
+				-webkit-box-shadow: 0 0 3px #ccc;
+				box-shadow: 0 0 3px #ccc;
+			}
+			.imgtest img {
+				width: 100%;
+				min-height: 100%;
+				text-align: center;
+			}
+			#information{ width: 45%; height: 100px; line-height: 30px; position: relative; top:20px; color:#fff;}
+			.myorder{height: 50px; border-bottom: 1px solid #d4d4d4; text-align:center; border-top:1px solid #d4d4d4; line-height: 50px; color:#3e3e3e; width: 100%; display:-webkit-box;}
+			.myorder div{ width: 30%; }
+			#lookmyorder{ height: 80px; display:-webkit-box; margin-bottom:10px solid #d7d7d7;}
+			.lookorder{ width:20%; height: 80px; text-align: center; padding-top: 10px; color: #000; font-size: 10px; color: #323237;}
+			.lookorder img{ width: 34px; height: auto;}
+		</style>
+	</head>
+	<body>
+		<div id="head">
+			<div id="pic">
+				<div class="imgtest">
+					<figure>
+						<div>
+							<img src="../image/myshitong/HeadPortrait.png" />
+						</div>
+					</figure>
+				</div>
+				<div id="information">
+					<span id="mylogin">点击登录</span><br/>
+					<span style="text-decoration:underline;">成为金券用户</span>
+				</div>
+			</div>
+			<div id="integral">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金券值1000000<img src="../image/myshitong/comeinwhite.png" style="position: relative;top:4px; width: 20px; height: auto;"/></div>
+		</div>
+		<div class="myorder">
+			<div>我的订单</div><div></div><div style="width: 40%;">查看全部订单<img src="../image/myshitong/comeinblack.png" style="position: relative;top:4px; width: 20px; height: auto;"/></div>
+		</div>
+		<div id="lookmyorder">
+			<div class="lookorder"><img src="../image/myshitong/payment.png"/><br/>待付款</div>
+			<div class="lookorder"><img src="../image/myshitong/DeliverGoods.png"/><br/>待发货</div>
+			<div class="lookorder"><img src="../image/myshitong/GoodsReceipt.png"/><br/>待收货</div>
+			<div class="lookorder"><img src="../image/myshitong/evaluate.png"/><br/>待评价</div>
+			<div class="lookorder" id="CustomerService" onclick="CustomerService()"><img src="../../image/myshitong/CustomerService.png"/><br/>退款/售后</div>
+		</div>
+		<div class="myorder" style=" border-top:10px solid #d7d7d7;">
+			<div>全部功能</div>
+		</div>
+		<div id="lookmyorder">
+			<div class="lookorder"><img src="../image/myshitong/myintegral.png"/><br/>我的金券</div>
+			<div class="lookorder"><img src="../image/myshitong/mywallet.png"/><br/>我的钱包</div>
+			<div class="lookorder"><img src="../image/myshitong/myfriend.png"/><br/>我的好友</div>
+			<div class="lookorder"><img src="../image/myshitong/myshare.png"/><br/>我的分享</div>
+			<div class="lookorder"  id="mycomment"><img src="../../image/myshitong/myevaluate.png"/><br/>我的评价</div>
+		</div>
+		<div id="lookmyorder" style="border-bottom: 1px solid #d4d4d4;">
+			<div class="lookorder"><img src="../image/myshitong/Coupon.png"/><br/>优惠券</div>
+			<div class="lookorder"><img src="../image/myshitong/Collection.png"/><br/>收藏管理</div>
+			<div class="lookorder"><img src="../image/myshitong/sell.png"/><br/>拍卖管理</div>
+			<div class="lookorder"><img src="../image/myshitong/publicwelfare.png"/><br/>公益管理</div>
+			<div class="lookorder"><img src="../image/myshitong/culture.png"/><br/>文化直播管理</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+		document.getElementById('mycomment').onclick=function(){
+		api.openWin({
+	        name: 'write_comment',
+	        url: './write_comment_win.html'
+        });
+        
+		}
+		document.getElementById('mylogin').onclick=function(){
+		api.openWin({
+	        name: 'login_win',
+	        url: '../login_win.html'
+        });
+		}
+		function CustomerService()
+		{
+			api.openWin({
+				name : 'RefundAfterSale_win',
+				url : './RefundAfterSale_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+		};
+	</script>
+</html>

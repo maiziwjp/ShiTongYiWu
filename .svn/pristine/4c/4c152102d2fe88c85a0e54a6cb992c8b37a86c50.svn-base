@@ -1,0 +1,486 @@
+
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    	<script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="./css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/style.css"/>
+		<style>
+		html, body {margin:0;width:100%;font-weight:600;}
+			header {
+				display: -webkit-box;
+				text-align: center;
+				background-color: #fff;
+				width: 100%;
+				height: 50px;
+				line-height: 40px;
+				font-size: 18px;
+				position: relative;
+			}
+			header ul li {
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				display: none;
+				color: #323237;
+				position: relative;
+				font-size: 18px;
+			}
+			header ul li.active {
+				display: block;
+			}
+			.city {
+				width: 30%;
+				text-align: center;
+				color: #66cc66;
+				float: left;
+				background: #fff;
+			}
+			.city img {
+				max-height: 26px;
+				max-width: 26px;
+				margin-bottom: 0px;
+			}
+			.search {
+				width: 50%;
+				text-align: center;
+				border: none;
+				float: left;
+				background: #fff;
+			}
+			.smallsearch {
+				height: 28px;
+				width: 99%;
+				border: 1px solid #969696;
+				border-radius: 10px;
+			}
+			.message {
+				width: 8%;
+				text-align: center;
+				float: right;
+				left:3%;
+				position: relative;
+				background: #fff;
+			}
+			.imgage {
+				max-height: 26px;
+				max-width: 26px;
+				margin-bottom: -6px;
+			}
+			/*分类的头部*/
+			#wraper {
+				display: -webkit-box;
+				position: fixed;
+				width: 100%;
+				height: 50px;
+				line-height: 0.85 rem;
+				background-color: #66CC66;
+			}
+			#back {
+				width: 17%;
+				height: 50px;
+			}
+			#back_icon {
+				width: 30px;
+				height: 30px;
+				margin-top: 10px;
+			}
+			#search {
+				width: 65%;
+				height: 50px;
+				background-color: #66CC66;
+			}
+
+			#cancel {
+				width: 20%;
+				height: 50px;
+				background-color: #66CC66;
+				color: white;
+				text-align: center;
+				line-height: 50px;
+				font-size: 15px;
+			}
+			#main {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			#footer {
+				padding-top: 2px solid #cbcaca;
+				margin-top: 2px solid #b2b0b0;
+			}
+			#footer ul li {
+				padding-top: 30px;
+				padding-bottom: 3px;
+				background: url() no-repeat center 2px;
+				background-size: auto 26px;
+				text-align: center;
+			}
+			#footer ul li.active {
+				color: #6ab494;
+			}
+			#footer ul li:nth-child(1) {
+				background-image: url(./image/black1.png);
+			}
+			#footer ul li:nth-child(2) {
+				background-image: url(./image/black2.png);
+			}
+			#footer ul li:nth-child(3) {
+				background-image: url(./image/black3.png);
+			}
+			#footer ul li:nth-child(4) {
+				background-image: url(./image/black4.png);
+			}
+			#footer ul li:nth-child(5) {
+				background-image: url(./image/black5.png);
+			}
+			#footer ul li:nth-child(1).active {
+				background-image: url(./image/green1.png);
+			}
+			#footer ul li:nth-child(2).active {
+				background-image: url(./image/green2.png);
+			}
+			#footer ul li:nth-child(3).active {
+				background-image: url(./image/green3.png);
+			}
+			#footer ul li:nth-child(4).active {
+				background-image: url(./image/green4.png);
+			}
+			#footer ul li:nth-child(5).active {
+				background-image: url(./image/green5.png);
+			}
+			.flex-con {
+				overflow: auto
+			}
+
+			#myset{ display:-webkit-box;}
+			#sets{ width: 1.8rem; height: 50px; }
+			#black{ width: 6.4rem;}
+			#sets img,#alarms img{ width:30px; height: auto; position: relative;top:6px;}
+			#alarms{ width: 1.8rem; height: 50px; }
+
+
+			#myset{ display:-webkit-box;}
+			#sets{ width: 1.8rem; height: 50px; }
+			#black{ width: 6.4rem;}
+			#sets img,#alarms img{ width:30px; height: auto; position: relative;top:6px;}
+			#alarms{ width: 1.8rem; height: 50px; }
+		</style>
+	</head>
+	<body>
+		<div id="wrap" class="flex-wrap flex-vertical">
+			<header>
+				<ul>
+					<li class="border-b active" style="background: #FFFFFF;">
+						<div class="city" id="selectcity" onclick="selectcity()">
+							<span id="changecityname">北京</span><img class="imgage" src="image/city.gif"/>
+						</div>
+						<div class="search" id="search_value">
+							<input style="outline:none; padding-left: 0.6rem;" type="text" class="smallsearch" />
+						</div>
+						<div class="message">
+							<img class="imgage" src="icon/public/message_green.png"/>
+						</div>
+					</li>
+					<li class="border-b" style="background: #66cc66;">
+						<div id="wraper">
+							<div id="back">
+							</div>
+							<div id="class_search" style="background: #b4e6b3;	width: 60%;height: 30px;background: #b4e6b3;margin-top: 10px;
+								position: relative;display: -webkit-box;">
+								<img class="search_icon" onclick="allshopping();" src="icon/public/search_icon.png" style="width:23px;height:23px;float:left;position:relative;top: 2px;"/>
+							  <input id="search_input" style="outline:none;font-size: 17px;line-height: 25px;position:relative;bottom:10px;width:90%;
+									color: #8d978f;" value=""/>
+							</div>
+
+							<div id="cancel" onclick="clearinfo()">
+								取消
+							</div>
+						</div>
+					</li>
+					<li class="border-b" style=" width: 9.0rem;">
+						<div class="search" style="width: 6.0rem; text-align: right;">金券排行榜</div>
+						<div class="message" style=" width: 1.0rem;">
+							<img class="imgage" src="icon/public/message_green.png"/>
+						</div>
+					</li>
+					<li class="border-b" >
+						<div id="wraper">
+								<div id="myorder_font"style="height: 50px;line-height:50px;font-size: 20px;	color:white;margin-left: 37%" >购物车</div>
+								<div id="myorder_num"style="height: 50px;line-height:50px;font-size: 20px;	color:white;">(0)</div>
+						</div>
+					</li>
+					<li class="border-b" style="background: #66cc66;border: none;">
+						<div id="myset">
+							<div id="sets">
+								<img src="./image/myshitong/set.png"/>
+							</div>
+							<div id="black" >
+							</div>
+							<div id="alarms">
+								<img src="image/myshitong/remind.png"/>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</header>
+			<div id="main" class="flex-con"></div>
+			<div id="footer" class="border-t">
+				<ul class="flex-wrap" id="switch">
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con active" >
+						首页
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						分类
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						金券排行
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						购物车
+					</li>
+					<li tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >
+						个人
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="script/api.js"></script>
+<script type="text/javascript" src="script/jquery.min.js"></script>
+<script type="text/javascript">
+
+	apiready = function() {
+		api.addEventListener({
+    		name: 'openindex'
+			}, function(ret, err) {
+			}
+			);
+		$api.fixStatusBar( $api.dom('header') );
+		funIniGroup();
+		//geinewlocation();
+		getgoods_root();
+		api.addEventListener({
+    		name: 'SelectCity'
+			}, function(ret, err) {
+			var changecityname = document.getElementById("changecityname");
+			var selectcity=document.getElementById("selectcity");
+			if(ret.value.key2=='1')
+			{
+			selectcity.style.fontSize='18px';
+			changecityname.innerHTML=ret.value.key1;
+			}
+			else
+			{　　
+			var name1 = ret.value.key1.substring(0, 4);
+			selectcity.innerHTML='<span id="changecityname">'+name1+'</span>';
+			selectcity.style.fontSize='16px';
+			}
+		});
+		var btn = document.getElementById("search_value");
+		btn.onclick = function() {
+			api.openWin({
+				name : 'main',
+				url : 'html/search_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+		};
+		var message = document.getElementsByClassName('message')[0];
+		var message2 = document.getElementsByClassName('message')[1];
+		message.addEventListener('touchstart', function() {
+			api.openWin({
+				name : 'newsCenter',
+				url : './html/news/newsCenter_win.html'
+			});
+		})
+		message2.addEventListener('touchstart', function() {
+			api.openWin({
+				name : 'newsCenter',
+				url : './html/news/newsCenter_win.html'
+			});
+		})
+	}
+	function clearinfo(){
+		var search_input=document.getElementById("search_input");
+		search_input.value=""
+
+	}
+
+	function funIniGroup() {
+		var eHeaderLis = $api.domAll('header li'), frames = [];
+		iframe = ["./html/main.html", "./html/frame1.html", "./html/frame2.html", "./html/shopping_baskets/shoppingbags_frame.html", "./html/my/myshitong_frame.html"]
+		for (var i = 0, len = eHeaderLis.length + 1; i < len; i++) {
+			frames.push({
+				name : 'frame' + i,
+				url : iframe[i],
+				bgColor : 'rgba(0,0,0,.2)',
+				bounces : true,
+				hScrollBarEnabled : false,
+				vScrollBarEnabled : false,
+			})
+		}
+		api.openFrameGroup({
+			name : 'group',
+			scrollEnabled : false,
+			hScrollBarEnabled : false,
+			vScrollBarEnabled : false,
+			rect : {
+				x : 0,
+				y : $api.dom('header').offsetHeight-2,
+				w : api.winWidth,
+				h : $api.dom('#main').offsetHeight
+			},
+			index : 0,
+			frames : frames
+		}, function(ret, err) {
+		});
+	}
+
+	//切换城市
+	function selectcity() {
+		api.openWin({
+	    name: 'selectcity_win',
+	    url: './html/selectcity_win.html'
+   		 });
+	}
+
+	//定位城市
+	/*
+	function geinewlocation() {
+		var bMap = api.require('bMap');
+		bMap.getLocation({
+			accuracy : '100m',
+			autoStop : true,
+			filter : 1
+		}, function(ret, err) {
+			if (ret.status) {
+				getLocation(ret.lon, ret.lat, bMap);
+			} else {
+				//alert(err.code);
+			}
+		});
+	}
+
+	//根据当前位置的经纬度来获取当地位置地址
+	function getLocation(lon, lat, bMap) {
+		console.log(lon);
+		console.log(lat);
+		bMap.getNameFromCoords({
+			lon : lon,
+			lat : lat
+		}, function(ret, err) {
+			console.log(ret.city);
+			//定位城市
+			var changecityname = document.getElementById("changecityname");
+			var name = [];
+			var j = ret.city.length - 1;
+			name = ret.city.substring(0, j);
+			changecityname.innerHTML = name;
+		});
+	}
+*/
+	// 随意切换按钮（底部的五个标签）
+	function randomSwitchBtn(tag) {
+		if (tag == $api.dom('#footer li.active'))
+			return;
+		var eFootLis = $api.domAll('#footer li'), eHeaderLis = $api.domAll('header li'), index = 0;
+		for (var i = 0, len = eFootLis.length; i < len; i++) {
+			if (tag == eFootLis[i]) {
+				index = i;
+			} else {
+				$api.removeCls(eFootLis[i], 'active');
+				$api.removeCls(eHeaderLis[i], 'active');
+			}
+			if (tag == eFootLis[i]) {
+				index = i;
+			} else {
+				$api.removeCls(eFootLis[i], 'active');
+				$api.removeCls(eHeaderLis[i], 'active');
+			}
+		}
+		$api.addCls(eFootLis[index], 'active');
+		$api.addCls(eHeaderLis[index], 'active');
+		api.setFrameGroupIndex({
+			name : 'group',
+			index : index
+		});
+	}
+	
+	 function allshopping()
+ 	{	
+ 		var searchvalue=[];
+ 		var name=document.getElementById('search_input').value;
+
+ 		api.sendEvent({
+				name : 'load_list',
+				extra : {
+					search_values : name
+				}
+			});
+ 		searchvalue=name;
+ 		if(localStorage.getItem("demokey")!=null)
+ 		{
+ 		searchvalue+='|'+localStorage.getItem("demokey");
+ 		}
+        localStorage.setItem("demokey", searchvalue);
+ 		api.openWin({
+			 name: 'product_display_win',
+	 		 url: './html/shopping/product_display_win.html',
+	 		 pageParam:{
+                          name:name
+                    },
+	  		 reload:true
+ 		});
+ 	}
+ 	
+	document.getElementById('sets').onclick=function(){
+	api.openWin({
+	    name: 'set_info_win',
+	    url: './html/my/set_info_win.html'
+    });
+	};
+
+     function getgoods_root(){
+         $.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/cart/findAll',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				 success : function(data, status, xmlHttpRequest) {
+						if (data.responseCode == 0) {						
+							$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+							$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+							goods_num=0;
+						    for(i=0;i<data.data.length;i++){
+						        for(j=0;j<data.data[i].cartItemResponses.length;j++){
+						             goods_num++;
+						        }						        
+						     }
+						    // alert(goods_num);
+						   document.getElementById('myorder_num').innerHTML='('+goods_num+')';
+						}
+						else {
+						}
+				},
+				error : function() {
+				//console.log(JSON.stringify(err));
+				}
+			}); 
+	     //提交方式
+		 
+        }
+
+</script>

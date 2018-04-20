@@ -1,0 +1,764 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+	<style>
+		body{ background-color: #fff; font-family: "宋体";margin:0;width:100%;font-weight:600;}
+		#con{
+			margin: 10px;
+			font-size: 24px;
+		}
+		ul{
+			margin-bottom: 10px;
+		}
+		ul li{
+			margin: 5px 10px;
+			padding: 5px;
+			color: #000;
+			word-wrap: break-word;
+		}
+		/*广告*/
+		/*轮播图*/
+  		 #ads{width:100%;background:#fff;margin:0; padding:0.2rem; }
+   		.addWrap .swipe{overflow: hidden;visibility: hidden;position:relative;}
+   		.addWrap .swipe-wrap{overflow:hidden;position:relative;}
+   		.addWrap .swipe-wrap > div {float: left;width: 100%;position:relative;}
+   		#position{ position:absolute; bottom:0; right:0; padding-right:8px; margin:0; background:#000; opacity: 0.4; width:100%; filter: alpha(opacity=50);text-align:right;}
+  		.img-responsive { display: block; max-width: 100%;  height: 140px;margin-bottom: 6px;}
+
+		/*广告下面的十个选择按钮*/
+		#content1{ width:100%; height:55px; display: -webkit-box; }
+		#content1-ads{ width:100%; color: #777777;}
+		#content1-ads img{max-height: 28px; max-width: 28px; height: 28px;}
+		#content1-ads1{ height: 50px; width:100%;display: -webkit-box; margin-bottom: 10px;}
+		#content1-ads2{ height:50px; display: -webkit-box;}
+		.btn{ width: 20%; font-size:0.38rem; margin-right: 3%; }
+		.btn div{text-align: center;}
+		.f{ height: 22px;}
+		/*通知*/
+		#notice{font-size: 14px; height:50px;text-align: center; line-height:50px; display: -webkit-box;}
+		#notice img{max-height: 20px; max-width: 20px; position: relative; top:4px;left: 2px;}
+		.newnotice{width:1.0rem; text-align:center;line-height:18px;color: #7ad37a;border: 1px solid #7ad37a; border-radius: 4px;position: absolute;left:7.4rem;}
+		#notice_content1{ display:-webkit-box;width:8.8rem; position:absolute;top:219px; left:1.2rem; font-size:14px; height: 20px;line-height: 20px;}
+		#notice_content2{ display:-webkit-box;width:8.8rem; position:absolute;top:239px; left:1.2rem; font-size:14px; height: 20px;line-height: 20px; opacity: 0;}
+		/*广告1*/
+		#ads1{ width: 100%;}
+		#ads1 img{width:100%;height: auto;margin-bottom: 0px; padding-bottom: 0;}
+		/*推荐*/
+		#recommend{width: 100%; height: 160px;  margin-bottom: 8px; position: relative;top:-4px;}
+		#recommend_head{display: -webkit-box; width:100%;line-height:38px; text-align:center; height: 38px; border-bottom: 1px solid #999999;border-top: 1px solid #999999;}
+		.re{ font-size: 16px; margin-left: 0.48rem;border:none;color:#000000;}
+		.re:hover{font-size: 16px; margin-left: 0.48rem;border-bottom: 2px solid #66cc66; color:#66cc66;}
+		#recommend_foot{width: 100%; height: 182px;line-height:182px; text-align:center;display: -webkit-box; }
+		.recommendcontent{width: 100%; height: 182px;display: -webkit-box; margin-bottom: 10px;}
+		.repic{ width:30%;height: 182px; margin-right: 3%;}
+		.reu{height: 100px; }
+		.red{ height:82px; line-height:30px;text-align:center; font-size: 14px;}
+		.red img{max-height: 16px; max-width: 16px;position:relative;top:2px;}
+		/*服装饰品、食物*/
+		.thinges{ width: 100%; height: 220px;}
+		.thinges_head{ width: 100%; height: 42px;display: -webkit-box;text-align: center; line-height: 42px;}
+		.line{width:8%;height: 1px; position:relative;top:20px;}
+		.thinges_foot{width: 100%; height: 178px;font-size: 14px;}
+		.up{display: -webkit-box;width: 100%; height: 89px; border-top: 1px solid #EEEEEE; border-bottom: 1px solid #EEEEEE;}
+		.up_left{width: 48%; border-right: 1px solid #EEEEEE;height: 89px;display: -webkit-box;}
+		.up_right{width: 48%; display: -webkit-box;}
+		.down{width: 100%; height: 89px;display: -webkit-box; border-bottom: 1px solid #EEEEEE;}
+		.down1{width: 50%; border-right: 1px solid #EEEEEE;}
+		.big_one{width:50%;position: relative;left:6px;top:10px;text-align: center; font-size: 12px;}
+		.big_two img{max-height: 76px; max-width: 76px; position: relative;top:6px;}
+		.small_one{width:100%;position: relative;top:10px; text-align: center;font-size: 12px;}
+		.small_two img{max-height: 50px; max-width: 50px;position: relative;left:14px;top:14px;}
+		/*猜你喜欢*/
+		#like{ width: 100%; height: 46px; background: #66cc66; font-size: 20px; line-height: 46px; text-align: center; color: #ffffff; margin-bottom: 16px;}
+		/*猜你喜欢的内容*/
+		.likecontent{width: 100%; height: 140px;display: -webkit-box; margin-bottom: 10px;}
+		.likeleft,.likeright{ width: 50%; text-align: center; position:relative;left: center;}
+		.llu{height: 88px;}
+		.llu img{max-height: 88px; max-width: 88px;}
+		.lld{height: 52px;position:relative;left: center;top:10px;}
+		.lld img{max-height: 16px; max-width: 16px;position:relative;top:2px;}
+	</style>
+</head>
+<body>
+	<!--广告-->
+	<div class ="addWrap">
+    <div class="swipe" id="mySwipe">
+      <div class="swipe-wrap" id="deletepic">
+        <div><a href="javascript:;"><img id="addpic1" class="img-responsive" src="http://image.demo.shopxx.net/4.0/201501/7a09df9e-3f64-4670-82c2-87f3fd0bec0b.jpg"/></a></div>
+        <div><a href="javascript:;"><img id="addpic2" class="img-responsive" src="http://image.demo.shopxx.net/4.0/201501/7a09df9e-3f64-4670-82c2-87f3fd0bec0b.jpg"/></a></div>
+        <div><a href="javascript:;"><img id="addpic3" class="img-responsive" src="http://image.demo.shopxx.net/4.0/201501/7a09df9e-3f64-4670-82c2-87f3fd0bec0b.jpg"/></a></div>
+      </div>
+    </div>
+</div>
+	<!--广告下面的十个选择-->
+	<div id="content1">
+		<div id="content1-ads">
+			<div id="content1-ads1">
+				<div class="btn" style=" margin-left: 4%;" onclick="realstore1()">
+					<div><img src="../image/todayrecommend.png" /><br/></div>
+					<div class="f">今日推荐</div>
+				</div>
+				<div class="btn" onclick="realstore1()">
+					<div><img src="../image/newarrival.png" /><br/></div>
+					<div class="f">新品上市</div>
+				</div>
+				<div class="btn" onclick="realstore1()">
+					<div><img src="../image/dailyspecials.png" /><br/></div>
+					<div class="f">天天特价</div>
+				</div>
+				<div class="btn" onclick="realstore()">
+					<div><img src="../image/gointothestore.png" /><br/></div>
+					<div class="f" >进入实体店</div>
+				</div>
+				<!--
+				<div class="btn">
+					<div><img src="../image/grouppurchase.png" /><br/></div>
+					<div class="f">团购活动</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/buysend.png" /><br/></div>
+					<div class="f">买就送</div>
+				</div>-->
+			</div>
+			<!--
+			<div id="content1-ads2">
+				<div class="btn" onclick="realstore()">
+					<div><img src="../image/gointothestore.png" /><br/></div>
+					<div class="f" >进入实体店</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/CommodityAuction.png" /><br/></div>
+					<div class="f">商品拍卖</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/Culturebroadcast.png" /><br/></div>
+					<div class="f">文化直播</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/Publicdonations.png" /><br/></div>
+					<div class="f">公益捐赠</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/Integralmall.png" /><br/></div>
+					<div class="f">金券商城</div>
+				</div>
+			</div>-->
+		</div>
+	</div>
+	<!--通知-->
+	<div id="notice_content1"><div style="width:7.4rem;">世通易物线下实体店已突破10000家</div><div class="newnotice">详情</div></div>
+	<div id="notice_content2"><div style="width:7.4rem;">世通易物线下实体店已突破10001家</div><div class="newnotice">详情</div></div>
+	<div id="notice">
+		<div style="width:12%"><img src="../image/notice.png" /></div>
+		<div style="width:78%;text-align: left;"></div>
+	</div>
+	<!--广告-->
+	<div id="ads1"><img src="../image/timg.jpg"/></div>
+	<!--推荐--><!--
+	<div id="recommend">
+		<div id="recommend_head">
+			<div id="re1" class="re">推荐</div>
+			<div id="re2" class="re">限时特价</div>
+			<div id="re3" class="re">新品</div>
+			<div id="re4" class="re">服装</div>
+			<div id="re5" class="re">美食</div>
+			<div id="re6" class="re">洗护</div>
+			<div id="re7" style="color: #66cc66; font-size:0.8rem;position:relative;left:6px;top:-2px;">></div>
+		</div>
+		<div id="recommend_foot">
+			<div style=" width: 10%;" id="re_foot_le"><img style="max-height: 20px; max-width: 20px; position:relative;top:-18px;" src="../image/le.gif"/></div>
+			<div style=" width: 80%; overflow:hidden;" class="recommendcontent">
+    	        <div class="repic oneshopping">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">
+    					<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+					</div>
+    	        </div>
+    	        <div class="repic oneshopping">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">
+						<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+					</div>
+    	        </div>
+    	        <div class="repic oneshopping">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">
+    				<span style="color: #fd2a32;">￥5.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+    		        </div>
+    	        </div>
+    	        <div class="repic oneshopping">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">
+    				<span style="color: #fd2a32;">￥6.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+    		        </div>
+    	        </div>
+    	        <div class="repic oneshopping">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">
+    				<span style="color: #fd2a32;">￥7.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+    		        </div>
+    	        </div>
+    	        <div class="repic oneshopping">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">
+    				<span style="color: #fd2a32;">￥8.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+    		        </div>
+    	        </div>
+    	        <div class="repic oneshopping" style="margin-right: 0;">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">
+    				<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+    		        </div>
+    	        </div>
+			</div>
+			<div style=" width: 10%;"  id="re_foot_ri"><img style="max-height: 20px; max-width: 20px;position:relative;top:-18px;" src="../image/ri.gif"/></div>
+		</div>
+	</div>
+	-->
+	<!--服饰鞋帽、食品、家用电器-->
+	
+	<div>
+		<!--服饰鞋帽-->
+		<div id="cloth" class="thinges">
+			<div id="cloth_head" class="thinges_head">
+				<div style="width:25%;height: 42px;"></div>
+				<div class="line" style="background:#ff5f5f;"></div>
+				<div style="width:30%; color:#fe6061;" class="floorname">服饰衣帽</div>
+				<div class="line" style="background:#ff5f5f;"></div>
+			</div>
+			<div id="cloth_foot" class="thinges_foot">
+				<div class="up">
+					<div class="up_left floor1">
+						<div class="big_one flooronename">毛衣</div>
+						<div class="big_two" ><img src="../image/cloth.gif"/></div>
+					</div>
+					<div class="up_right floor1">
+						<div class="big_one flooronename">T恤</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+				</div>
+
+				<div class="down">
+					<div class="up_left">
+						<div class="down1 floor1">
+							<div class="small_one flooronename">平底鞋</div>
+						    <div class="small_two"><img src="../image/cloth.gif "/></div>
+						</div>
+						<div class="down2 floor1">
+							<div class="small_one flooronename">皮鞋</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					<div class="up_right">
+						<div class="down1 floor1">
+							<div class="small_one flooronename">鸭舌帽</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2 floor1">
+							<div class="small_one flooronename">半身裙</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					</div>
+				</div>
+		</div>
+		<!--食品-->
+		<div id="food" class="thinges">
+			<div id="cloth_head" class="thinges_head">
+				<div style="width:25%;height: 42px;"></div>
+				<div class="line" style="background:#ffb400;"></div>
+				<div style="width:30%; color:#ffc353;" class="floorname">食品</div>
+				<div class="line" style="background:#ffb400;"></div>
+			</div>
+			<div id="cloth_foot" class="thinges_foot">
+				<div class="up">
+					<div class="up_left floor2">
+						<div class="big_one secondname">牛奶</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+					<div class="up_right floor2">
+						<div class="big_one secondname">坚果蜜饯</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+				</div>
+				<div class="down">
+					<div class="up_left floor2">
+						<div class="down1">
+							<div class="small_one secondname">米面粮油</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2 floor2">
+							<div class="small_one secondname">速食调味</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					<div class="up_right">
+						<div class="down1 floor2">
+							<div class="small_one secondname">休闲零食</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2 floor2">
+							<div class="small_one secondname">水饮冲调</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					</div>
+				</div>
+		</div>
+		<!--家用电器-->
+		<div id="ele" class="thinges">
+			<div id="cloth_head" class="thinges_head">
+				<div style="width:25%;height: 42px;"></div>
+				<div class="line" style="background:#00a1dd;"></div>
+				<div style="width:30%; color:#00a1dd;" class="floorname">家用电器</div>
+				<div class="line" style="background:#00a1dd;"></div>
+			</div>
+			<div id="cloth_foot" class="thinges_foot">
+				<div class="up">
+					<div class="up_left floor3">
+						<div class="big_one thirdname">洗衣机</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+					<div class="up_right floor3">
+						<div class="big_one thirdname">电视机</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+				</div>
+				<div class="down">
+					<div class="up_left">
+						<div class="down1 floor3">
+							<div class="small_one thirdname">冰箱</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2 floor3">
+							<div class="small_one thirdname">电饭煲</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					<div class="up_right">
+						<div class="down1 floor3">
+							<div class="small_one thirdname">空调</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2 floor3">
+							<div class="small_one thirdname">电热水壶</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					</div>
+				</div>
+		</div>
+	</div>
+    <!--猜你喜欢-->
+    <!--
+    <div id="like">猜你喜欢</div>
+    <div class="likecontent">
+    	<div class="likeleft oneshopping">
+    		<div class="llu"><img src="../image/cloth.gif"/></div>
+    		<div class="lld">
+    		商品名<br/>
+    		<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+    		</div>
+    	</div>
+    	<div class="likeright oneshopping">
+    		<div class="llu"><img src="../image/cloth.gif"/></div>
+    		<div class="lld">
+    		商品名<br/>
+    		<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+    		</div>
+    	</div>
+    </div>
+    <div class="likecontent">
+    	<div class="likeleft oneshopping">
+    		<div class="llu"><img src="../image/cloth.gif"/></div>
+    		<div class="lld">
+    		商品名<br/>
+    		<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+    		</div>
+    	</div>
+    	<div class="likeright oneshopping">
+    		<div class="llu"><img src="../image/cloth.gif"/></div>
+    		<div class="lld">
+    		商品名<br/>
+    		<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../icon/public/integral_g.png"/>90)</span>
+    		</div>
+    	</div>
+    </div>
+-->
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery.min.js"></script>
+<script type="text/javascript" src="../script/api.js"></script>
+<!-- 动画工具类 -->
+<script src="../script/tween.js"></script>
+<!-- 图片懒加载 -->
+<script src="../script/img.js"></script>
+<!--模版引擎-->
+<script src="../script/juicer.js"></script>
+<script src="../script/global_variables.js"></script>
+<!--ajax-->
+<script src="../script/zepto.js"></script>
+<script src="../script/btn.js"></script>
+<script src="../script/swipe.js"></script>
+<script type="text/javascript">
+var array1=new Array(); 
+var array2=new Array(); 
+var array3=new Array();  
+var array4=new Array();  
+var array5=new Array();  
+var array6=new Array();  
+    apiready = function(){
+    	initialfaction();
+    	api.setRefreshHeaderInfo({
+	        visible: true,
+	        bgColor: '#ccc',
+	        textColor: '#fff',
+	        textDown: '下拉刷新...',
+	        textUp: '松开刷新...',
+	        showTime: true
+	    }, function(ret, err){
+	    	initialfaction();
+	        api.refreshHeaderLoadDone();
+	    });
+	    
+	};
+	var arrnotice=[];
+    var num=2;
+    var len=0;
+    var sign=[];
+	function initialfaction()
+	{
+		//加载楼层广告
+	$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/mobad/search/listMobad',
+				contentType : "application/json",
+				
+				success : function(data, status, xmlHttpRequest) {
+				if (data.responseCode == 0) {
+						console.log(JSON.stringify(data.data[0].mobads));
+						var floorname=document.getElementsByClassName('floorname');
+						var flooronename=document.getElementsByClassName("flooronename");
+						var secondname=document.getElementsByClassName("secondname");
+						var thirdname=document.getElementsByClassName("thirdname");
+						var big_two=document.getElementsByClassName("big_two");
+						var number=0;
+						//var flag=31;
+						var flag=9;
+						for(var i=0;i<3;i++)
+						{
+							floorname[i].innerHTML=data.data[number].name;
+							number++;
+						}
+						for(var j=0;j<6;j++)
+						{
+							flooronename[j].innerHTML=data.data[0].mobads[j].adname;
+							array1.push(data.data[0].mobads[j].content);
+							array2.push(data.data[1].mobads[j].content);
+							array3.push(data.data[2].mobads[j].content);
+							array4.push(data.data[0].mobads[j].adtype);
+							array5.push(data.data[1].mobads[j].adtype);
+							array6.push(data.data[2].mobads[j].adtype);
+							secondname[j].innerHTML=data.data[1].mobads[j].adname;
+							thirdname[j].innerHTML=data.data[2].mobads[j].adname;
+							document.getElementsByTagName('img')[flag].setAttribute('src',data.data[0].mobads[j].adimgurl);
+							flag++;
+						}
+						
+						for(var j=0;j<6;j++)
+						{
+							document.getElementsByTagName('img')[flag].setAttribute('src',data.data[1].mobads[j].adimgurl);
+							flag++;
+						}
+						for(var j=0;j<6;j++)
+						{
+							document.getElementsByTagName('img')[flag].setAttribute('src',data.data[2].mobads[j].adimgurl);
+							flag++;
+						}
+						
+					}
+				
+				},
+				error : function() {
+				}
+	});
+	//广告轮播图加载图片
+    $.ajax({
+				type : 'post',
+				url : 'http://116.62.22.98:8080/shop/advertise/search/findByAdPosition',
+				
+				
+				success : function(data,status, xmlHttpRequest) {
+				if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						var arr=[];
+				for(var i=0;i<data.data.length;i++)
+				{
+					arr[i]=data.data[i].path;
+				}
+				document.getElementById('addpic1').src=arr[0];
+				document.getElementById('addpic2').src=arr[1];
+				document.getElementById('addpic3').src=arr[2];
+					}
+
+				},
+				error : function() {
+				}
+	});
+	
+	}
+    function realstore1()
+ 	{
+ 		api.openWin({
+			name: 'product_display_win.html',
+	 		url: './shopping/product_display_win.html',
+	 		pageParam:{
+                          name:"苹果"
+                    },
+	  		reload:true
+ 		});
+ 	}
+ 	function realstore()
+ 	{
+ 		api.openWin({
+			name: 'store_win',
+	 		url: './shopping/my_shop_all_win.html',
+	  		reload:true
+ 		});
+ 	}
+ 	function coupon_exchange(){
+ 		api.openWin({
+	 		name: 'shopping_detail_win',
+	 		url: './coupon/shopping_detail_win.html'
+ 		});
+ 	}
+    var OS=document.getElementsByClassName('oneshopping');
+    for( var i=0;i<OS.length;i++)
+    {
+    	OS[i].onclick=function ()
+    	{
+    		api.openWin({
+	 			name: 'single_shopping_win',
+	 			url: './shopping/single_shopping_win.html',
+	 			reload:true,
+				pageParam:{
+                          id:'6'
+                    },
+ 			});
+   		 }
+    }
+    
+    //加载通知
+    
+    $.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/affiche/search/findByIsPublication',
+				success : function(data, status, xmlHttpRequest) {
+				if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						len=data.data.length;
+				for(var i=0;i<data.data.length;i++)
+				{
+					arrnotice[i]=data.data[i].title;
+					sign[i]=data.data[i].url;
+				}
+				}
+
+				},
+				error : function() {
+				}
+	});
+    //实现通知的动画效果
+    var oDiv1 = document.getElementById('notice_content1');
+	var oDiv2 = document.getElementById('notice_content2');
+
+	doMove ( oDiv1, 'top', -20, 199 );
+	doMove ( oDiv2, 'top', -20, 199 );
+	function doMove ( obj, attr, dir, target ) {
+		clearInterval( obj.timer );
+		obj.timer = setInterval(function () {
+			var t1=parseInt(getStyle( obj, attr ));
+			var speed = parseInt(getStyle( obj, attr )) + dir;			// 步长
+			if(t1!=239)
+			{
+				obj.style.opacity="0";
+			}
+			else
+			{
+				obj.style.opacity="1";
+			}
+			if(speed==target)
+			{
+				obj.style[attr] = 239 + 'px';
+				obj.innerHTML='<div style="width:7.4rem;">'+arrnotice[num]+'</div><div class="newnotice">详情</div>';
+				obj.detailurl=sign[num];
+				//obj.onclick=function()
+				//{
+					//api.openWin({
+						//name: 'coupon_give_win',
+						//url: './money/noticeurl_win.html',
+						//pageParam:{
+                          //noticeurl:sign[num]
+                    //},
+					//});
+				//}
+				num++;
+				if(num==len)
+				{
+					num=0;
+				}
+			}
+			else
+			{
+				obj.style[attr] = speed + 'px';
+			}
+
+		}, 2000);
+	}
+	function getStyle ( obj, attr ) {
+		return obj.currentStyle?obj.currentStyle[attr] : getComputedStyle( obj )[attr];
+	}
+	//广告的轮播图
+  	var banner = Swipe(document.getElementById('mySwipe'), {
+		auto: 2000,
+		continuous: true,
+		disableScroll:false,
+		callback: function(pos) {
+		}
+	});
+	var floor1=document.getElementsByClassName("floor1");
+	var floor2=document.getElementsByClassName("floor2");
+	var floor3=document.getElementsByClassName("floor3");
+	for(var i=0;i<6;i++){ 
+       (function(i){ 
+          floor1[i].onclick=function(){ 
+          	if(array4[i]=='0')
+          	{
+            api.openWin({
+	 						name: 'into_content_win',
+	 						url: './into_content_win.html',
+	 						reload:true,
+							pageParam:{
+                          	content:array1[i]
+                    		},
+ 			});
+ 			}else if(array4[i]=='1')
+ 			{
+ 			api.sendEvent({
+    			name: 'openindex',
+    			extra: {
+       				key1: '41',
+        			key2: '0'
+    			}
+			});
+			api.openWin({
+	 						name: 'frame5_win',
+	 						url: './frame5_win.html',
+	 						reload:true,
+							pageParam:{
+                          	content:array1[i]
+                    		},
+ 			});
+ 			}else
+ 			{
+ 			api.openWin({
+					name : 'single_shopping_win',
+					url : './shopping/single_shopping_win.html',
+					pageParam : {
+						id : array1[i]
+					}
+		});
+ 			}
+          }
+        })(i);//这是循环中的i,被作为参数传入
+     }
+     for(var i=0;i<6;i++){ 
+       (function(i){ 
+          floor2[i].onclick=function(){ 
+          	if(array5[i]=='0')
+          	{
+            api.openWin({
+	 						name: 'into_content_win',
+	 						url: './into_content_win.html',
+	 						reload:true,
+							pageParam:{
+                          	content:array2[i]
+                    		},
+ 			});
+ 			}else if(array5[i]=='1')
+ 			{
+ 			api.sendEvent({
+    			name: 'openindex',
+    			extra: {
+       				key1: '41',
+        			key2: '0'
+    			}
+			});
+			api.setFrameGroupIndex({
+    		name: 'group1',
+    		index: 1
+			});
+ 			}else
+ 			{
+ 			api.openWin({
+					name : 'single_shopping_win',
+					url : './shopping/single_shopping_win.html',
+					pageParam : {
+						id : array2[i]
+					}
+			});
+ 			}
+          }
+        })(i);//这是循环中的i,被作为参数传入
+     }
+     for(var i=0;i<6;i++){ 
+       (function(i){ 
+          floor3[i].onclick=function(){ 
+          	if(array6[i]=='0')
+          	{
+            api.openWin({
+	 						name: 'into_content_win',
+	 						url: './into_content_win.html',
+	 						reload:true,
+							pageParam:{
+                          	content:array3[i]
+                    		},
+ 			});
+ 			}else if(array6[i]=='1')
+ 			{
+ 			api.sendEvent({
+    			name: 'openindex',
+    			extra: {
+       				key1: '41',
+        			key2: '0'
+    			}
+			});
+			api.setFrameGroupIndex({
+    		name: 'group1',
+    		index: 1
+			});
+ 			}else
+ 			{
+ 			api.openWin({
+					name : 'single_shopping_win',
+					url : './shopping/single_shopping_win.html',
+					pageParam : {
+						id : array3[i]
+					}
+		});
+ 			}
+          }
+        })(i);//这是循环中的i,被作为参数传入
+     }
+ </script>
+	
+</html>

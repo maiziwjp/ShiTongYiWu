@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			body {
+				background-color: #ffffff;
+				margin: 0;
+				font-family: "宋体";
+			}
+			#winpart {
+				width: 100%;
+				height: 90px;
+				position: fixed;
+				background: #66CC66;
+			}
+			/*搜索栏*/
+			.search_block {
+				width: 100%;
+				height: 50px;
+				background: #66CC66;
+				display: -webkit-box;
+			}
+			.search_block img {
+				width: 20px;
+				height: 20px;
+				text-align: center;
+			}
+			.back_block {
+				width: 10%;
+				height: 25px;
+				margin: 15px 5% 15px 5%;
+			}
+			.search {
+				width: 60%;
+				height: 30px;
+				background: #b4e6b3;
+				margin-top: 10px;
+				position: relative;
+			}
+			#search_btn {
+				width: 10%;
+				height: 25px;
+				margin: 15px 5% 15px 5%;
+				text-align: center;
+				color: #FFFFFF;
+			}
+			#search_value {
+				width: 80%;
+				line-height: 20px;
+				position: absolute;
+				top: 5px;
+				left: 28px;
+				font-size: 15px;
+				color: #8d978f;
+				background: #b4e6b3;
+				outline: none;
+				border: none;
+			}
+			.search_icon {
+				width: 25px;
+				height: 25px;
+				margin-top: 5px;
+			}
+			/*商品选择栏*/
+			.choice_block {
+				width: 100%;
+				height: 40px;
+				background: #ffffff;
+				display: -webkit-box;
+				border-bottom: 1px solid #8d978f;
+			}
+			.total {
+				width: 20%;
+				height: 20px;
+				text-align: center;
+				margin-left: 5%;
+				margin-top: 10px;
+			}
+			.cost {
+				width: 40%;
+				height: 20px;
+				text-align: center;
+				display: -webkit-box;
+				margin-top: 10px;
+			}
+			.kind {
+				width: 20%;
+				height: 20px;
+				text-align: center;
+				margin-top: 10px;
+			}
+			.change_style {
+				width: 20px;
+				height: 20px;
+				position: relative;
+				left: 10px;
+				margin-top: 10px;
+			}
+			.cost_icon {
+				width: 20px;
+				height: 20px;
+			}
+			#up {
+				position: relative;
+				top: -10px;
+			}
+			#down {
+				position: relative;
+				top: -15px;
+				left: -2px;
+			}
+		</style>
+	</head>
+	<body>
+		<header id="winpart">
+			<div class="search_block">
+				<div class="back_block"><img id="back_icon" onclick="api.closeWin();" src="../../icon/public/back_black.png"/>
+				</div>
+				<div class="search"><img class="search_icon" src="../../icon/public/search_icon.png"/>
+					<input id="search_value" value=""/>
+				</div>
+				<div id="search_btn">
+					搜索
+				</div>
+			</div>
+			<div class="choice_block">
+				<div class="total">
+					综合
+				</div>
+				<div class="cost" >
+					<div style="padding-left:30%;">
+						价格
+					</div>
+					<div id="costt">
+						<img id="up" class="cost_icon" src="../../icon/public/cost_up.png"/>
+						<br />
+						<img id="down" class="cost_icon" src="../../icon/public/cost_down.png"/>
+					</div>
+				</div>
+				<div class="kind">
+					分类
+				</div>
+				<div class="play_style"></div>
+				<img id="change_styleid" class="change_style" src="../../icon/display_style.png"/>
+			</div>
+		</header>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			$api.fixStatusBar($api.dom('header'));
+			api.setStatusBarStyle({
+				style : 'dark',
+				color : '#fff'
+			});
+			page=1;
+			size = 20;
+			selected = false;
+			/*切换列表模式开关初始化*/
+			display_style = false;
+			api.setStatusBarStyle({
+				style : 'dark',
+				color : '#000'
+			});
+			headerheight = document.getElementById("winpart").offsetHeight;
+			
+			document.getElementById('search_value').value = api.pageParam.name;
+			api.openFrame({
+				name : 'product_display_frame',
+				url : './product_display_Hframe.html',
+				rect : {
+					x : 0,
+					y : headerheight
+				},
+				pageParam:{search_values:api.pageParam.name},
+				bounces : true,
+				reload : false,
+				vScrollBarEnabled : true,
+				hScrollBarEnabled : false
+			});
+		
+			
+			api.sendEvent({
+				name : 'load_list',
+				extra : {
+					search_values : document.getElementById('search_value').value
+				}
+			});
+			
+		
+		};
+		/*切换列表模式函数*/
+		document.getElementById("change_styleid").onclick = function() {
+			if (display_style) {
+				display_style = false;
+			} else {
+				display_style = true;
+			}
+			api.sendEvent({
+				name : 'change_display',
+				extra : {
+					key1 : display_style
+				}
+			});
+		}
+		document.getElementById('search_btn').onclick = function() {
+			
+			api.sendEvent({
+				name : 'load_list',
+				extra : {
+					search_values : document.getElementById('search_value').value
+				}
+			});
+		}
+	</script>
+</html>

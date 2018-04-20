@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+   <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		  <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    html, body {margin:0;width:100%;display:-webkit-box;}
+		#main{height: 100%;width: 100%;}
+		.store_font{font-size:14px;margin-left:8%;padding-top:6%;height:45%;width:100%;color: #66cc66;}
+		.store_num_font{font-size:13px;margin-left:6%;margin-top:2px;height:45%;width:100%;}
+    .logis_way{height:35px;width:100%;display:-webkit-box;border-bottom: 1px solid #F4F4F4;font-size:13px;}
+		.lo_font{font-size:13px;position:relative;top:10px;}
+    #lo_company{font-size:13px;position:relative;top:10px;}
+		#lo_num{font-size:13px;position:relative;top:10px;}
+    .logis_trends{height: auto;width: 100%;}
+		.lo_font1{font-size:13px;margin-left:16px;position:relative;top:10px;height: 30px;width: 40%;}
+    .none1{width:6%;height:100%;}
+		.none2{width:10%;height:100%;}
+		.sm_circle {width: 5px;height: 5px;border-radius: 50%;border: 1px solid gray;position: relative;left: 17px;
+			top: 13px;background: gray;
+		}
+
+		</style>
+</head>
+<body>
+<div id="main">
+	    <div class="goods" style="height:70px;width:100%;display:-webkit-box;">
+				   <img class="sh_store_image"src="../../image/goods1.gif"	style="width:auto;height:75%;margin:10px 5% auto 15px"/ >
+					 <div style="height:90%;width:60%;">
+							 <div class="store_font">已签收</div>
+							 <div class="store_num_font">【法国原装进口】sterimat/小海...</div>
+					 </div>
+	    </div>
+
+      <div class="logis_way">
+				    <div class="none1"></div>
+      	    <div class="lo_font">物流公司</div>
+						<div class="none2"></div>
+						<div id="lo_company">中通物流</div>
+      </div>
+			<div class="logis_way" >
+			     <div class="none1"></div>
+ 					 <div class="lo_font">运单编号</div>
+					 <div class="none2"></div>
+ 					 <div id="lo_num" >1234567890</div>
+ 		 </div>
+		 <div class="logis_trends" >
+				<div class="lo_font1">物流动态</div>
+				<div style="width:100%;height:60px;display:-webkit-box;margin-top:10px">
+						 <div style="width:12%;height:60px;">
+                 <div class="sm_circle"></div>
+						 </div>
+						 <div style="width:80%;height:60px;">
+								 <div style="width:100%;height:35px;">
+										[泉州市][泉州丰泽]的派件已签收 感谢使用中通快<br/>
+										递，期待再次为您服务<br/>
+									</div>
+									<div style="width:80%;height:35px;">2017-09-21 18.56:09</div>
+							</div>
+
+				</div>
+				<div style="width:100%;height:60px;display:-webkit-box;margin-top:10px">
+						 <div style="width:12%;height:60px;">
+                 <div class="sm_circle"></div>
+						 </div>
+						 <div style="width:80%;height:60px;">
+								 <div style="width:100%;height:35px;">
+										[泉州市][泉州丰泽]的派件已签收 感谢使用中通快<br/>
+										递，期待再次为您服务<br/>
+									</div>
+									<div style="width:80%;height:35px;">2017-09-21 18.56:09</div>
+							</div>
+
+				</div>
+		 </div>
+
+
+
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+
+
+
+        /*关闭顶部搜索栏*/
+
+	};
+
+</script>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				width: 100%;
+				height: 100%;
+				background: #f3f2f3;
+				margin: 0;
+			}
+			.comment_kind {
+				width: 100%;
+				height: 50px;
+				background: #ffffff;
+				display: -webkit-box;
+				position: relative;
+				border-bottom: 1px solid #e6e1e1;
+			}
+			#store {
+				height: 40px;
+				width: 40px;
+				margin-left: 15px;
+				margin-right: 15px;
+				position: relative;
+				top: 5px;
+			}
+			.kind {
+				width: 20%;
+				height: 26px;
+				margin-right: 5%;
+				text-align: center;
+				position: relative;
+				top: 15px;
+			}
+			.kind img {
+				height: 22px;
+				width: 22px;
+			}
+			.kind span {
+				height: 14px;
+				width: 14px;
+				color: #b3b3b3;
+				position: relative;
+				bottom:5px;
+			}
+			.kind:active {
+				color: #66CC66;
+			}
+			.kind img:hover {
+				src: "../../icon/write_comment/good_comment_green.png"
+			}
+			.secondpart {
+				width: 100%;
+				height: 200px;
+				background-color: #FFFFFF;
+				border-bottom: 1px solid #e6e1e1;
+			}
+			#inputbox {
+				width: 90%;
+				height: 80px;
+				padding-left: 5%;
+				padding-right: 5%;
+				font-size: 15px;
+				outline-style: none;
+				border: none;
+				-webkit-tap-highlight-color: transparent;
+			}
+			#pict{width:100%;height:80px;}
+			#getpic {
+				width: 70px;
+				height: 70px;
+				border: 1px dotted #e6e1e1;
+				margin-left: 5%;
+				float: left;
+				text-align: center;
+			}
+			#camera {
+				width: 40px;
+				height: 40px;
+			}
+			.add_picture {
+				color: #b3b3b3;
+				font-size:14px;
+				position: relative;
+				bottom: 17px;
+			}
+			.thirdpart {
+				width: 100%;
+				height: 40px;
+				background-color: #FFFFFF;
+				text-align: center;
+				position: relative;
+			}
+			.thirdpart img {
+				width: 20px;
+				height: 20px;
+				margin-top: 10px;
+			}
+			.anonymity {
+				margin-left: 10px;
+				margin-right: 10%;
+				position: relative;
+				top: -5px
+			}
+			.supplyment {
+				color: #b3b3b3;
+				font-size: 13px;
+				position: relative;
+				top: -6px;
+			}
+			.forthpart {
+				width: 100%;
+				margin-top: 10px;
+				background-color: #FFFFFF;
+			}
+			.starblock {
+				height: 40px;
+				display: -webkit-box;
+				margin-left: 5%;
+			}
+			.titles {
+				height: 40px;
+				width: 60%;
+				padding: 10px 5% 10px;
+			}
+			.titles img {
+				height: 20px;
+				width: 20px;
+				position: relative;
+				top: 5px;
+			}
+			.titles span {
+				text-align: center;
+				margin-left: 10px;
+			}
+			.starblock span {
+				font-size: 16px;
+			}
+			.star {
+				width: 60%;
+				height: 25px;
+				position: relative;
+				top: -18px;
+			}
+			.star li {
+				width: 25px;
+				height: 25px;
+				list-style: none;
+				float: left;
+				position: relative;
+				left: -40px;
+				margin-left: 10px;
+			}
+			.star li img {
+				width: 25px;
+				height: 25px;
+			}
+			
+			.pic{height:90px;list-style: none;}
+			.pic .picli{width:60px;height:60px;float:left;}
+			.pic .imgs{width:60px;height:60px;}
+		</style>
+	</head>
+	<body>
+		<div class="comment_kind">
+			<img  id="store" src="../../icon/public/store.png"/>
+			<div class="kind">
+				<img src="../../icon/write_comment/good_comment_gren.png" />
+				<span>好评</span>
+			</div>
+			<div class="kind">
+				<img src="../../icon/write_comment/common_comment_gray.png"/>
+				<span>中评</span>
+			</div>
+			<div class="kind">
+				<img src="../../icon/write_comment/bad_comment_gray.png" />
+				<span>差评</span>
+			</div>
+		</div>
+		<div class="secondpart">
+			<textarea id="inputbox" type="textarea"placeholder="宝贝满足你的期待吗？说说你的使用心得，分享给想买的他们吧"></textarea>
+			<div id="pict"><div id="getpic"><img id="camera" src="../../icon/write_comment/add_picture.png"/>
+				<p class="add_picture">
+					添加图片
+				</p>
+			</div>
+			<ul class="pic">
+			<li class="picli"></li>
+			
+			</ul>
+			</div>
+			
+		</div>
+		<div class="thirdpart">
+			<img src="../../icon/write_comment/check_green.png" /><span class="anonymity">匿名</span><span class="supplyment">您写的评价会以匿名的形式展现</span>
+		</div>
+		<div class="forthpart">
+			<div class="titles"><img src="../../icon/public/store.png" /><span>店铺评分</span>
+			</div>
+			<div class="starblock">
+				<span>描述相符</span>
+				<ul class="star">
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+				</ul>
+			</div>
+			<div class="starblock">
+				<span>物流服务</span>
+				<ul class="star">
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+				</ul>
+			</div>
+			<div class="starblock">
+				<span>服务态度</span>
+				<ul class="star">
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+					<li><img src="../../icon/write_comment/unselect_star.png" />
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			var three = document.getElementsByTagName('ul');
+			for (var i = 0; i < three.length; i++) {
+				var five = three[i].children;
+				for (var k = 0; k < five.length; k++) {
+					five[k].addEventListener('touchstart', function() {
+						this.children[0].src = "../../icon/write_comment/select_star.png";
+					})
+				}
+			}
+		};
+		document.getElementById('getpic').addEventListener('touchstart', function() {
+			api.actionSheet({
+				cancelTitle : '取消',
+				buttons : ['拍照', '从手机相册选择']
+			}, function(ret, err) {
+				var index = ret.buttonIndex;
+				if (index == 1) {
+					api.getPicture({
+						sourceType : 'camera',
+						encodingType : 'jpg',
+						mediaValue : 'pic',
+						destinationType : 'url',
+						allowEdit : true,
+						quality : 100,
+						preview : true,
+						targetWidth : 100,
+						targetHeight : 100,
+						saveToPhotoAlbum : false
+					}, function(ret, err) {
+					if(ret){
+					var oul=document.getElementsByTagName('ul')[0];
+					oul.className='pic';
+					oli=document.getElementsByTagName('li')[0];
+					oli.className='picli';
+					var img1=document.createElement('img');
+					img1.className='imgs'
+					img1.src=ret.data;
+					oli.appendChild(img1);
+					}
+					else{}
+					});
+				} else if(index==2) {
+					api.getPicture({
+						sourceType : 'library',
+						encodingType : 'jpg',
+						mediaValue : 'pic',
+						destinationType : 'url',
+						allowEdit : true,
+						quality : 100,
+						preview : true,
+						targetWidth : 100,
+						targetHeight : 100,
+						saveToPhotoAlbum : false
+					}, function(ret, err) {
+					if(ret){
+					var oul=document.getElementsByTagName('ul')[0];
+					oul.className='pic';
+					oli=document.getElementsByTagName('li')[0];
+					oli.className='picli';
+					var img1=document.createElement('img');
+					img1.className='imgs'
+					img1.src=ret.data;
+					oli.appendChild(img1);
+					}
+					else{}
+					});
+					
+				}
+				
+			});
+		});
+		/*five[k].children[0].src="../../icon/write_comment/select_star.png"*/
+		
+	</script>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	html,body{
+        height: 100%;
+        font-family: "宋体";
+    }
+    #wrap{
+        height: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-flex-flow: column;
+               flex-flow: column;
+    }
+    #header{
+        text-align: center;
+        width: 100%;
+        height:45px;
+				margin-top: 10px;
+    }
+
+    #wraper{display:-webkit-box;position: fixed;width:100%;height:45px;line-height:0.85rem;}
+    #back{ width: 23%; height: 45px;}
+    #back_icon{width:25px;height:25px;margin-top: 10px;margin-left: -15px;}
+    #myorder_font{width: 54%; height: 35px;line-height:45px;font-size: 20px;	 }
+    #myorder_header_right{width: 23%; height: 45px; display: -webkit-box;}
+    #myorder_search{width: 45%; height: 45px;}
+    #myorder_more{width: 55%;height:45px; }
+		#myorder_search_icon{width:30px;height:30px;margin-top: 10px;}
+    #myorder_more_icon{width:25px;height:25px;margin-top: 10px;}
+
+		#five_order{width:100%; height: 57px;display:-webkit-box;}
+		.order{width: 20%;height: 45px;}
+    .order_font{height: 43px;font-size: 16px;line-height:45px;text-align: center;}
+
+		#main{
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        display:-webkit-box;
+
+   	 	}
+    </style>
+</head>
+<body>
+	<div id="wrap">
+        <div id="header" >
+        		<div id="wraper">
+	           		<div id="back"><img id="back_icon"src="../../icon/public/back_black.png" onclick="api.closeWin();"/></div>
+	    					<div id="myorder_font">我的订单</div>
+								<div id="myorder_header_right" >
+									<div id="myorder_search"onclick=""><img id="myorder_search_icon"src="../../icon/myorder_search.png"/ ></div>
+	    						<div id="myorder_more" onclick="" ><img id="myorder_more_icon"src="../../icon/public/more.png"/ ></div>
+								</div>
+        		</div>
+        </div>
+				<div style="height:2px;width:100%;background:#E4E4E4"></div>
+				<div id="five_order">
+						 <div class="order">
+								<div class="order_font" id="order_font1" onclick="myorder_all()">全部</div>
+  							<div id="order_border1"style="border-bottom:6px solid  #66cc66;;width:50%;margin-left:25%; margin-top:-4px;visibility:hidden"></div>
+								<!--	<div style="border-bottom:2px solid gray;width:100%"></div>-->
+						 </div>
+						 <div class="order">
+								<div class="order_font" id="order_font2"  onclick="myorder_wait_pay()">待付款</div>
+                <div id="order_border2"style="border-bottom:6px solid  #66cc66;;width:70%;margin-left:15%; margin-top:-4px;visibility:hidden"></div>
+						 </div>
+						 <div class="order">
+								<div class="order_font"id="order_font3"  onclick="myorder_wait_sendgoods()">待发货</div>
+								<div id="order_border3"style="border-bottom:6px solid  #66cc66;;width:70%;margin-left:15%; margin-top:-4px;visibility:hidden"></div>
+						 </div>
+						 <div class="order">
+								<div class="order_font"id="order_font4" onclick="myorder_wait_getgoods()">待收货</div>
+								<div id="order_border4"style="border-bottom:6px solid  #66cc66;;width:70%;margin-left:15%; margin-top:-4px;visibility:hidden"></div>
+						 </div>
+						 <div class="order">
+								<div class="order_font"id="order_font5" onclick="myorder_wait_comment()">待评价</div>
+								<div id="order_border5"style="border-bottom:6px solid  #66cc66;;width:70%;margin-left:15%; margin-top:-4px;visibility:hidden"></div>
+						 </div>
+				</div>
+
+        <div id="main">
+
+				</div>
+</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript">
+	for(var i = 1;i < 6; i++) {
+			 var order_font=document.getElementById("order_font"+i);
+			 order_font.style.color="black";
+				var order_border=document.getElementById('order_border'+i);
+			 order_border.style.visibility='hidden';
+	}
+	var order_font1=document.getElementById("order_font1");
+	order_font1.style.color="#66cc66";
+	var order_border1=document.getElementById('order_border1');
+	order_border1.style.visibility='visible';
+	var myorder_flag=$api.getStorage('myorder_flag');
+    flag=myorder_flag;
+	apiready = function(){
+		        var header = $api.byId('header');
+						var fiveorder = $api.byId('five_order');
+		        //适配iOS 7+，Android 4.4+状态栏
+		        $api.fixStatusBar(header);
+		        var headerPos = $api.offset(header);
+					  var fiveorderPos = $api.offset(fiveorder);
+		        var main = $api.byId('main');
+		        var mainPos = $api.offset(main);
+						api.openFrame({
+								name: 'myorder_frame',
+								url: './myorder_frame'+flag+'.html',
+								bounces: true,
+								rect: {
+										x: 0,
+										y: headerPos.h+fiveorderPos.h ,
+										w: 'auto',
+										h: mainPos.h
+								},
+								vScrollBarEnabled : false,
+								scrollToTop : true,
+						});
+	};
+	if(myorder_flag==2){
+		myorder_wait_pay();
+	}
+	if(myorder_flag==3){
+		 myorder_wait_sendgoods();
+	}
+	if(myorder_flag==4){
+		 myorder_wait_getgoods();
+	}
+	if(myorder_flag==5){
+		 myorder_wait_comment();
+	}
+	 function myorder_all(){
+    for(var i = 1;i < 6; i++) {
+			   var order_font=document.getElementById("order_font"+i);
+				 order_font.style.color="black";
+					var order_border=document.getElementById('order_border'+i);
+				 order_border.style.visibility='hidden';
+		}
+		var order_font1=document.getElementById("order_font1");
+		order_font1.style.color="#66cc66";
+         var order_border1=document.getElementById('order_border1');
+		order_border1.style.visibility='visible';
+		 flag=1;
+		 var header = $api.byId('header');
+		 var fiveorder = $api.byId('five_order');
+		 $api.fixStatusBar(header);
+		 var headerPos = $api.offset(header);
+		 var fiveorderPos = $api.offset(fiveorder);
+		 var main = $api.byId('main');
+		 var mainPos = $api.offset(main);
+		 api.openFrame({
+				 name: 'myorder_frame',
+				 url: './myorder_frame'+flag+'.html',
+				 bounces: true,
+				 rect: {
+						 x: 0,
+						 y: headerPos.h+fiveorderPos.h ,
+						 w: 'auto',
+						 h: mainPos.h
+				 }
+		 });
+	 }
+
+	 function myorder_wait_pay(){
+		 for(var i = 1;i < 6; i++) {
+				 var order_font=document.getElementById("order_font"+i);
+				 order_font.style.color="black";
+					var order_border=document.getElementById('order_border'+i);
+				 order_border.style.visibility='hidden';
+		}
+		var order_font2=document.getElementById("order_font2");
+		order_font2.style.color="#66cc66";
+		 var order_border2=document.getElementById('order_border2');
+		order_border2.style.visibility='visible';
+		 flag=2;
+		 api.openFrame({
+				name: 'myorder_frame',
+				url: './myorder_frame'+flag+'.html',
+				});
+
+	 }
+	 function myorder_wait_sendgoods(){
+		 for(var i = 1;i < 6; i++) {
+				 var order_font=document.getElementById("order_font"+i);
+				 order_font.style.color="black";
+					var order_border=document.getElementById('order_border'+i);
+				 order_border.style.visibility='hidden';
+		}
+		var order_font3=document.getElementById("order_font3");
+		order_font3.style.color="#66cc66";
+		 var order_border3=document.getElementById('order_border3');
+		order_border3.style.visibility='visible';
+		 flag=3;
+		 api.openFrame({
+				name: 'myorder_frame',
+				url: './myorder_frame'+flag+'.html',
+				});
+	 }
+	 function myorder_wait_getgoods(){
+		 for(var i = 1;i < 6; i++) {
+				 var order_font=document.getElementById("order_font"+i);
+				 order_font.style.color="black";
+					var order_border=document.getElementById('order_border'+i);
+				 order_border.style.visibility='hidden';
+		}
+		var order_font4=document.getElementById("order_font4");
+		order_font4.style.color="#66cc66";
+		 var order_border4=document.getElementById('order_border4');
+		order_border4.style.visibility='visible';
+		 flag=4;
+		 api.openFrame({
+				name: 'myorder_frame',
+				url: './myorder_frame'+flag+'.html',
+				});
+
+
+	 }
+	 function myorder_wait_comment(){
+		 for(var i = 1;i < 6; i++) {
+				 var order_font=document.getElementById("order_font"+i);
+				 order_font.style.color="black";
+					var order_border=document.getElementById('order_border'+i);
+				 order_border.style.visibility='hidden';
+		}
+		var order_font5=document.getElementById("order_font5");
+		order_font5.style.color="#66cc66";
+		 var order_border5=document.getElementById('order_border5');
+		order_border5.style.visibility='visible';
+		 flag=5;
+		var header = $api.byId('header');
+		var fiveorder = $api.byId('five_order');
+		$api.fixStatusBar(header);
+		var headerPos = $api.offset(header);
+		var fiveorderPos = $api.offset(fiveorder);
+		var main = $api.byId('main');
+		var mainPos = $api.offset(main);
+		api.openFrame({
+				name: 'myorder_frame',
+				url: './myorder_frame'+flag+'.html',
+				bounces: true,
+				rect: {
+						x: 0,
+						y: headerPos.h+fiveorderPos.h ,
+						w: 'auto',
+						h: mainPos.h
+				}
+		});
+
+	 }
+</script>
+</html>

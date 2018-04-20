@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			body {
+				margin: 0;
+				width: 100%;
+				height: auto;
+				background: #ffffff;
+			}
+			.address {
+				width: 95%;
+				height: 80px;
+				padding-left: 5%;
+				display: -webkit-box;
+				background: #FFFFFF;
+			}
+			.address img {
+				width: 25px;
+				height: 25px;
+			}
+			.posotionp {
+				width: 5%;
+				margin-top: 25px;
+			}
+			.send_info {
+				width: 75%;
+				margin-left: 5%;
+			}
+			.send_name {
+				padding-top: 5px;
+				padding-bottom: 5px;
+			}
+			.tel {
+				float: right;
+			}
+			.send_address {
+				font-size: 13px;
+			}
+			.address .more {
+				width: 5%;
+				margin-top: 30px;
+			}
+			.pay_style {
+				width: 95%;
+				height: 30px;
+				padding-left: 5%;
+				border-top: 10px solid #d4d4d4;
+				border-bottom: 10px solid #d4d4d4;
+				display: -webkit-box;
+				background: #ffffff;
+				padding-top: 10px;
+				font-size: 15px;
+			}
+			.pay_style .contents {
+				width: 50%;
+				text-align: right;
+				padding-right: 5%;
+			}
+			.pay_style .title {
+				width: 30%;
+			}
+			.pay_style .more {
+				width: 5%;
+			}
+			.more img {
+				width: 20px;
+				height: 20px;
+			}
+			#my_shopping {
+				width: 90%;
+				padding-left: 5%;
+				padding-right: 5%;
+				padding-top: 20px;
+				background: #ffffff;
+				border-bottom: 10px solid #d4d4d4;
+			}
+			.picture {
+				width: 90%;
+				height: 80px;
+				display: -webkit-box;
+				background: #fafafa;
+				padding: 10px 5% 10px 5%;
+				overflow:hidden;
+			}
+			ul {
+				width: 95%;
+				height: auto;
+				overflow:hidden;
+			}
+			.more_goods {
+				width: 5%;
+				margin-top: 30px;
+			}
+			.more_goods img {
+				width: 20px;
+				height: 20px;
+			}
+			ul li {
+				width: 33%;
+				height: 50px;
+				list-style: none;
+				float: left;
+			}
+			li img {
+				width: 90%;
+				height: auto;
+				text-align: center;
+			}
+			.box {
+				width: 100%;
+				height: 35px;
+				border-bottom: 1px solid #d4d4d4;
+				background: #ffffff;
+				display: -webkit-box;
+				padding-top: 15px;
+			}
+			.send_title {
+				width: 25%;
+			}
+			.send_content {
+				width: 65%;
+				text-align: right;
+				color: #9b9b9b;
+				font-size: 13px;
+			}
+			.box .more {
+				width: 5%;
+			}
+			.settlement {
+				width: 100%;
+				height: 60px;
+				position:relative;
+			}
+			.place {
+				text-align: right;
+				margin-top: 10px;
+			}
+			
+			.cost {
+				font-size: 14px;
+				display: -webkit-box;
+				width: 100%;
+				height: 50px;
+				margin-top: 5px;
+			    text-align:right;
+			}
+			.num {
+				width: 40%;
+				padding-right: 10%;
+				text-align: right;
+				position: relative;
+			}
+			.total {
+				width: 50%;
+			}
+			.total img {
+				width: 15px;
+				height: 15px;
+				position: relative;
+				top: 2px;
+			}
+			#rmb {
+				color: #f72933;
+			}
+			.coin {
+				color: #e59e1e;
+			}
+			#message {
+				line-height: 15px;
+				text-align: center;
+				border: none;
+				outline: none;
+				width: 200px;
+			
+			}
+			.store{width:100%;display:-webkit-box;}
+			.store_logo{width:25px;height:25px;margin-right:5px;}
+			
+		</style>
+	</head>
+	<body>
+		<div class="address" onclick="choose_address();">
+			<div class="posotionp"><img src="../../icon/position.png" />
+			</div>
+			<div class="send_info">
+				<div class="send_name">
+					<span id="receiver_name"></span><span class="tel" id="receiver_tel"></span>
+				</div>
+				<p class="send_address" id="receiver_address">
+					快去添加收获地址
+				</p>
+			</div>
+			<div class="more"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div class="pay_style" onclick="choose_pay_style();">
+			<div class="title">
+				支付方式：
+			</div>
+			<div class="contents" id="pay_style_content">
+				网上支付
+			</div>
+			<div class="more"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div id="list"></div>
+		<script type="text/template" id="temp">
+		<div id="my_shopping">
+			{@each datalist as item,index}
+		<div class="store">
+		<img class="store_logo" src="../../icon/public/store_black.png"/>
+		<div class="store_name">${item.storeName}</div>
+		</div>
+			<div class="picture">
+				<ul id="oul">
+					{@each item.cartItemResponses as itemone}
+					<li><img src=${itemone.img} />
+					</li>
+					 {@/each}
+				</ul>
+				<div class="more_goods"><img src="../../icon/public/into_black.png" />
+				</div>
+			</div>
+			<div class="box" onclick="choose_shippingMethod();">
+				<div class="send_title">
+					配送方式
+				</div>
+				<div class="send_content" id="shippingMethod">
+					邮寄
+				</div>
+				<div class="more"><img src="../../icon/public/into_black.png"/>
+				</div>
+			</div>
+			<div class="box">
+				<div class="send_title">
+					买家留言
+				</div>
+				<textarea  id="message" placeholder="（选填）对本次交易的说明"></textarea>
+			</div>
+			<div calss="settlement">
+				<div class="place">
+					将由供应商发货
+				</div>
+				<div class="cost">
+					<div class="num" id="each_num"> 
+						共${item.length}件商品
+					</div>
+					<div class="total">
+						<span>小计：</span><span id="rmb">￥${item.total_price}</span><span style="margin-left:2px;margin-right:2px;">+</span><img src="../../icon/public/integral_y.png" /><span class="coin" id="coin_num">${item.total_point}</span>
+					</div>
+				</div>
+			</div>
+			{@/each}
+
+					
+		</div>
+		</script>
+		
+	
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../script/juicer.js"></script>
+	<script src="../../script/global_variables.js"></script>
+	<script src="../../script/zepto.js"></script>
+	<script src="../../script/jsencrypt.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			shippingMethod_id = 2;
+
+		store_goods_buy=api.pageParam.store_goods_buy;
+		 //alert(JSON.stringify(store_goods_buy));
+		store_goods_buy[0].amount_fond=0;
+		store_goods_buy[0].amount_point=0;
+		
+	
+		for(var i=0;i<store_goods_buy.length;i++){
+		store_goods_buy[i].length=store_goods_buy[i].cartItemResponses.length;
+		}
+		for(var i=0;i<store_goods_buy.length;i++){
+		store_goods_buy[i].total_price=0;
+		store_goods_buy[i].total_point=0;
+		for(j=0;j<store_goods_buy[i].cartItemResponses.length;j++)
+		{
+		store_goods_buy[i].total_price+=store_goods_buy[i].cartItemResponses[j].price;
+		store_goods_buy[i].total_point+=store_goods_buy[i].cartItemResponses[j].point;
+		}
+		}
+		for(var i=0;i<store_goods_buy.length;i++){
+		store_goods_buy[0].amount_fond+=store_goods_buy[i].total_price;
+		store_goods_buy[0].amount_point+=store_goods_buy[i].total_point;
+		}
+		
+		store_goods_buy[0].amount_fond=store_goods_buy[0].amount_fond;
+		store_goods_buy[0].amount_point=store_goods_buy[0].amount_point;
+			
+		
+
+		   // alert(api.pageParam.store_goods_buy);
+
+			pay_style_id = 1;
+			pay_style_arr = [];
+			address = [];
+			get_pay_style();
+			getDefault_address();
+			get_shippingMethod();
+			
+			api.addEventListener({
+				name : 'return_address'
+			}, function(ret, err) {
+				
+				address = ret.value.address;
+				document.getElementById('receiver_name').innerText = "收货人:" + address.consignee;
+				document.getElementById('receiver_tel').innerText = address.phone;
+				document.getElementById('receiver_address').innerText = "收货地址:" +address.areaName +address.address;
+			});
+			
+			api.addEventListener({
+				name : 'choose_shippingMethod'
+			}, function(ret, err) {
+				shippingMethod_id = ret.value.shippingMethod_id;
+				
+			});
+			 render("temp", store_goods_buy, "list");
+			 
+			 api.sendEvent({
+	             name:'settle_info',
+	             extra : {
+	             store_goods_buy:store_goods_buy,
+				 address:address,
+				 shippingMethod_id:shippingMethod_id
+				}
+             });
+             
+             	
+		};
+		function get_pay_style() {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/payment/method/findAll',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						pay_style_arr = data.data;
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function choose_pay_style() {
+			buttons = [];
+			for (var i = 0; i < pay_style_arr.length; i++) {
+				buttons[i] = pay_style_arr[i].name;
+			}
+			api.actionSheet({
+				buttons : buttons
+			}, function(ret, err) {
+				if (ret) {
+					var index = ret.buttonIndex;
+					for (var i = 0; i < pay_style_arr.length; i++) {
+						if (index == i + 1) {
+							document.getElementById('pay_style_content').innerText = buttons[i];
+							pay_style_id = pay_style_arr[i].id;
+						}
+					}
+				}
+			});
+		}
+
+		function choose_address() {
+			api.openWin({
+				name : 'choose_shopping_address',
+				url : '../shopping/choose_shopping_address_win.html'
+			});
+		}
+
+		function getDefault_address() {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/receiver/findAll',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						$api.setStorage("address_data", data.data);
+						if(data.data=="" || data.data==[])
+						{}
+						else{
+						var index = 0;
+						for (var i = 0; i < data.data.length; i++) {
+							if (data.data[i].isDefault == true)
+								index = i;
+							else {
+							};
+						}
+						document.getElementById('receiver_name').innerText = "收货人:" + data.data[index].consignee;
+						document.getElementById('receiver_tel').innerText = data.data[index].phone;
+						document.getElementById('receiver_address').innerText = "收货地址:" + data.data[index].areaName + data.data[index].address;
+						api.sendEvent({
+							name : 'address_info',
+							extra : {
+								address : data.data[index],
+							}
+						});
+						
+					}
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+		
+		function render(temp_id, data_item, div_id) {
+			var tmp = document.getElementById(temp_id);
+			var data = {
+				datalist : data_item
+			}
+			var onelist = juicer(tmp.innerHTML, data);
+			document.getElementById(div_id).innerHTML += onelist;
+		}
+function get_shippingMethod() {
+			$.ajax({
+				type : 'get',
+				url : "http://116.62.22.98:8080/shop/shippingMethod/findAll",
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						shippingMethod = data.data;
+						document.getElementById('shippingMethod').innerText="邮寄";
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+		function choose_shippingMethod() {
+			buttons = [];
+			for (var i = 0; i < shippingMethod.length; i++) {
+				buttons[i] = shippingMethod[i].name;
+			}
+			api.actionSheet({
+				buttons : buttons
+			}, function(ret, err) {
+					var index = ret.buttonIndex;
+					for (var i = 0; i < buttons.length; i++) {
+						if (index == i + 1) {
+							document.getElementById('shippingMethod').innerText = buttons[i];
+							shippingMethod_id = shippingMethod[i].id;
+						}
+					}
+					api.sendEvent({
+						name : 'choose_shippingMethod',
+						extra : {
+							shippingMethod_id : shippingMethod_id
+						}
+					});
+					
+				
+			});
+		}
+		function pay_notify(settle_sn) {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/payment/notify',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				data : {
+					sn : settle_sn
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+					}
+					console.log(JSON.stringify(data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+	</script>
+</html>

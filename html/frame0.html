@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		body{ background-color: #fff; font-family: "宋体";}
+		#con{
+			margin: 10px;
+			font-size: 24px; 
+		}
+		ul{
+			margin-bottom: 10px;
+		}
+		ul li{ 
+			margin: 5px 10px;
+			padding: 5px;
+			color: #000;
+			word-wrap: break-word;
+		}
+		/*广告*/
+		#ads{ width: 100%; margin-bottom: 8px;}
+		#ads img{width:100%;height: auto;}
+		/*广告下面的十个选择按钮*/
+		#content1{ width:100%; height:110px; display: -webkit-box; }
+		#content1-ads{ width:100%; color: #777777;}
+		#content1-ads img{max-height: 28px; max-width: 28px; height: 28px;}
+		#content1-ads1{ height: 50px; width:100%;display: -webkit-box; margin-bottom: 10px;}
+		#content1-ads2{ height:50px; display: -webkit-box;}
+		.btn{ width: 20%; font-size: 14px; }
+		.btn div{text-align: center;}
+		.f{ height: 22px;}
+		/*通知*/
+		#notice{font-size: 14px; height:50px;text-align: center; line-height:50px; display: -webkit-box;}
+		#notice img{max-height: 20px; max-width: 20px; position: relative; top:4px;left: 2px;}
+		#new{ width:32px;  border: 1px solid #7ad37a; border-radius: 4px;}
+		/*广告1*/
+		#ads1{ width: 100%;}
+		#ads1 img{width:100%;height: auto;margin-bottom: 0px; padding-bottom: 0;}
+		/*推荐*/
+		#recommend{width: 100%; height: 220px;  margin-bottom: 8px; position: relative;top:-4px;}
+		#recommend_head{display: -webkit-box; width:100%;line-height:38px; text-align:center; height: 38px; border-bottom: 1px solid #999999;border-top: 1px solid #999999;}
+		.re{ font-size: 16px; margin-left: 6%;}
+		#recommend_foot{width: 100%; height: 182px;line-height:182px; text-align:center;display: -webkit-box; }
+		.recommendcontent{width: 100%; height: 182px;display: -webkit-box; margin-bottom: 10px;}
+		.repic{ width:30%;height: 182px; margin-right: 3%;}
+		.reu{height: 100px; }
+		.red{ height:82px; line-height:30px;text-align:center; font-size: 14px;}
+		.red img{max-height: 16px; max-width: 16px;position:relative;top:2px;}
+		/*服装饰品、食物*/
+		.thinges{ width: 100%; height: 220px;}
+		.thinges_head{ width: 100%; height: 42px;display: -webkit-box;text-align: center; line-height: 42px;}
+		.line{width:8%;height: 1px; position:relative;top:20px;}
+		.thinges_foot{width: 100%; height: 178px;font-size: 14px;}
+		.up{display: -webkit-box;width: 100%; height: 89px; border-top: 2px solid #999999; border-bottom: 1px solid #5c5c5c;}
+		.up_left{width: 48%; border-right: 1px solid #585858;height: 89px;display: -webkit-box;}
+		.up_right{width: 48%; display: -webkit-box;}
+		.down{width: 100%; height: 89px;display: -webkit-box; border-bottom: 1px solid #585858;}
+		.down1{width: 50%; border-right: 1px solid #585858;}
+		.big_one{width:50%;position: relative;left:14px;top:10px;}
+		.big_two img{max-height: 76px; max-width: 76px; position: relative;top:6px;}
+		.small_one{width:100%;position: relative;left:14px;top:10px;}
+		.small_two img{max-height: 50px; max-width: 50px;position: relative;left:14px;top:14px;}
+		/*猜你喜欢*/
+		#like{ width: 100%; height: 46px; background: #66cc66; font-size: 20px; line-height: 46px; text-align: center; color: #ffffff; margin-bottom: 16px;}
+		/*猜你喜欢的内容*/
+		.likecontent{width: 100%; height: 140px;display: -webkit-box; margin-bottom: 10px;}
+		.likeleft,.likeright{ width: 50%; text-align: center; position:relative;left: center;}
+		.llu{height: 88px;}
+		.llu img{max-height: 88px; max-width: 88px;}
+		.lld{height: 52px;position:relative;left: center;top:10px;}
+		.lld img{max-height: 16px; max-width: 16px;position:relative;top:2px;}
+	</style>
+</head>
+<body>
+	<!--广告-->
+	<div id="ads"><img src="../image/ad.png"/></div>
+	<!--广告下面的十个选择-->
+	<div id="content1">
+		<div id="content1-ads">
+			<div id="content1-ads1">
+				<div class="btn">
+					<div><img src="../image/todayrecommend.png" /><br/></div>
+					<div class="f">今日推荐</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/newarrival.png" /><br/></div>
+					<div class="f">新品上市</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/dailyspecials.png" /><br/></div>
+					<div class="f">天天特价</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/grouppurchase.png" /><br/></div>
+					<div class="f">团购活动</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/buysend.png" /><br/></div>
+					<div class="f">买就送</div>
+				</div>
+			</div>
+			<div id="content1-ads2">
+				<div class="btn">
+					<div><img src="../image/gointothestore.png" /><br/></div>
+					<div class="f">进入实体店</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/CommodityAuction.png" /><br/></div>
+					<div class="f">商品拍卖</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/Culturebroadcast.png" /><br/></div>
+					<div class="f">文化直播</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/Publicdonations.png" /><br/></div>
+					<div class="f">公益捐赠</div>
+				</div>
+				<div class="btn">
+					<div><img src="../image/Integralmall.png" /><br/></div>
+					<div class="f">金券商城</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--通知-->
+	<div id="notice">
+		<div style="width:12%"><img src="../image/notice.png" /></div>
+		<div style="width:78%;text-align: left;">世通易物线下实体店已突破10000家</div>
+		<div style="width:10%;line-height:18px;position: relative; top:14px;left: -16px;color: #7ad37a" >
+			<div id="new">详情</div>
+		</div>
+	</div>
+	<!--广告-->
+	<div id="ads1"><img src="../image/timg.jpg"/></div>
+	<!--推荐-->
+	<div id="recommend">
+		<div id="recommend_head">
+			<div id="re1" class="re">推荐</div>
+			<div id="re2" class="re">限时特价</div>
+			<div id="re3" class="re">新品</div>
+			<div id="re4" class="re">服装</div>
+			<div id="re5" class="re">美食</div>
+			<div id="re6" class="re">洗护</div>
+		</div>
+		<div id="recommend_foot">
+			<div style=" width: 10%;"><img style="max-height: 20px; max-width: 20px;" src="../image/le.gif"/></div>
+			<div style=" width: 80%;" class="recommendcontent">
+    	        <div class="repic">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">商品名<br/><span style="color: #c6c6c6;">商品介绍<br/></span>
+    				<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../image/integral.png"/>90)</span>
+    		        </div>
+    	        </div>
+    	        <div class="repic">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">商品名<br/><span style="color: #c6c6c6;">商品介绍<br/></span>
+    				<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../image/integral.png"/>90)</span>
+    		        </div>
+    	        </div>
+    	        <div class="repic" style="margin-right: 0;">
+    	        	<div class="reu"><img style="max-height: 80px; max-width: 80px;" src="../image/use.jpg"/></div>
+    	        	<div class="red">商品名<br/><span style="color: #c6c6c6;">商品介绍<br/></span>
+    				<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../image/integral.png"/>90)</span>
+    		        </div>
+    	        </div>
+			</div>
+			<div style=" width: 10%;"><img style="max-height: 20px; max-width: 20px;" src="../image/ri.gif"/></div>
+		</div>
+	</div>	
+	<!--服饰鞋帽、食品、家用电器-->
+	<div>
+		<!--服饰鞋帽-->
+		<div id="cloth" class="thinges">
+			<div id="cloth_head" class="thinges_head">
+				<div style="width:30%;height: 42px;"></div>
+				<div class="line" style="background:#ff5f5f;"></div>
+				<div style="width:30%; color:#fe6061;">服饰衣帽</div>
+				<div class="line" style="background:#ff5f5f;"></div>
+			</div>
+			<div id="cloth_foot" class="thinges_foot">
+				<div class="up">
+					<div class="up_left">
+						<div class="big_one">毛衣</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+					<div class="up_right">
+						<div class="big_one">T恤</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+				</div>
+				
+				<div class="down">
+					<div class="up_left">
+						<div class="down1">
+							<div class="small_one">平底鞋</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2">
+							<div class="small_one">皮鞋</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					<div class="up_right">
+						<div class="down1">
+							<div class="small_one">鸭舌帽</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2">
+							<div class="small_one">半身裙</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					</div>
+				</div>
+		</div>
+		<!--食品-->
+		<div id="food" class="thinges">
+			<div id="cloth_head" class="thinges_head">
+				<div style="width:30%;height: 42px;"></div>
+				<div class="line" style="background:#ffb400;"></div>
+				<div style="width:30%; color:#ffc353;">食品</div>
+				<div class="line" style="background:#ffb400;"></div>
+			</div>
+			<div id="cloth_foot" class="thinges_foot">
+				<div class="up">
+					<div class="up_left">
+						<div class="big_one">牛奶</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+					<div class="up_right">
+						<div class="big_one">坚果蜜饯</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+				</div>
+				<div class="down">
+					<div class="up_left">
+						<div class="down1">
+							<div class="small_one">米面粮油</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2">
+							<div class="small_one">速食调味</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					<div class="up_right">
+						<div class="down1">
+							<div class="small_one">休闲零食</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2">
+							<div class="small_one">水饮冲调</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					</div>
+				</div>
+		</div>
+		<!--家用电器-->
+		<div id="ele" class="thinges">
+			<div id="cloth_head" class="thinges_head">
+				<div style="width:30%;height: 42px;"></div>
+				<div class="line" style="background:#00a1dd;"></div>
+				<div style="width:30%; color:#00a1dd;">家用电器</div>
+				<div class="line" style="background:#00a1dd;"></div>
+			</div>
+			<div id="cloth_foot" class="thinges_foot">
+				<div class="up">
+					<div class="up_left">
+						<div class="big_one">洗衣机</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+					<div class="up_right">
+						<div class="big_one">电视机</div>
+						<div class="big_two"><img src="../image/cloth.gif"/></div>
+					</div>
+				</div>
+				<div class="down">
+					<div class="up_left">
+						<div class="down1">
+							<div class="small_one">冰箱</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2">
+							<div class="small_one">电饭煲</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					<div class="up_right">
+						<div class="down1">
+							<div class="small_one">空调</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+						<div class="down2">
+							<div class="small_one">电热水壶</div>
+						    <div class="small_two"><img src="../image/cloth.gif"/></div>
+						</div>
+					</div>
+					</div>
+				</div>
+		</div>
+	</div>
+    <!--猜你喜欢-->
+    <div id="like">猜你喜欢</div>
+    <!--猜你喜欢的内容-->
+    <div class="likecontent">
+    	<div class="likeleft">
+    		<div class="llu"><img src="../image/cloth.gif"/></div>
+    		<div class="lld">
+    		商品名<br/>
+    		<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../image/integral.png"/>90)</span>
+    		</div>
+    	</div>
+    	<div class="likeright">
+    		<div class="llu"><img src="../image/cloth.gif"/></div>
+    		<div class="lld">
+    		商品名<br/>
+    		<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../image/integral.png"/>90)</span>
+    		</div>
+    	</div>
+    </div>
+    <div class="likecontent">
+    	<div class="likeleft">
+    		<div class="llu"><img src="../image/cloth.gif"/></div>
+    		<div class="lld">
+    		商品名<br/>
+    		<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../image/integral.png"/>90)</span>
+    		</div>
+    	</div>
+    	<div class="likeright">
+    		<div class="llu"><img src="../image/cloth.gif"/></div>
+    		<div class="lld">
+    		商品名<br/>
+    		<span style="color: #fd2a32;">￥9.0</span><span style="color: #c7c7c7;">(<img src="../image/integral.png"/>90)</span>
+    		</div>
+    	</div>
+    </div>
+	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+
+    };
+    var OS=document.getElementsByClassName('likeleft');
+    OS.onclick=function ()
+    {
+    	api.openWin({
+	 name: 'single_shopping_win',
+	 url: './single_shopping/single_shopping_win.html',
+	 reload:true,
+	
+ });
+    }
+</script>
+</html>

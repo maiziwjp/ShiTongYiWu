@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				background-color: #FFFFFF;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+			}
+			.newsKind,.newsKind3,.newsKind4 {
+				height: 45px;
+				width: 100%;
+				border-bottom: 1px solid #d3d3d3;
+				font-size: 0.9 rem;
+				display: -webkit-box;
+				position:relative;
+			}
+
+			.newsLogo{width:15%;margin-left:5%;position:relative;top:10px;}
+			.newsLogo img{width:25px;height:25px;}
+			.contents{width:60%;text-align:left;position:relative;top:10px;}
+			.more{width:15%;position:relative;top:10px;}
+			.more img{width:25px;height:25px;float:right;}
+		</style>
+	</head>
+	<body>
+		<div class="newsKind ">
+		<div class="newsLogo"><img src="../../icon/newsCenter/service.png" /></div>
+		<div class="contents">在线客服</div>
+		<div class="more"><img src="../../icon/public/into_black.png" /></div>
+		</div>
+
+		<div class="newsKind ">
+		<div class="newsLogo"><img src="../../icon/newsCenter/notice.png" /></div>
+		<div class="contents">通知消息</div>
+		<div class="more"><img src="../../icon/public/into_black.png" /></div>
+		</div>
+
+		<div class="newsKind" id="logis_tic">
+				<div class="newsLogo"><img src="../../icon/newsCenter/transform.png" /></div>
+				<div class="contents">交易物流</div>
+				<div class="more"><img src="../../icon/public/into_black.png" /></div>
+		</div>
+
+		<div class="newsKind" id="shitong">
+		<div class="newsLogo"><img src="../../icon/newsCenter/activity.png" /></div>
+		<div class="contents">世通活动</div>
+		<div class="more"><img src="../../icon/public/into_black.png" /></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+	/*	var news=document.getElementsByClassName('newsKind');
+		for(var i=0;i<news.length;i++){
+		news[i].onclick=function(){
+		api.openWin({
+	        name: 'chat_win',
+	        url: './chat_win.html'
+        });
+		}*/
+
+		var openC=document.getElementById('logis_tic');
+		openC.onclick=function(){
+		api.openWin({
+			name : 'deal_logistics_win',
+			url : './deal_logistics_win.html',
+			bounces : false,
+			rect : {
+				x : 0,
+				w : 'auto',
+			}
+			});
+		};
+		var openD=document.getElementById('shitong');
+		openD.onclick=function(){
+		api.openWin({
+			name: 'chat_win',
+			url: './chat_win.html',
+			bounces : false,
+			rect : {
+				x : 0,
+				w : 'auto',
+			}
+			});
+		};
+
+	</script>
+</html>

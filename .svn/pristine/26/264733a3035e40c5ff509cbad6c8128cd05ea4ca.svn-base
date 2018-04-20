@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				background: #ffffff;
+				margin: 0;
+				width: 100%;
+				font-weight: 600;
+			}
+			button, input {
+				outline: none;
+			}
+			.empty {
+				text-align: center;
+				padding: 120px 0;
+			}
+			/*头像*/
+			.selfimg {
+				width: 100%;
+				height: 7.0 rem;
+				text-align: center;
+			}
+			.selfimg img {
+				width: 70px;
+				height: 70px;
+				border-radius: 70px;
+				border: 2px solid #fff;
+				overflow: hidden;
+				-webkit-box-shadow: 0 0 3px #ccc;
+				box-shadow: 0 0 3px #ccc;
+			}
+			/*登录方式*/
+			.login_style {
+				width: 70%;
+				height: 30px;
+				position: relative;
+				left: 15%;
+				right: 15%;
+				margin-top: 25px;
+				margin-bottom: 25px;
+				text-align: center;
+				color: #585858;
+			}
+			.vline {
+				height: 30px;
+				width: 1px;
+				background: #585858;
+				text-align: center;
+				position: relative;
+				top: 8px;
+			}
+			#pwd_login {
+				width: 40%;
+				color: #66cc66;
+			}
+			#code_login {
+				width: 40%;
+				position: relative;
+				left: 3%;
+			}
+			/*a.active{color:#66CC66;}*/
+			/*a:hover{color:#66CC66;}*/
+			/*输入电话号码栏*/
+			.inputblock {
+				display: -webkit-box;
+				height: 35px;
+				border: 1px solid #999999;
+				border-radius: 5px;
+				margin-left: 15%;
+				margin-right: 15%;
+				margin-top: 15px;
+				margin-bottom: 15px;
+				position: relative;
+			}
+			.inputblock input {
+				line-height: 25px;
+				margin: 5px;
+			}
+			.inputblock img {
+				display: none;
+				height: 19px;
+				width: 19px;
+				position: absolute;
+				right: 5%;
+				top: 8px;
+				float: right;
+			}
+			/*验证码*/
+			#yscode {
+				line-height: 25px;
+				width: 60%;
+			}
+			#getcode {
+				width: 40%;
+				color: #66cc66;
+				font-size: 1.0 rem;
+				position: relative;
+				right: 5%;
+				top: -25px;
+				float: right;
+			}
+			/*登录*/
+			#loginbtn {
+				outline: none;
+				width: 70%;
+				height: 35px;
+				text-align: center;
+				margin-left: 15%;
+				background-color: #66cc66;
+				border-radius: 15px;
+				color: white;
+				font-size: 1.5 rem;
+			}
+			/*注册栏*/
+			.fivepart {
+				width: 70%;
+				height: 2.0 rem;
+				display: -webkit-box;
+				margin-left: 15%;
+				margin-top: 10px;
+			}
+			#register {
+				width: 25%;
+				line-height: 2.0 rem;
+				color: #66cc66;
+				font-size: 1.0 rem;
+				display: inline;
+			}
+			#fgtpass {
+				width: 25%;
+				line-height: 2.0 rem;
+				color: gray;
+				font-size: 1.0 rem;
+				display: inline;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+		<div class="back_part" >
+		<div class="head_part" id="header">
+		<img class="back_icon"  src="../icon/back.png" onclick="api.closeWin();"/>
+		<span>登录</span>
+		</div>
+		</div>-->
+		<div class="selfimg">
+			<img  src="../icon/public/photo.png" />
+		</div>
+		<!--登录方式-->
+		<div class="login_style">
+			<span id="pwd_login" onclick="pwd_login()">密码登录</span><span class="vline"></span><span id="code_login" onclick="code_login()" >验证码登录</span>
+		</div>
+		<!--电话号码输入栏-->
+		<div class="inputblock">
+			<input id="telephone" class="tele" value="" placeholder="输入手机号码" oninput="showclear(this);check_info()"/>
+			<img  id="claer1" class="clearbtn" src="../icon/public/clearbtn.png" onclick="clearinfo(this)"/>
+		</div>
+		<!--密码登录栏-->
+		<div id="p_block" class="inputblock">
+			<input id="passwd" type="password"  placeholder="请输入密码" oninput="showclear(this);check_info();"/>
+			<img  id="claer2" class="clearbtn" src="../icon/public/clearbtn.png" onclick="clearinfo(this)"/>
+		</div>
+		<!--验证码登录栏-->
+		<div id="y_block" class="inputblock" style="display:none;">
+			<input id="yscode" type="password"  placeholder="请输入验证码" oninput="showclear(this);check_info()"/>
+			<button id=getcode onclick="send_code()">
+				发送验证码
+			</button>
+		</div>
+		<!--登录-->
+		<button  id="loginbtn" onclick="login_in()">
+			登录
+		</button>
+		<!--注册和忘记密码-->
+		<div class="fivepart">
+			<span id="register" onclick="register()">立即注册</span>
+			<div style="width:40%;"></div>
+			<span id="fgtpass" onclick="forget_pwd()">忘记密码？</span>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script src="../script/clear_info_and_show_btn.js"></script>
+	<script type="text/javascript" src="../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		/*csrfToken=$api.getStorage("csrfToken");
+		 //alert(csrfToken);
+		 if(csrfToken){
+		 api.openFrame({
+			 					name: 'root',
+	 		 					url: '../index.html',
+                				rect: {
+		        						x:0,
+		        						y:0,
+	        							},
+	  		 				reload:true
+ 							});
+		 }*/
+			/*登录方式默认为密码登录*/
+			login_code = false;
+			/*登录按钮初始化为灰*/
+			login_flag = true;
+			login_color = "gray";
+			document.getElementById("loginbtn").disabled = login_flag;
+			document.getElementById("loginbtn").style.color = login_color;
+			var tel = document.getElementById('telephone');
+			var clear = document.getElementsByClassName('clearbtn');
+			//tel.focus();
+		};
+		function login_in() {
+			if (!login_code) {
+				var telephone = document.getElementById("telephone").value;
+				var passwd = document.getElementById("passwd").value;
+				dataone = {
+					phone : telephone,
+					password : passwd,
+					aliyunCheck : login_code
+				};
+				$.ajax({
+					type : 'post',
+					url : 'http://116.62.22.98:8080/shop/member/login',
+					contentType : "application/json",
+					headers : {
+						loginToken : $api.getStorage('loginToken'),
+						csrfToken : $api.getStorage('csrfToken')
+					},
+					context : "document.body",
+					data : JSON.stringify(dataone),
+					success : function(data, status, xmlHttpRequest) {
+						if (data.responseCode == 0) {
+							api.toast({
+								msg : '登录成功',
+								location:'middle'
+							});
+							$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+							$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+							console.log(JSON.stringify(data));
+							initdata();
+							api.openWin({
+			 					name: 'root',
+			 					frameName:'frame4',
+	  		 				reload:true
+ 							});
+						} else{
+							api.toast({
+								msg : data.responseMsg,
+									location:'middle'
+							});
+							console.log(JSON.stringify(data));
+							}
+					},
+					error : function(err) {
+					}
+				});
+			} else {
+			
+				var telephone = document.getElementById("telephone").value;
+				var code = document.getElementById("yscode").value;
+				datatwo= {
+					phone : telephone,
+					aliyunCheckNumber : code,
+					aliyunCheck : login_code
+				};
+				$.ajax({
+					type : 'post',
+					url : 'http://116.62.22.98:8080/shop/member/login',
+					headers : {
+						loginToken : "+$api.getStorage('loginToken')+",
+						csrfToken : "+$api.getStorage('csrfToken')+"
+					},
+					contentType : "application/json",
+					data : JSON.stringify(datatwo),
+					success : function(data, status, xmlHttpRequest) {
+						if (data.responseCode == 0) {
+							api.toast({
+								msg : '登录成功',
+								location:'middle'
+							});
+							$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+							$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+							
+							 $api.setStorage("login_yet",data.data);
+							console.log(JSON.stringify(data));
+							initdata();
+							api.openWin({
+			 					name: 'root',
+			 					frameName:'frame4',
+	  		 				reload:true
+ 							});
+						} else{
+							api.toast({
+								msg : data.responseMsg,
+								location:'middle'
+							});
+							console.log(JSON.stringify(data));
+							}
+					},
+					error : function(err) {
+					console.log(JSON.stringify(err));
+					}
+				});
+			}
+		}
+
+		function keyboard() {
+			var numboard = api.require('keyboard');
+			numboard.openKeyboard({
+				x : 0,
+				y : api.frameHeight / 2
+			}, function() {
+			});
+		}
+
+		function register() {
+			api.openWin({
+				name : 'register_win',
+				url : './register_win.html',
+				reload : true
+			});
+		}
+
+		function check_info() {
+			if ((document.getElementById("telephone").value != "") && ((document.getElementById("passwd").value != "") || (document.getElementById("yscode").value != ""))) {
+				login_flag = false;
+				login_color = "#fff";
+			} else {
+				login_flag = true;
+				login_color = "gray";
+			}
+			document.getElementById("loginbtn").disabled = login_flag;
+			document.getElementById("loginbtn").style.color = login_color;
+		}
+
+		function forget_pwd() {
+			api.openWin({
+				name : 'forget_passwd_win',
+				url : './forget_passwd_win.html',
+				reload : true
+			});
+		}
+
+		function code_login() {
+			var pp = document.getElementById("p_block");
+			var yy = document.getElementById("y_block");
+			var pwd_login1 = document.getElementById("pwd_login");
+			var code_login1 = document.getElementById("code_login");
+			pwd_login1.style.color = "#585858";
+			code_login1.style.color = "#66cc66";
+			yy.style.display = "block";
+			pp.style.display = "none";
+			login_code = true;
+		}
+
+		function pwd_login() {
+			var pp = document.getElementById("p_block");
+			var yy = document.getElementById("y_block");
+			var code_login1 = document.getElementById("code_login");
+			var pwd_login1 = document.getElementById("pwd_login");
+			pwd_login1.style.color = "#66cc66";
+			code_login1.style.color = "#585858";
+			yy.style.display = "none";
+			pp.style.display = "block";
+			login_code = false;
+		}
+
+		function show_send_code() {
+			clearInterval(reflash);
+			var send_code1 = document.getElementById('getcode');
+			send_code1.disabled = false;
+			send_code1.innerHTML = "发送验证码";
+			send_code1.style.color = "#66CC66";
+		}
+
+		function send_code() {
+			/*检查手机号码是否合法*/
+			var tel = document.getElementById("telephone").value;
+			var pattern = /^1[3,5,8]\d{9}$/;
+			if (!pattern.test(tel)) {
+				api.toast({
+					msg : '请输入合法的手机号码'
+				});
+			} else {
+				get_code(tel);
+				counttime();
+			}
+		}
+
+		function get_code(tel) {
+			$.ajax({
+				type : 'post',
+				url : 'http://116.62.22.98:8080/shop/member/aliyunCheckNumber',
+				contentType : "application/json",
+				data : "{\"phone\":" + tel + "}",
+				success : function(data) {
+					console.log(JSON.stringify(data));
+				},
+				error : function() {
+				}
+			});
+		}
+
+		function counttime() {
+			var send_code1 = document.getElementById('getcode');
+			var time = 59;
+			send_code1.disabled = true;
+			send_code1.innerHTML = '发送成功';
+			send_code1.style.color = 'gray';
+			/*setInterval每隔一定的时间刷新时，不影响后面函数的执行，即异步执行*/
+			reflash = setInterval(function() {
+				send_code1.innerHTML = time + '秒后重试';
+				time--;
+			}, 1000);
+			setTimeout("show_send_code()", 60000);
+		}
+		function initdata(){
+		api.execScript({
+		   name:'root',
+		   frameName:'frame4',
+	        script: 'getname()'
+        });
+        api.execScript({
+		   name:'root',
+		   frameName:'frame4',
+	        script: 'get_my_intergral()'
+        });
+  
+        api.execScript({
+		   name:'root',
+		   frameName:'frame1',
+	        script: 'getcategories()'
+        });
+        api.execScript({
+		   name:'root',
+		   frameName:'frame3',
+	        script: ' getgoods()'
+        });
+         api.execScript({
+		   name:'root',
+		   frameName:'frame2',
+	        script: 'initialfunction()'
+        });
+        
+		}
+	</script>
+</html>

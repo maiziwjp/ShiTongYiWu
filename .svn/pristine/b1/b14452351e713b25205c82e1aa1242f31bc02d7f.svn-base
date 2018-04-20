@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+    <title>商家</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    
+    	body{ margin: 0; padding: 0;}
+    	.content{ font-size:0.42rem; line-height:50px;  width:9.0rem; padding-left:0.5rem; padding-right:0.5rem; height: 50px; display: -webkit-box; border-top:1px solid #d4d4d4;}
+   		.content1{ width:2.2rem; height: 50px; }
+    	.content2{ width:5.0rem; height: 50px; font-size: 0.40rem;}
+    	img{ width: 22px;  height: 22px; position:relative;top:5px;}
+    	span{ color:#66cc66;}
+    </style>
+</head>
+<body>
+	<div class="content" style=" border-top: 10px solid #d2d2d2;"><div class="content1">店铺简介</div><div class="content2">*********</div></div>
+	<div class="content"><div class="content1">收藏数量</div><div class="content2">0</div></div>
+	<div class="content"><div class="content1">联系店家</div><div class="content2">0571-56785678</div></div>
+	<div class="content" id="openmap" style=" height: 100px; line-height: 30px; padding-top: 10px;"><div class="content1" style=" padding-top: 14px;">详细地址</div>
+	<div class="content2">浙江省杭州市江干区白杨街道学府路22号</div><div style=" padding-left: 0.5rem; padding-top: 14px;"><span>地图<img src="../../icon/public/into_black.png"/></span></div></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+	var lon,lat;
+		var content=document.getElementsByClassName('content2');
+		  $.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/store/'+api.pageParam.storeid,
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+				if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						if(data.data.xxStore.memo=='')
+						{
+						content[0].innerHTML="无";
+						}
+						else{
+						content[0].innerHTML=data.data.xxStore.memo;
+						}
+						content[1].innerHTML=data.data.xxStore.collections;
+						content[2].innerHTML=data.data.xxStore.phone;
+						content[3].innerHTML=data.data.xxArea.fullName;
+						lon=data.data.xxArea.longitude;
+						lat=data.data.xxArea.latitude;
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						
+					}
+				},
+				error : function(err) {
+				}
+	});
+		document.getElementById('openmap').onclick=function()
+		{
+		/*
+		var map = api.require('bMap');
+			map.open({
+    			rect: {
+        			x: 20,
+        			y: 240,
+        			w:320,
+        			h: 180
+    			},
+    			center: {
+        			lon: lon,
+        			lat: lat
+    			},
+    			zoomLevel: 10,
+    			showUserLocation: true,
+    			fixedOn: api.frameName,
+    			fixed: true
+		}, function(ret) {
+    		if (ret.status) {
+    		}
+		});
+			*/
+		}
+	};
+	
+</script>
+</html>

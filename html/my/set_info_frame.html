@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				background: #FFFFFF;
+				margin: 0;
+			}
+			.first_line {
+				width: 95%;
+				height: 70px;
+				padding-left: 5%;
+				display: -webkit-box;
+				background: #FFFFFF;
+			}
+			.part1 {
+				width: 20%;
+				height: 50px;
+				margin-top: 10px;
+			}
+			.part2 {
+				height: 50px;
+				position: absolute;
+			}
+			#photo {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				border-radius: 50px;
+				border: 2px solid #fff;
+				overflow: hidden;
+				-webkit-box-shadow: 0 0 3px #ccc;
+				float: left;
+			}
+			#nick_name {
+				font-size: 14px;
+				position: relative;
+				top:5px;
+			}
+			#member_name {
+				color: #a6a6a6;
+				font-size: 12px;
+				position: relative;
+				bottom:5px;
+			}
+			.hline {
+				width: 90%;
+				height: 1px;
+				background: #d4d4d4;
+				margin-left: 5%;
+			}
+			.second_line {
+				width: 100%;
+				height: 50px;
+				border-bottom: 1px solid #d4d4d4;
+				display: -webkit-box;
+			}
+			.second_line .titles {
+				width: 80%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 15px;
+				margin-top: 5px;
+				margin-left:5%;
+
+			}
+			.second_line .modifily {
+				width: 10%;
+				margin-top: 13px;
+
+			}
+			.second_line .modifily img {
+				height: 25px;
+				width: 25px;
+				float:right;
+
+			}
+			.hbar{width:100%;height:10px;background:#d4d4d4;}
+		</style>
+	</head>
+	<body>
+		<div class="first_line">
+			<div class="part1"><img id="photo" src="../../icon/public/photo.png"/>
+			</div>
+			<div class="part2">
+				<p id="nick_name">
+					世通易物
+				</p>
+				<p id="member_name">
+					会员名：shitongyiwu
+				</p>
+			</div>
+		</div>
+		<div class="hline"></div>
+		<div class="second_line" id="address_manage">
+			<div class="titles" >
+				我的收货地址
+			</div>
+			<div class="modifily"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+
+		<div class="hbar"></div>
+		<div class="second_line" id="account">
+			<div class="titles">
+				账户与安全
+			</div>
+			<div class="modifily"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		    api.addEventListener({
+    		name: 'nickname_change'
+			}, function(ret, err) {
+			var nickname_change1= document.getElementById("member_name");
+			nickname_change1.innerHTML="会员名："+ret.value.nickname;
+		 });
+			getnickname();
+		};
+		function getnickname(){
+		$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+					    document.getElementById('member_name').innerHTML = "会员名："+data.data.nickname;
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					} else {
+					}
+				},
+				error : function(err) {
+					//console.log(JSON.stringify(err));
+				}
+			});
+		}
+		var openF=document.getElementById('account');
+		openF.onclick=function(){
+		api.openWin({
+				name : 'account_win',
+				url : './account_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+		};
+		var openA=document.getElementById('address_manage');
+		openA.onclick=function(){
+		api.openWin({
+			name : 'addressmanage_win',
+			url : './address_manage_win.html',
+			bounces : false,
+			rect : {
+				x : 0,
+				w : 'auto',
+			}
+			});
+		};
+
+	</script>
+</html>

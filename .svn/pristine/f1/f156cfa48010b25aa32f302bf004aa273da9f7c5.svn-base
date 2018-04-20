@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			body {
+				margin: 0;
+				width: 100%;
+				height: auto;
+				background: #ffffff;
+			}
+			.address {
+				width: 95%;
+				height: 80px;
+				padding-left: 5%;
+				display: -webkit-box;
+				background: #FFFFFF;
+			}
+			.address img {
+				width: 25px;
+				height: 25px;
+			}
+			.posotionp {
+				width: 5%;
+				margin-top: 25px;
+			}
+			.send_info {
+				width: 75%;
+				margin-left: 5%;
+			}
+			.send_name {
+				padding-top: 5px;
+				padding-bottom: 5px;
+			}
+			.tel {
+				float: right;
+			}
+			.send_address {
+				font-size: 13px;
+			}
+			.address .more {
+				width: 5%;
+				margin-top: 30px;
+			}
+			.pay_style {
+				width: 95%;
+				height: 30px;
+				padding-left: 5%;
+				border-top: 10px solid #d4d4d4;
+				border-bottom: 10px solid #d4d4d4;
+				display: -webkit-box;
+				background: #ffffff;
+				padding-top: 10px;
+				font-size: 15px;
+			}
+			.pay_style .contents {
+				width: 50%;
+				text-align: right;
+				padding-right: 5%;
+			}
+			.pay_style .title {
+				width: 30%;
+			}
+			.pay_style .more {
+				width: 5%;
+			}
+			.more img {
+				width: 20px;
+				height: 20px;
+			}
+			#my_shopping {
+				width: 90%;
+				padding-left: 5%;
+				padding-right: 5%;
+				padding-top: 20px;
+				background: #ffffff;
+				border-bottom: 10px solid #d4d4d4;
+				border-top: 10px solid #d4d4d4;
+			}
+			.picture {
+				width: 90%;
+				height: 80px;
+				display: -webkit-box;
+				background: #fafafa;
+				padding: 10px 5% 10px 5%;
+			}
+			ul {
+				width: 95%;
+				height: auto;
+			}
+			.more_goods {
+				width: 5%;
+				margin-top: 30px;
+			}
+			.more_goods img {
+				width: 20px;
+				height: 20px;
+			}
+			ul li {
+				width: 33%;
+				height: 50px;
+				list-style: none;
+				float: left;
+			}
+			li img {
+				width: 90%;
+				height: auto;
+				text-align: center;
+			}
+			.box {
+				width: 100%;
+				height: 35px;
+				border-bottom: 1px solid #d4d4d4;
+				background: #ffffff;
+				display: -webkit-box;
+				padding-top: 15px;
+			}
+			.send_title {
+				width: 25%;
+			}
+			.send_content {
+				width: 65%;
+				text-align: right;
+				padding-right: 5%;
+				color: #9b9b9b;
+				font-size: 13px;
+			}
+			.box .more {
+				width: 5%;
+			}
+			.settlement {
+				width: 100%;
+				height: 40px;
+			}
+			.place {
+				text-align: right;
+				margin-top: 10px;
+			}
+			.cost {
+				font-size: 14px;
+				display: -webkit-box;
+				width: 100%;
+				height: 36px;
+				position: relative;
+				margin-top: 5px;
+			}
+			.num {
+				width: 40%;
+				padding-right: 10%;
+				text-align: right;
+				position: relative;
+			}
+			.total {
+				width: 50%;
+			}
+			.total img {
+				width: 15px;
+				height: 15px;
+				position: relative;
+				top: 2px;
+			}
+			#rmb {
+				color: #f72933;
+			}
+			.coin {
+				color: #e59e1e;
+			}
+			.shopping_info {
+				padding: 5px 5% 5px 5%;
+				width: 90%;
+				height: 100px;
+				display: -webkit-box;
+				background: #fafafa;
+			}
+			.param {
+				margin-left: 5%;
+				width: 70%;
+				height: 90px;
+			}
+			.shopping_info img {
+				width: 90px;
+				height: 90px;
+			}
+			#price {
+				color: #fd2a32;
+			}
+			#size {
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+			#ordermassage{ width:90%; margin-left: 5%; margin-right: 5%; color: #66cc66; height: 40px; line-height: 40px;border-bottom:1px solid #d4d4d4;}
+			.storeaddress{ height: 30px; line-height: 30px; margin-bottom: 8px;}
+			.btn{ color: #66cc66; height: 36px; width: 62px; margin-left: 80%; line-height:36px; text-align:center; border: 1px solid #66cc66; border-radius: 18px; margin-bottom: 10px;}
+		</style>
+	</head>
+	<body>
+		<div id="ordermassage">买家已付款</div>
+		<div class="address">
+			<div class="posotionp"><img src="../../icon/position.png" />
+			</div>
+			<div class="send_info">
+				<div class="send_name">
+					<span id="receiver_name">收货人：xxx</span><span class="tel" id="receiver_tel">15965459625</span>
+				</div>
+				<p class="send_address" id="receiver_address">
+					收获地址：浙江工商大学钱江湾生活区40幢508
+				</p>
+			</div	
+		</div>
+		</div>
+		<div id="my_shopping">
+			<div class="storeaddress">杭州客运中心发货</div>
+			<div class="shopping_info">
+				<img  id="pimg" src="../../image/cloth.gif" />
+				<div calss="param">
+					<div id="name">
+						******
+					</div>
+					<div id="size"></div>
+					<div id="price">
+						￥***
+					</div>
+				</div>
+			</div>
+			
+			<!--<div calss="settlement">
+				<div class="place">
+					免运费
+				</div>
+				<div class="cost">
+					<div class="num">
+						共<span>3</span>件商品
+					</div>
+					<div class="total">
+						<span>小计：</span><span id="rmb">￥59.0</span><span style="margin-left:2px;margin-right:2px;">+</span><img src="../../icon/public/integral_y.png" /><span class="coin">590</span>
+					</div>
+				</div>
+			</div>-->
+			<div class="btn" id="pay_back">退款</div>
+			<div class="btn" id="go_pay" onclick="go_pay(this);">去付款</div>
+		</div>
+		</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		order_info=api.pageParam.order_info;
+		settle_sn=order_info.settle_sn;
+		if(order_info.status==false)
+		{
+		document.getElementById('ordermassage').innerText="等待付款";
+		document.getElementById('pay_back').style.display="none";
+		}
+		
+		else{
+			document.getElementById('go_pay').style.display="none";
+		}
+		//alert(JSON.stringify(order_info));
+		document.getElementById('receiver_name').innerText=order_info.address.consignee;
+		document.getElementById('receiver_tel').innerText=order_info.address.phone;
+		document.getElementById('receiver_address').innerText = "收货地址:" + order_info.address.areaName + order_info.address.address;
+		document.getElementById('pimg').src = order_info.shoppingDetails.image;
+		document.getElementById('name').innerText = order_info.shoppingDetails.name;
+		if (order_info.shoppingDetails.specificationItems == "" || order_info.shoppingDetails.specificationItems == "[]") {
+				price = order_info.shoppingDetails.price;
+					document.getElementById('price').innerText = "￥"+ order_info.shoppingDetails.price;
+				}
+				else{
+				param = "";
+				for (var i = 0; i < JSON.parse(order_info.shoppingDetails.specificationItems).length; i++) {
+					param += JSON.parse(order_info.shoppingDetails.specificationItems)[i].name + ":" + JSON.parse(order_info.shopping_param[order_info.good_index].specificationValues)[i].value + " ";
+				}
+				document.getElementById('size').innerText = param;
+				document.getElementById('price').innerText = "￥" + order_info.shopping_param[order_info.good_index].price;
+				}
+		};
+		function go_pay(elem){
+	
+			body = "";
+			subject = order_info.shoppingDetails.name;
+			tradeNO=settle_sn;
+			var aliPayPlus = api.require('aliPayPlus');
+			/*aliPayPlus.payOrder({
+			 orderInfo: 'app_id="2017101209264130"&biz_content={"timeout_express":"30m","seller_id":"15967150525","product_code":"QUICK_MSECURITY_PAY","total_amount":"0.02","subject":"1","body":"我是测试数据","out_trade_no":"34213545"}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA&tamp=2017-02-16 10:12:18&version=1.0&sign=*******'
+			 }, function(ret, err) {
+			 api.alert({
+			 title: '支付结果',
+			 msg: ret.code,
+			 buttons: ['确定']
+			 });
+			 });*/
+			aliPayPlus.config({
+				appId : '2017101209264130',
+				rsaPriKey : 'MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAKDcT9+4RLDyALsIpYk+/fNmnWayYnm/UbFgOkMRG2NyzcT3FiFQ6phY/xMG89y7KWpMC6Fn37fv48rVXT62sMf8YZgWEgwMlR6mF8PKPM88YK/0DCwVeFfEmKQp8327m68uYJXHwJqJ8OBmPY5b2v2YxmwICrVUKK8EtGfv9xcbAgMBAAECgYEAlpVm2EFBXHtPH8c6Xz5usHnxAwAem2Xz7Z3tLHdJMlF4OtgrCUkcMz2smn05r/otDOrfQFti3Gde0LPntBuFZFJKmotZEDii0octgaupI2TKfte/amKg1ZlunD6MKIW2XacEZOBNERZeM3WQoEkFJ9/uS1T+7I0intoIN+TexsECQQDkg3pneU8nwl/LkxyOzQkJfaKEbaPZMGO2TCfyFFJpwzRaxKYy597PPqCnU5Aa9eK8NYsAhL60KB+9U/2inZNRAkEAtDWfvUlU6ND/Ft+EIlz5wgfIZonI2LrrudL7zOFI1qczsQ7uBJXlc3pvRC8UDbbGZmaFIY1RVSeCKkvV3Q6wqwJBAJGnUGUWCKMyHPdYfLJ09FatUuKQNAji9BulbSy7UVCCkSNuBvWZoAZ/R81/0PGuWuhWRJR/CEMy9BAsshVt1RECQB7uiWGjIajonrBdYz/Gt7P/Q/2drtTMmMOHnGLZVHhLsMq2ZlJxLDY7ELgiYI3ODpXrCPTuXcSBCI2cALR13gsCQQC6JbVwfZHYEF9/drFnDdfkEBQAoBJynHm9T5wRYWChXr13NBFfQHmnF2bf2xop1V+IHCPImwUoBwV5zleB3shC'
+			}, function(ret, err) {
+				aliPayPlus.pay({
+					subject : subject,
+					body : body ,
+					//amount : num * price,
+					amount : 0.01,
+					tradeNO : tradeNO,
+					rsa : true
+				}, function(ret, err) {
+					if (ret.code == 9000) {
+						pay_notify(settle_sn);
+		                elem.style.display="none";
+		                document.getElementById('pay_back').style.display="block";
+						
+						}
+
+					if (ret.code == 6001) {
+							api.toast({
+								msg : '付款取消！',
+								location:'middle'
+							});
+						
+						}
+					
+				});
+			});
+		
+		}
+		function pay_notify(settle_sn) {
+		
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/payment/notify',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				data : {
+					sn : settle_sn
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+					}
+					console.log(JSON.stringify(data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+	</script>
+</html>

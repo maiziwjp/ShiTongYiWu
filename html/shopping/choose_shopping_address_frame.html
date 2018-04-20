@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				background: #fff;
+			}
+			.shopping {
+				border-bottom: 10px solid #f3f4f5;
+				border-top: 1px solid #f3f4f5;
+				font-size: 14px;
+			}
+			.header {
+				padding-left: 5%;
+				padding-right: 5%;
+				padding-top: 3px;
+				padding-bottom: 3px;
+				display: -webkit-box;
+			}
+			.content {
+				height: 90px;
+				width: 100%;
+			}
+			.receiver {
+				width: 72%;
+				height: 30px;
+				font-size: 14px;
+				position: relative;
+				top: 10px;
+				float: left;
+			}
+			.receive_tele {
+				width: 20%;
+				height: 30px;
+				font-size: 14px;
+				position: relative;
+				top: 10px;
+				float: right;
+			}
+			.areaname {
+				padding-left: 5%;
+				padding-right: 5%;
+				padding-top: 3px;
+				padding-bottom: 3px;
+				font-size: 14px;
+			}
+			.address {
+				padding-left: 5%;
+				padding-right: 5%;
+			}
+			.last {
+				padding-left: 5%;
+				padding-right: 5%;
+				height: 40px;
+				border-top: 1px solid #f3f4f5;
+				display: -webkit-box;
+				font-size: 14px;
+				position: relative;
+			}
+			.check img {
+				width: 18px;
+				height: 18px;
+			}
+			img {
+				position: relative;
+				top: 10px;
+			}
+			span {
+				position: relative;
+				top: 7px;
+			}
+			.edit {
+				position: absolute;
+				top: 3px;
+				right: 25%;
+			}
+			.delete {
+				position: absolute;
+				top: 1px;
+				right: 5%;
+			}
+			.delete img {
+				width: 25px;
+				height: 25px;
+			}
+			.delete span {
+				position: relative;
+				top: 2px;
+			}
+			.edit img {
+				width: 18px;
+				height: 18px;
+			}
+			#content1, #content2, #content3 {
+			}
+			.loading {
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				top: 200px;
+				left: 50%;
+				display: none;
+			}
+			.ddd{color:#F72933;}
+			#loading{width:20px;height:20px;position: absolute;left:50%;top:15.0rem;display:none;}
+			.active{color:#66CC66;
+			}
+		</style>
+	</head>
+	<body>
+		<img id="loading" src="../../image/loading_more.gif"/>
+		<div id="list"></div>
+		<script type="text/template" id="temp">
+		{@each datalist as item}
+		<div class="shopping " id=${item.id} onclick="select(this);">
+		<div class="header">
+		<div class="receiver">
+		${item.consignee}
+		</div>
+		<div style="width:20%;height:30px;font-size:14px;position:relative;top:10px;" class="receive_tele">
+		${item.phone}
+		</div>
+		</div>
+		<div class="areaname">
+		${item.areaName}
+		</div>
+		<div class="address">${item.address}</div>
+		<div class="last">
+		{@if item.isDefault == true}
+		<div class="check"><img  src="../../icon/address_manage/check.png"/><span >默认地址</span></div>
+		{@else}
+		<div class="check" ><img  src="../../icon/address_manage/uncheck.png"/><span >一般地址</span></div>
+		{@/if}
+		</div>
+		</div>
+		  {@/each}
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../script/juicer.js"></script>
+	<script src="../../script/global_variables.js"></script>
+    <script src="../../script/zepto.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			getdata();
+			
+			api.addEventListener({
+					name : 'reflash_address'
+				}, function(ret, err) {
+				 getdata();
+					
+						
+				});
+		};
+
+
+		function getdata() {
+		document.getElementById('list').innerHTML="";
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/receiver/findAll',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+				console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+						
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						$api.setStorage("address_data", data.data);
+						render("temp",data.data);
+						
+				
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+        function select(tag){
+        address_id=tag.id;
+        if (tag == $api.dom('.active'))
+			return;
+		var eFootLis = $api.domAll('.shopping'),index = 0;
+		for (var i = 0, len = eFootLis.length; i < len; i++) {
+			if (tag == eFootLis[i]) {
+				index = i;
+				address_id=eFootLis[i].id;
+			} else {
+				$api.removeCls(eFootLis[i], 'active');
+			}
+		}
+		$api.addCls(eFootLis[index], 'active');
+		address_id=document.getElementsByClassName('active')[0].id;
+		 item=$api.getStorage("address_data");
+		for(var i=0;i<item.length;i++)
+		{ if(item[i].id==address_id)
+		{address_index=i;
+		break;
+		}
+		}
+		api.sendEvent({
+				name : 'return_address',
+				extra : {
+					address:item[address_index]
+				}
+			});
+			api.closeWin();
+        }
+        
+		function render(idname,data){
+		var tmp=document.getElementById(idname);
+		var data={datalist:data};
+		var onelist=juicer(tmp.innerHTML,data);
+		document.getElementById('list').innerHTML+=onelist;
+		}
+		
+	</script>
+	</body>
+</html>

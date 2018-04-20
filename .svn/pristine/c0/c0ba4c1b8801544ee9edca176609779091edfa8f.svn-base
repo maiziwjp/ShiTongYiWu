@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+    
+    <title>首页搜索</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    html, body {margin:0;width:100%;font-weight:600;}
+    #winpart {
+    	background:#66CC66;
+
+				width: 100%;
+
+    					width: 100%;
+
+				height: 45px;
+				position: fixed;
+				display: -webkit-box;
+				
+			}
+    header{background:#66CC66;}
+   #search{position:fixed;display: -webkit-box;text-align: center; background-color:#66cc66;  width: 100%; height: 40px;line-height: 40px;font-size: 18px;position:absolute;top:35px;}
+   #back{color:#fff; width: 16%; line-height: 40px;font-size: 18px; height: 40px; text-align: center;}
+   #back img{ max-height: 22px; max-width: 22px;}
+   #se{display: -webkit-box; width: 68%; height: 26px; line-height: 26px; text-align: center; border: 1px solid #b4e6b3; border-radius:2px; background: #b4e6b3;}
+   
+    </style>
+</head>
+<body>
+<header id="winpart" >
+        	<div id="search">
+            	<div id="back"><img src="../icon/public/back_small.png"/></div>
+            	<div id="se">
+            		<div style="width: 26%;" onclick="selectshoppingorstore()" id="selectshoppingorstore">商品</div>
+            		<div ><img src="../image/shopselect.gif" style=" max-height: 8px; max-width: 8px; position: relative;top:4px;"/></div>
+            		<input id="shoppingname" style=" position: relative; left:30px;top:2px; color:#859787; outline: none;height: 20px; line-height: 20px;" type="text" placeholder=""/>
+            	</div>
+            	<div class="back" style="text-align: center; position: relative; left:8px;top:-6px;" onclick="allshopping();">搜索</div>
+            </div>
+</header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/searchcontent.js"></script>
+<script type="text/javascript">
+	
+	apiready = function(){
+	document.getElementById('shoppingname').focus();
+	api.addEventListener({
+    		name: 'shoppingorstore'
+			}, function(ret, err) {
+			var selectshoppingorstore=document.getElementById('selectshoppingorstore');
+			selectshoppingorstore.innerHTML=ret.value.key1;
+	});
+	$api.fixStatusBar($api.dom('#winpart'));
+		
+			api.setStatusBarStyle({
+				style : '#66cc66',
+				color : '#fff'
+			});
+	    var header=document.getElementById("header");
+	    var systemType = api.systemType;
+	    var height=document.getElementById("winpart").offsetHeight;
+        api.openFrame({
+	        name: 'search_frame',
+	        url: './search_frame.html',
+	        rect: {
+		        x:0,
+		        y:height,
+	        },
+	        vScrollBarEnabled:false,
+	        hScrollBarEnabled:false,
+	        reload:true,
+	        allowEdit:true
+        });
+        /*关闭顶部搜索栏*/
+        document.getElementById("back").onclick=function(){
+        	api.closeWin();
+        };
+	};
+	 function allshopping()
+ 	{	
+ 		var searchvalue=[];
+ 		var name=document.getElementById('shoppingname').value;
+
+ 		api.sendEvent({
+				name : 'load_list',
+				extra : {
+					search_values : name
+				}
+			});
+ 		searchvalue=name;
+ 		if(localStorage.getItem("demokey")!=null)
+ 		{
+ 		searchvalue+='|'+localStorage.getItem("demokey");
+ 		}
+        localStorage.setItem("demokey", searchvalue);
+ 		api.openWin({
+			 name: 'product_display_win',
+	 		 url: './shopping/product_display_win.html',
+	 		 pageParam:{
+                          name:name
+                    },
+	  		 reload:true
+ 		});
+ 	}
+ 	//点击切换商品或者店铺
+ 	function selectshoppingorstore()
+ 	{
+ 		var x=document.getElementById("back").offsetWidth;
+ 		api.openFrame({
+	        name: 'searchshoppingorstroe_frame.html',
+	        url: './shopping_baskets/searchshoppingorstroe_frame.html',
+	        rect: {
+		        x:x,
+		        y:62,
+		        w:72,
+		        h:66,
+	        },
+	        vScrollBarEnabled:false,
+	        hScrollBarEnabled:false,
+	        reload:true,
+	        allowEdit:true
+        });
+ 	}
+</script>
+</html>

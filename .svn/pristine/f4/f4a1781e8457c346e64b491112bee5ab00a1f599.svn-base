@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/../style.css"/>
+		<style>
+			body {
+				width: 100%;
+				height: 100%;
+				font-family: "楷体";
+				margin: 0;
+			}
+			#picture {
+				width: 100%;
+				height: 350px;
+			}
+			.cloth_info {
+				width: 90%;
+				height: auto;
+				margin-left: 5%;
+				display: -webkit-box;
+				opacity: 1;
+			}
+			.latest_info {
+				width: 80%;
+				text-align: left;
+				font-size: 15px;
+			}
+			.enjoy {
+				height: 35px;
+				width: 35px;
+				padding-left: 80%;
+				display: none;
+			}
+			.cost {
+				display: -webkit-box;
+				margin-left: 5%;
+				padding-top: 5px;
+				font-size: 17px;
+			}
+			.coin_logo img {
+				width: 15px;
+				height: 15px;
+			}
+			#rmb {
+				color: #fd2a32;
+				margin-right: 20px;
+			}
+			#coin {
+				color: #ff9900;
+			}
+			.border_box {
+				height: 40px;
+				width: 100%;
+				border-top: 1px solid #d3d3d3;
+				font-size: 0.9 rem;
+				display: -webkit-box;
+			}
+			.money_logo {
+				height: 20px;
+				width: 20px;
+				padding-top: 8px;
+			}
+			.pay {
+				display: -webkit-box;
+				width: 60%;
+			}
+			.choice_word {
+				position: relative;
+				bottom: 4px;
+			}
+			.info_style {
+				width: 90%;
+				margin-left: 5%;
+				display: -webkit-box;
+				padding-top: 8px;
+				position: relative;
+			}
+			.info_style label {
+				font-size: 0.9 rem;
+				-webkit-box-flex: 2.0;
+			}
+			.info_style p {
+				font-size: 0.9 rem;
+				-webkit-box-flex: 5.0;
+			}
+			.size {
+				position: relative;
+				text-align: left;
+			}
+			#address {
+				position: relative;
+				text-align: left;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			#choicePick {
+				text-align: left;
+				position: relative;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			.info_style img {
+				height: 23px;
+				width: 23px;
+				-webkit-box-flex: 2.0;
+			}
+			/*商铺logo和店名等级*/
+			.store {
+				width: 40%;
+				height: 60px;
+				margin-left: 5%;
+				margin-top: 15px;
+				margin-bottom: 15px;
+				display: -webkit-box;
+			}
+			.store_logo {
+				-webkit-box-flex: 1;
+			}
+			.store_nandr {
+				height: 50px;
+				width: 50px;
+				-webkit-box-flex: 3;
+				position: relative;
+			}
+			.store_nandr #store_name {
+			}
+			.store_nandr #rank {
+			}
+			.store_details {
+				width: 90%;
+				height: 60px;
+				margin-left: 5%;
+				display: -webkit-box;
+				text-align: center;
+			}
+			.store_detail {
+				width: 33%;
+				height: 50px;
+				text-align: center;
+			}
+			.vline {
+				height: 50px;
+				width: 1px;
+				background: gray;
+			}
+			/*详情*/
+			.detail_logo {
+				width: 100%;
+				height: 50px;
+				background-color: #66cc66;
+				display: -webkit-box;
+				font-size: 1.5 rem;
+			}
+			.xxxx {
+				text-align: center;
+				color: white;
+				margin-top: 12px;
+				width: 30%;
+			}
+			.hline {
+				margin-top: 25px;
+				width: 20%;
+				height: 1px;
+				margin-left: 15%;
+				background: #FFFFFF;
+			}
+			#line2 {
+				position: relative;
+				left: -15%;
+			}
+			p img {
+				width: 100%;
+				height: auto;
+			}
+			#list {
+				background: #EEEEEE;
+			}
+			#parameterValues {
+				width: 95%;
+				background: #EEEEEE;
+				font-size: 14px;
+				padding-left: 5%;
+				color: #8D978F;
+			}
+			.eachvalue {
+				display: -webkit-box;
+				margin-top: 5px;
+				padding-top: 3px;
+				padding-bottom: 3px;
+			}
+			.group {
+				margin-top: 5px;
+			}
+			.eachtitle {
+				width: 30%;
+			}
+			.eachinfo {
+				width: 70%;
+			}
+			#marketprice {
+				color: #A6A6A6;
+				font-size: 13px;
+				text-decoration: line-through;
+				padding-top: 5px;
+				padding-left: 5%;
+			}
+			.scale {
+				width: 90%;
+				padding-left: 5%;
+				font-size: 13px;
+				display: -webkit-box;
+			}
+			#scaleamount {
+				width: 30%;
+				text-align: left;
+			}
+			#score {
+				width: 30%;
+				text-align: left;
+			}
+			.shippingMethod {
+				text-align: left;
+			}
+		</style>
+	</head>
+	<body>
+		<img id="picture" src="../../image/wait_loading.jpg"/>
+		<div class="cloth_info">
+			<p class="latest_info" id="info_value" >
+				世通易物商城
+			</p>
+			<img class="enjoy" src="../../icon/enjoy.png"/>
+		</div>
+		<div class="cost">
+			<span id="rmb"> ￥90.0</span>
+			<div class="coin_logo"><img src="../../icon/public/integral_y.png" />
+			</div>
+			<span  id="coin">900</span>
+		</div>
+		<div id="marketprice" >
+			市场价5800
+		</div>
+		<div class="scale">
+			<div id="scaleamount">
+				销量
+			</div>
+			<div id="score">
+				评分
+			</div>
+		</div>
+		<div class="border_box ">
+			<div style="margin-left: 5%;display:-webkit-box">
+				<div class="pay">
+					<img class="money_logo"  src="../../icon/money_logo.png"/><label class="choice_word">退款</label>
+				</div>
+				<div class="pay" id="zhifu">
+					<img class="money_logo"  src="../../icon/money_logo.png"/><label class="choice_word">支付宝</label>
+				</div>
+			</div>
+		</div>
+		<div class="border_box " >
+			<div class="info_style" onclick="choose_param();">
+				<label>已选择：</label>
+				<p class="size" id="param">
+					选择规格
+				</p>
+				<img class="more" src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div class="border_box " type= "button" id="shipping_button" onclick="choose_shippingMethod();" >
+			<div class="info_style">
+				<label>配送方式:</label>
+				<p  id="shippingMethod">
+					邮寄
+				</p>
+				<img class="more"  src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div class="border_box " id="pickup">
+			<div class="info_style" id="buySelf">
+				<label>实体店自提:</label>
+				<p id="choicePick">
+					否
+				</p>
+				<img class="more" id="pickup_more" src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div class="border_box " >
+			<div class="info_style" onclick="choose_address();">
+				<label>选择配送地址：</label>
+				<p id="address">
+					去添加收获地址
+				</p>
+				<img class="more" src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<!--<div class="border_box">
+		<div class="info_style">
+		<label>详情</label><p id="detial"></p><img class="more" src="../../icon/public/into_black.png" />
+		</div>
+		</div>-->
+		<div class="border_box">
+			<div class="info_style">
+				<label>产品评价</label><p id="evaluate"></p><img class="more" src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div style="border-top: 1px solid #d3d3d3 ;margin-bottom: 10px;"></div>
+		<!--<div class="store">
+		<div class="store_logo"><img  style="height:50px;width:50px"src="../../icon/public/store.png"/>
+		</div>
+		<div class="store_nandr">
+		<p id="store_name">
+		店名
+		</p>
+		<p id="rank" style="color:gray">
+		等级
+		</p>
+		</div>
+		</div>
+		<div class="store_details">
+		<div class="store_detail">
+		<span class="total_shopping">全部商品 </span>
+		<br />
+		<strong id="total_amount">100</strong>
+		</div>
+		<div class="vline" ></div>
+		<div class="store_detail">
+		<span class="new_shopping"> 上新 </span>
+		<br />
+		<strong id="new_amount">10</strong>
+		</div>
+		<div class="vline" ></div>
+		<div class="store_detail">
+		<span class="real_shopping"> 实体店 </span>
+		<br />
+		<strong id="real_amount">XXXX</strong>
+		</div>
+		</div>-->
+		<div class="detail_logo">
+			<div class="hline" id="line1"></div>
+			<div class="xxxx">
+				详情
+			</div>
+			<div class="hline" id="line2"></div>
+		</div>
+		<div id="introduction"></div>
+		<div id="list">
+			<p id="intro" style="width:90%;margin-left: 5%;text-align: left;">
+				商品参数
+			</p>
+		</div>
+		<script type="text/template" id="temp">
+			{@each datalist as item}
+			<div id="parameterValues">
+			<div class="eachvalue">
+			<div class="eachtitle">${item.name}</div><div class="eachinfo">${item.value}</div>
+			</div>
+			</div>
+			{@/each}
+		</script>
+		<!--
+		<div id="list"></div>
+		<script type="text/template" id="temp">
+		{@each group_list as item}
+		<div id="parameterValues">
+		<div class="group">
+		<div class="title">${item.group}</div>
+		<div id="list_into"></div>
+		<script type="text/template" id="temp_into">
+		{@each entries_list as it}
+		<div class="eachvalue">
+		<div class="eachtitle">${it.name}</div><div class="eachinfo">${it.value}</div>
+		</div>
+		{@/each}
+		</script>
+		</div>
+		</div>
+		{@/each}
+		</script>
+		-->
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../script/juicer.js"></script>
+	<script src="../../script/global_variables.js"></script>
+	<script src="../../script/zepto.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			selected = false;
+			shopping_id = 0;
+			shippingMethod_id = 2;
+			address.area = 1;
+			address = {};
+			store={};
+			/*轮播图数据*/
+			swipe = [];
+			myswipe = [];
+			param = "";
+			getdata(api.pageParam.id);
+			getPickup(api.pageParam.id);
+			getDefault_address();
+			get_shippingMethod();
+			
+			api.sendEvent({
+				name : 'order_params',
+				extra : {
+					address : address,
+					shippingMethod_id : shippingMethod_id,
+				}
+			});
+			api.addEventListener({
+				name : 'add_baskets'
+			}, function(ret, err) {
+				num = ret.value.num;
+				selected = ret.value.selected;
+				selected_param = "";
+				selected_shopping = ret.value.selected_shopping;
+				document.getElementById('param').innerText = "已选择";
+			});
+			/*api.setRefreshHeaderInfo({
+			 visible : true,
+			 bgColor : '#ccc',
+			 textColor : '#fff',
+			 textDown : '下拉刷新...',
+			 textUp : '松开刷新...',
+			 showTime : true
+			 }, function(ret, err) {
+			 getdata(api.pageParam.id);
+			 api.refreshHeaderLoadDone();
+			 });*/
+			api.addEventListener({
+				name : 'return_address'
+			}, function(ret, err) {
+				address = ret.value.address;
+				document.getElementById('address').innerText = address.areaName + address.address + address.consignee + address.phone;
+				api.sendEvent({
+								name : 'set_address_info',
+								extra : {
+									address : address,
+								}
+							});
+			});
+			api.addEventListener({
+				name : 'return_store'
+			}, function(ret, err) {
+				store = ret.value.store;
+				shippingMethod_id = ret.value.shippingMethod_id;
+				document.getElementById('choicePick').innerText = store.name + store.address;
+				document.getElementById('shippingMethod').innerText = "门店自提";
+			});
+			api.addEventListener({
+				name : 'cancle_pickup'
+			}, function(ret, err) {
+				document.getElementById('choicePick').innerText = "取消自提";
+				document.getElementById('shippingMethod').innerText = "邮寄";
+				shippingMethod_id = 2;
+			});
+			
+			api.addEventListener({
+				name : 'choose_shippingMethod'
+			}, function(ret, err) {
+				shippingMethod_id = ret.value.shippingMethod_id;
+				
+			});
+			
+		};
+		document.getElementById('buySelf').onclick = function() {
+			api.openWin({
+				name : 'near_store_win',
+				url : './near_store_win.html',
+				pageParam : {
+					area : address.area
+				}
+			});
+		}
+		function getdata(id) {
+			$.ajax({
+				type : 'get',
+				url : "http://116.62.22.98:8080/shop/goods/" + id + "",
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						$api.rmStorage('shoppingDetails');
+						$api.setStorage('shoppingDetails', data.data);
+						shoppingDetails = data.data;
+						api.sendEvent({
+							name : 'share_shoppingDetails',
+							extra : {
+								shoppingDetails : shoppingDetails
+							}
+						});
+						document.getElementById('picture').src = data.data.image;
+						document.getElementById('info_value').innerHTML = data.data.name + " " + data.data.attributeValue0 + " " + data.data.caption;
+						document.getElementById('rmb').innerHTML = "￥" + data.data.price;
+						document.getElementById('coin').innerHTML = data.data.point;
+						document.getElementById('introduction').innerHTML = data.data.introduction;
+						document.getElementById('marketprice').innerText = "市场价" + data.data.marketPrice;
+						document.getElementById('scaleamount').innerText = "销量" + data.data.sales + data.data.unit;
+						document.getElementById('score').innerText = "评分" + data.data.score;
+						shopping_id = data.data.id;
+						productImage = JSON.parse(data.data.productImages);
+						swipe.push({
+							"src" : data.data.image
+						});
+						for (var j = 0; j < productImage.length; j++) {
+							swipe.push({
+								"src" : productImage[j].source
+							});
+							swipe.push({
+								"src" : productImage[j].large
+							});
+							swipe.push({
+								"src" : productImage[j].medium
+							});
+							swipe.push({
+								"src" : productImage[j].thumbnail
+							});
+						}
+						for (var i = 0; i < swipe.length; i++) {
+							myswipe[i] = swipe[i].src;
+						}
+						getpic(myswipe);
+						parameterValues = JSON.parse(data.data.parameterValues);
+						for (var i = 0; i < parameterValues.length; i++) {
+							render('temp', parameterValues[i].entries, 'list');
+						}
+					}
+					console.log(JSON.stringify(data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function getPickup(id) {
+			$.ajax({
+				type : 'get',
+				url : "http://116.62.22.98:8080/shop/goods/" + id + "/pickup",
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						if (data.data == true) {
+							document.getElementById('choicePick').innerText = "可自提";
+						} else {
+							document.getElementById('pickup').style.display = "none";
+							document.getElementById('shipping_button').disabled = true;
+						}
+					}
+					console.log(JSON.stringify(data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function choose_shippingMethod() {
+			buttons = [];
+			for (var i = 0; i < shippingMethod.length; i++) {
+				buttons[i] = shippingMethod[i].name;
+			}
+			api.actionSheet({
+				buttons : buttons
+			}, function(ret, err) {
+					var index = ret.buttonIndex;
+					for (var i = 0; i < buttons.length; i++) {
+						if (index == i + 1) {
+							document.getElementById('shippingMethod').innerText = buttons[i];
+							shippingMethod_id = shippingMethod[i].id;
+						}
+					}
+					api.sendEvent({
+						name : 'choose_shippingMethod',
+						extra : {
+							shippingMethod_id : shippingMethod_id
+						}
+					});
+					
+				
+			});
+		}
+
+		function get_shippingMethod() {
+			$.ajax({
+				type : 'get',
+				url : "http://116.62.22.98:8080/shop/shippingMethod/findAll",
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						shippingMethod = data.data;
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function getDefault_address() {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/receiver/findAll',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						$api.setStorage("address_data", data.data);
+						if (data.data == "") {
+						} else {
+							var index = 0;
+							for (var i = 0; i < data.data.length; i++) {
+								if (data.data[i].isDefault == true)
+									index = i;
+								else {
+								};
+							}
+							address = data.data[index];
+							document.getElementById('address').innerText = address.areaName + address.address + address.consignee + address.phone;
+							api.sendEvent({
+								name : 'set_address_info',
+								extra : {
+									address : address,
+								}
+							});
+						}
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function getpic(elem) {
+			var UIScrollPicture = api.require('UIScrollPicture');
+			UIScrollPicture.open({
+				rect : {
+					x : 0,
+					y : 0,
+					w : api.winWidth,
+					h : 350
+				},
+				data : {
+					paths : elem,
+					captions : []
+				},
+				styles : {
+					indicator : {
+						dot : {
+							w : 4,
+							h : 4,
+							r : 2,
+							margin : 3
+						}
+					},
+				},
+				placeholderImg : '../../image/loading_more.gif',
+				/*contentMode: '',
+				 interval: 3,*/
+				contentModel : 'scaleAspectFit',
+				fixedOn : 'single_shopping_frame',
+				//loop : true,
+				fixed : false
+			}, function(ret, err) {
+				UIScrollPicture.clearCache();
+			});
+		}
+
+		function choose_address() {
+			api.openWin({
+				name : 'choose_shopping_address_win',
+				url : './choose_shopping_address_win.html',
+				reload : true
+			});
+		}
+
+		function choose_param() {
+			api.openFrame({
+				name : 'choose_param_frame',
+				url : './choose_param_frame.html',
+				rect : {
+					x : 0,
+					y : 0,
+					h : "auto"
+				},
+				reload : true,
+				pageParam : {
+					shoppingId : shopping_id
+				},
+				bounces : false,
+				hScrollBarEnabled : false,
+				vScrollBarEnabled : false,
+				scrollToTop : false,
+				animation : {
+					type : "push",
+					subType : "from_bottom",
+					duration : 300
+				},
+			});
+		}
+
+		function render(temp_id, data_item, div_id) {
+			var tmp = document.getElementById(temp_id);
+			var data = {
+				datalist : data_item
+			};
+			var onelist = juicer(tmp.innerHTML, data);
+			document.getElementById(div_id).innerHTML += onelist;
+		}
+	</script>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>消息中心</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			html, body {
+				height: 100%;
+				background: #FFFFFF;
+				margin: 0;
+			}
+			.body {
+				height: 100%;
+				width: 100%;
+				position: fixed;
+				
+			}
+			/* win header */
+			#winpart {
+				background: #66CC66;
+				height: 45px;
+				line-height: 45px;
+				border-bottom: 1px solid #e6e1e1;
+				display: -webkit-box;
+			}
+			#img1 {
+				width: 15%;
+				margin-left: 5%;
+				margin-top: 10px;
+				position: relative;
+			}
+			#title1 {
+				width: 60%;
+				height: 25px;
+				text-align: center;
+				font-size: 18px;
+				color:#FFFFFF;
+			}
+			.back_icon {
+				height: 25px;
+				width: 25px;
+				float: left;
+			}
+				.img2 {
+				width: 15%;
+				height: 45px;
+				margin-right: 5%;
+				margin-top:9px;
+				
+			}
+			#contact{width:30px;height:30px;}
+		</style>
+	</head>
+	<body>
+		<div class="body" >
+			<header id="winpart">
+				<div id="img1"><img class="back_icon" src="../../icon/public/back_white.png" onclick="api.closeWin();" />
+				</div>
+				<div id="title1">
+					消息中心
+				</div>
+				<div class="img2">
+				<img id="contact" src="../../icon/public/contact.png"/>
+			</div>
+			</header>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		$api.fixStatusBar($api.dom('header'));
+		api.setStatusBarStyle({
+		style:'dark',
+		color:'#66CC66'
+        });
+        var height=document.getElementById('winpart').offsetHeight;
+        api.openFrame({
+	        name: 'newsCenter_frame',
+	        url: './newsCenter_frame.html',
+	        rect: {
+		        x:0,
+		        y:height
+		        }
+        });
+		};
+		document.getElementById('contact').onclick=function(){
+		api.openWin({
+	        name: 'my_friend_win',
+	        url: './my_friend_win.html'
+        });
+		}
+	</script>
+</html>

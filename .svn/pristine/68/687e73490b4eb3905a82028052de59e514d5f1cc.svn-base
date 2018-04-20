@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>product_display_win</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			body {
+				background: #28BD19;
+				margin: 0;
+				font-family: "宋体";
+				background-image: url(../../image/wait_loading.jpg);
+			}
+			#ul1 {
+				padding: 0;
+				width: 100%;
+				background: #f5f5f5;
+			}
+			#ul1 li {
+				padding-top: 2px;
+				padding-bottom: 2px;
+				width: 50%;
+				float: left;
+				list-style: none;
+				display: block;
+				background: #f5f5f5;
+				height: 240px;
+				overflow: hidden;
+			}
+			.one {
+				background: #fff;
+				width: 98%;
+				font-size: 13px;
+				height: 240px;
+				position: relative;
+			}
+			.picture {
+				width: 100%;
+				height: 170px;
+			}
+			.picture img {
+				width: 70%;
+				height: auto;
+				text-align: center;
+			}
+			.one_info {
+				position: absolute;
+				bottom: 3px;
+				width: 100%;
+				height: 70px;
+			}
+			#name {
+				margin-left: 5%;
+				margin-top: 3px;
+				height: 35px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.second_line {
+				margin-left: 5%;
+				color: #8d978f;
+			}
+			.rmb {
+				color: #fd2a32;
+			}
+			.coin_logo {
+				width: 15px;
+				height: 15px;
+				position: relative;
+				top: 3px;
+			}
+			#ul2 {
+				width: 100%;
+				padding: 0;
+			}
+			#ul2 li {
+				width: 100%;
+				list-style: none;
+			}
+			.two {
+				width: 100%;
+				height: 102px;
+				border-bottom: 1px solid #d6d6d6;
+				display: -webkit-box;
+				position: relative;
+				background: #fff;
+			}
+			.shopping_2 {
+				width: 100px;
+				height: 100px;
+				margin-bottom: 2px;
+			}
+			.two_info {
+				width: 50%;
+				margin-left: 10px;
+			}
+			.second_line_2 {
+				position: absolute;
+				bottom: 5px;
+			}
+			.name_2 {
+				position: absolute;
+				top: 10px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			#list {
+			}
+			#loading_morem{width:20%;height:auto;background:rgba(0,0,0,0.5);color:#999999;position: fixed;
+				left: 40%;
+				top: 12.0em;
+				z-index: 999;
+				border-radius:10px;
+				text-align:center;
+				display:none;}
+			#loading_morem img{
+			width:20px;height:20px;}
+		</style>
+	</head>
+	<body>
+	<div id="loading_morem"><img src="../../image/loading_more.gif" /><p>正在加载</p></div>
+		<div id="list"></div>
+		<script type="text/template" id="temp">
+			{@each datalist as item}
+			<ul id="ul1" onclick="detail(${item.id})">
+			<li>
+			<div class="one">
+			<div class="picture">
+			<img  src="${item.image}"/>
+			</div>
+			<div class="one_info">
+			<div id="name">
+			${item.name} ${item.attributeValue0}
+			</div>
+			<div class="second_line">
+			<span class="rmb">￥${item.price}</span><span>（</span><img  class="coin_logo" src="../../icon/public/integral_y.png" /><span id="coin" >${item.point}</span><span>）</span>
+			</div>
+			</div>
+			</div>
+			</li>
+			</ul>
+			{@/each}
+		</script>
+		<div id="list2"></div>
+		<script type="text/template" id="temp2">
+			{@each datalist as item}
+			<ul id='ul2' onclick="detail(${item.id})">
+			<li>
+			<div class="two">
+			<img class="shopping_2" src="${item.image}"/>
+			<div class="two_info">
+			<div class="name_2">
+			${item.name} ${item.attributeValue0}
+			</div>
+			<div class="second_line_2">
+			<span class="rmb">￥${item.price}</span><span>（</span><img  class="coin_logo" src="../../icon/public/integral_y.png" /><span class="coin" >${item.point}</span><span>）</span>
+			</div>
+			</div>
+			</div>
+			</li>
+			</ul>
+			{@/each}
+		</script>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../script/juicer.js"></script>
+	<script src="../../script/global_variables.js"></script>
+	<script src="../../script/zepto.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			display_style = false;
+			size = 10;
+			page=1;
+			search_param={name:api.pageParam.search_values,size:size};
+			shopping_data=	[];
+			search(search_param);
+			search_flag=true;
+			/*win界面按下搜索按钮后 或刚打开页面后收到事件并渲染*/
+			api.addEventListener({
+				name : 'load_list'
+			}, function(ret, err) {
+				search_values = ret.value.search_values;
+				//alert(search_values);
+				search_param = {
+					name : search_values,
+					size : size
+				};
+				console.log(JSON.stringify(search_param));
+				search(search_param);
+			});
+			
+			api.addEventListener({
+				name : 'change_display'
+			}, function(ret, err) {
+				display_style = ret.value.key1;
+				if (display_style) {
+					render_new("temp2", $api.getStorage("shopping_data"), "list2");
+				} else {
+					render_new("temp", $api.getStorage("shopping_data"), "list");
+				}
+			});
+			if(search_flag){
+			loadData(search_param);
+			}
+		};
+		function detail(id) {
+			api.openWin({
+				name : 'single_shopping_win',
+				url : './single_shopping_win.html',
+				pageParam : {
+					id : id
+				}
+			});
+		}
+
+		function search(search_param) {
+		   page=1;
+			$.ajax({
+				type : 'get',
+				url :'http://116.62.22.98:8080/shop/goods/search/findLikeName?page=' + page + '&size='+size,
+				data : search_param,
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						//$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						//$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						$api.setStorage("shopping_data", data.data);
+						shopping_data=data.data;
+						if (display_style) {
+						if(data.data=="" || data.data==[]){
+						document.getElementById('list2').innerHTML='<div style="text-align:center;">抱歉哦！暂无您搜索的商品</div>';
+						}else
+							render_new("temp2", data.data, "list2");
+						} else {
+						if(data.data==""  || data.data==[]){
+						document.getElementById('list2').innerHTML='<div style="text-align:center;">抱歉哦！暂无您搜索的商品</div>';
+						}
+						else
+							render_new("temp", data.data, "list");
+						}
+					}
+					console.log(JSON.stringify(data.data));
+					//console.log(data.data);
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+		
+		function searchMore(search_param) {
+		    page++;
+	        document.getElementById('loading_morem').style.display="block";
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/goods/search/findLikeName?page=' + page + '&size='+size,
+				data : search_param,
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						//$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						//$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						$api.setStorage("shopping_data", data.data);
+						shopping_data=data.data;
+						if (display_style) {
+						if(data.data==""){
+						document.getElementById('list2').innerHTML+='<div style="text-align:center;">没有更多商品啦</div>';
+						search_flag=false;
+						}
+				        else
+							render_more("temp2", data.data, "list2");
+						} else {
+						if(data.data==""){
+						document.getElementById('list2').innerHTML+='<div style="text-align:center;">没有更多商品啦</div>';
+						search_flag=false;
+						}else
+							render_more("temp", data.data, "list");
+						}
+							document.getElementById('loading_morem').style.display="none";
+					}
+					console.log(JSON.stringify(data.data));
+					//console.log(data.data);
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function loadData(search_param) {
+			
+			api.addEventListener({
+				name : 'scrolltobottom',
+				extra : {
+					threshold : 20 //设置距离底部多少距离时触发，默认值为0，数字类型
+				}
+			}, function(ret, err) {
+				searchMore(search_param);
+			});
+		}
+
+		function render_new(temp_id, data, div_id) {
+			document.getElementById("list").innerHTML = "";
+			document.getElementById("list2").innerHTML = "";
+			var tmp = document.getElementById(temp_id);
+			var data = {
+				datalist : data
+			}
+			var onelist = juicer(tmp.innerHTML, data);
+			document.getElementById(div_id).innerHTML += onelist;
+		}
+		
+		function render_more(temp_id, data, div_id) {
+			var tmp = document.getElementById(temp_id);
+			var data = {
+				datalist : data
+			}
+			var onelist = juicer(tmp.innerHTML, data);
+			document.getElementById(div_id).innerHTML += onelist;
+		}
+	</script>
+</html>

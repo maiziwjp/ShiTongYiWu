@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+  	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <title>金券排行榜</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		body{ background-color: #fff; font-family: "宋体";margin:0;width:100%;font-weight:600;}
+		#green{ width: 100%;height: 80px; background:url(../../icon/money/bg.png); repeat:none; color:#fff; font-size:0.44rem; text-align:center; }
+		.mymoney{ height: 40px;text-align: center;line-height: 40px; width:10.0rem;}
+    	#money{ height: 64px; display:-webkit-box; border-bottom: 1px solid #c4c4c4;}
+    	.money{ width:4.8rem; height: 32px; border-right: 1px solid #c4c4c4; margin-top: 7px; text-align: center;font-size: 0.34rem;}
+    	#money div img{ max-width: 32px; max-height: 32px; }
+    	#Record{ width:9.0rem; background: #dadada; height: 40px; padding-left: 0.5rem; padding-right:0.5rem; font-size: 0.42rem; line-height: 40px;}
+    	.month{ height:50px;width:9.0arem; padding-left:0.5rem; padding-right: 0.5rem;font-size: 0.38rem; line-height: 50px; border-bottom:1px solid #d3d3d3;
+    	display:-webkit-box;}
+    	.pic img{ width: 20px;height: 20px; position:relative;top:8px;}
+    	.earn{ padding-left:1.0rem;}
+    	.exchange{padding-left:0.4rem;}
+    	.dialog{ height:auto; width:9.0rem; padding-left:0.5rem; padding-right: 0.5rem; display: -webkit-box; border-bottom:1px solid #d3d3d3;font-size: 0.42rem; }
+    	.contentl{ line-height: 30px; width: 7.0rem; margin-right:0.5rem; text-align:left; padding-top: 10px;}
+    	.contentr{ line-height: 80px; width: 1.5rem; text-align:right; color: #66cc66;}
+    </style>
+</head>
+<body>
+    <div id="green">
+    	<div class="mymoney">&nbsp;&nbsp;&nbsp;剩余可用金券：</div>
+    	<div class="mymoney" style="font-size: 0.7rem;" id="moneycount">0</div>
+    </div>
+	<div id="money">
+		<div id="one" class="money"><img src="../../icon/money/Earn_points.png"/><div>赚金券</div></div>
+		<div id="two" class="money" style="border:none;"><img src="../../icon/money/exchange.png"/><div>金券兑换</div></div>
+	</div>
+	<div id="Record">积分记录</div>
+	<div class="month">
+		
+		<div class="earn">已获取：0</div>
+		<div class="exchange">已兑换：0</div>
+		<div class="exchange">待领取：0</div>
+	</div>
+	<div id="shoppingnameorstorename"></div>
+	<script type="text/template" id="temp">
+		{@each datalist as item}
+		<div class="dialog">
+			<div class="contentl"><span class="memo">${item.memo}</span><br/><span style="color:#9f9f9f;" class="createDate">${item.createDate}</span></div>
+			{@if item.debit == '0' }
+			<div class="contentr">+${item.credit}</div>
+			{@else}
+			<div class="contentr">-${item.debit}</div>
+			 {@/if}
+		</div>
+		{@/each}
+	</script>
+</body>
+
+<script type="text/javascript" src="../../script/juicer.js"></script>
+<script>
+function initialfunction()
+{
+	//获取个人积分记录
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/point/findAll',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						var earn=document.getElementsByClassName('earn');
+						var exchange=document.getElementsByClassName('exchange')[0];
+						earn.innerHTML='已获取：'+data.data[0].balance;
+						exchange.innerHTML='已兑换：'+data.data[0].debit;
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						render("temp", data.data, "shoppingnameorstorename");
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+			//获取个人积分
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member/getPointById',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						document.getElementById('moneycount').innerHTML=data.data;
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		
+}
+document.getElementById('two').onclick=function()
+{
+api.openWin({
+	    		name: 'money_exchange_win.html',
+	    		url: '../money/money_exchange_win.html'
+				});
+}
+function render(temp_id, data_item, div_id) {
+				document.getElementById(div_id).innerHTML = "";
+				var tmp = document.getElementById(temp_id);
+				var data = {
+					datalist : data_item
+				}
+				var onelist = juicer(tmp.innerHTML, data);
+				document.getElementById(div_id).innerHTML += onelist;
+}
+apiready = function() {
+	api.setRefreshHeaderInfo({
+	        visible: true,
+	        bgColor: '#ccc',
+	        textColor: '#fff',
+	        textDown: '下拉刷新...',
+	        textUp: '松开刷新...',
+	        showTime: true
+	    }, function(ret, err){
+	        initialfunction();
+	        api.refreshHeaderLoadDone();
+	    });
+	initialfunction();
+	};
+	    Date.prototype.Format = function(fmt)
+    {
+    //author:wangweizhen
+      var o = {
+        "M+" : this.getMonth()+1,                 //月份
+        "d+" : this.getDate(),                    //日
+        "h+" : this.getHours(),                   //小时
+        "m+" : this.getMinutes(),                 //分
+        "s+" : this.getSeconds(),                 //秒
+        "q+" : Math.floor((this.getMonth()+3)/3), //季度
+        "S"  : this.getMilliseconds()             //毫秒
+      };
+      if(/(y+)/.test(fmt))
+        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+      for(var k in o)
+        if(new RegExp("("+ k +")").test(fmt))
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+      return fmt;
+    };
+</script>
+</html>

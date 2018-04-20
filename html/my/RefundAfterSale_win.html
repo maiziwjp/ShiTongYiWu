@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>退款/售后</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+     html,body{
+        height: 100%;
+        position:fixed;top:30px;width:100%;
+        margin: 0;
+        background: #fff;
+    }
+    #wrap{
+    	margin: 0;
+     	width:100%;
+        height: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-flex-flow: column;
+               flex-flow: column;
+    }
+   #search{position:fixed;display: -webkit-box;text-align: center; background-color:#f9f9f9;  width: 100%; height: 40px;line-height: 40px;font-size: 18px;position:relative;top:-10px;}
+   #back{color:#676767; width: 50%; line-height: 40px;font-size: 18px; height: 40px; }
+   #back img,.back img,#se img{ max-height: 22px; max-width: 22px; position:relative; top:6px; left:40px; }
+   #se,.back{ width: 10%; text-align: center; color: #fff; padding-right: 12px;}
+  .more img{max-height: 22px; max-width: 22px; position:relative; top:4px; left:40px;}
+    </style>
+</head>
+<body>
+ <div id="wrap">
+	<div id="header">
+        	<div id="search">
+            	<div id="back"><img src="../../icon/public/back_black.png" style="float: left; left: 10px;"/>退款/售后</div>
+            	<div id="se"><img src="../../image/myshitong/RefundAfterSale/refresh.png"/></div>
+            	<div class="back"><img src="../../image/myshitong/RefundAfterSale/skip.png" /></div>
+            	<div class="more" ><img src="../../icon/public/more.png"/></div>
+            </div>
+     </div>
+</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var headerHeight; 
+	    var header=document.getElementById("header");
+	    var systemType = api.systemType;
+	    var height=document.getElementById("search").offsetHeight;
+		if(systemType == "ios")
+		{
+		    header.style.top="40px";
+		    headerHeight=14;
+		}
+		else
+		{
+			header.style.top="45px";
+		    headerHeight=19;
+		}
+        
+        api.openFrame({
+	        name: 'RefundAfterSale_frame',
+	        url: './RefundAfterSale_frame.html',
+	        rect: {
+		        x:0,
+		        y:headerHeight+height,
+	        },
+	        vScrollBarEnabled:false,
+	        hScrollBarEnabled:false,
+	        reload:true,
+	        allowEdit:true
+        });
+        /*关闭顶部搜索栏*/
+        document.getElementById("back").onclick=function(){
+        	api.closeWin();
+        };
+	};
+</script>
+</html>

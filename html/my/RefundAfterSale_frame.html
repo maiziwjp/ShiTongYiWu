@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	.shopping{ height: 218px; border-bottom:10px solid #f3f4f5; font-size: 14px;}
+    	.header{ height: 40px; text-align: center;}
+    	.store,.into{ line-height: 40px; width: 36%; float: left; position:relative; left:16px;}
+    	.store img,.into img,.momey img{ width:20px; height: auto; padding-right: 12px;position:relative; top:4px;}
+   		.content{height: 100px; background: #f9f9f9; width:100%; text-align: center;}
+   		#content1,#content2,#content3{ display: -webkit-box;}
+   		.pic{ width: 30%; height: 100px; line-height:80px;}
+   		.pic img{ width:80px; height: auto; position:relative;top:10px;left:10px;}
+   		.fonts{ width: 65%; height: 100px; line-height:20px; font-size: 14px; text-align: left;position:relative;top:8px;left:10px;}
+    	.fonts div{ padding-bottom: 4px; font-size: 13px;}
+    	.fonts div img{max-width:16px; max-height: 16px; position:relative;top:3px;}
+    	.momey{line-height: 40px; width: 70%; float: left; position:relative; left:16px;}
+    	.lookdetails{ width:100%; height: 40px; border-bottom:1px solid #e5e5e8;}
+    	.lookdetails input{ outline:none; height:25px; border:1px solid #94c995; border-radius: 10px; width:80px; line-height: 25px; text-align: center;color:#94c995; position: relative;top:46px; right: -12px;}
+    </style>
+</head>
+<body>
+	<div class="shopping">
+		<div calss="header">
+			<div class="store"><img src="../../icon/public/store.png"/><span>魅力风尚008</span></div>
+			<div class="into"><img src="../../icon/public/into_black.png"/></div>
+		</div>
+		
+		<div class="content" id="content1">
+			<div class="pic"><img src="../../image/cloth.gif"/></div>
+			<div class="fonts">
+				<div>休闲女裤2017新款宽松阔腿夏季韩版学生白搭萝卜九分哈伦裤打底裤</div>
+				<div style="color:#cdcecf;">颜色分类：黑色；尺寸：XL</div>
+				<div style="color:#94c995; text-align: right;">退款金额：￥<span>24.80</span>+<img src="../../icon/public/integral_green.png"/><span>420</span></div>
+			</div>
+		</div>
+		<div calss="header">
+			<div class="momey" ><img src="../../image/myshitong/RefundAfterSale/drawback.png"/>仅退款  退款成功</div>
+		</div>
+		<div class="lookdetails" onclick="checkdetail()">
+			<input type="button" value="查看详情" />
+		</div>
+	</div>
+	<div class="shopping">
+		<div calss="header">
+			<div class="store"><img src="../../icon/public/store.png"/><span>魅力风尚008</span></div>
+			<div class="into"><img src="../../icon/public/into_black.png"/></div>
+		</div>
+		
+		<div class="content" id="content2">
+			<div class="pic"><img src="../../image/cloth.gif"/></div>
+			<div class="fonts">
+				<div>休闲女裤2017新款宽松阔腿夏季韩版学生白搭萝卜九分哈伦裤打底裤</div>
+				<div style="color:#cdcecf;">颜色分类：黑色；尺寸：XL</div>
+				<div style="color:#94c995; text-align: right;">退款金额：￥24.80</div>
+			</div>
+		</div>
+		<div calss="header">
+			<div class="momey" ><img src="../../icon/public/integral_green.png"/>退货退款  退款成功</div>
+		</div>
+		<div class="lookdetails" onclick="checkdetail()">
+			<input type="button" value="查看详情" />
+		</div>
+	</div>
+	<div class="shopping">
+		<div calss="header">
+			<div class="store"><img src="../../icon/public/store.png"/><span>魅力风尚008</span></div>
+			<div class="into"><img src="../../icon/public/into_black.png"/></div>
+		</div>
+		
+		<div class="content" id="content3">
+			<div class="pic"><img src="../../image/cloth.gif"/></div>
+			<div class="fonts">
+				<div>休闲女裤2017新款宽松阔腿夏季韩版学生白搭萝卜九分哈伦裤打底裤</div>
+				<div style="color:#cdcecf;">颜色分类：黑色；尺寸：XL</div>
+				<div style="color:#94c995; text-align: right;">退款金额：￥24.80</div>
+			</div>
+		</div>
+		<div calss="header">
+			<div class="momey" ><img src="../../icon/public/integral_green.png"/>退货退款  退款成功</div>
+		</div>
+		<div class="lookdetails" onclick="checkdetail()">
+			<input type="button" value="查看详情" />
+		</div>
+	</div>
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+	function checkdetail()
+	{
+		api.openWin({
+				name : 'checkdetail_win',
+				url : './checkdetail_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto'
+				}
+			});
+	}
+</script>
+</html>

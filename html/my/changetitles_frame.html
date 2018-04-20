@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+    
+    <title>世通昵称</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <style>
+    	body{
+    		background: #eeeeee; width: 100%; height: auto;
+    		height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+    	}
+    	#titles{ border-bottom:1px solid #66cc66; width:90%; margin-left: 5%; margin-right: 5%; margin-top: 20px; height: 40px; color: #c5c5c5; font-size: 0.46rem;}
+    	#titles input{ outline:none; border: none; background: #eeeeee; font-size: 16px;}
+    	#detail{width:90%; margin-left: 5%; margin-right: 5%; margin-top: 10px; height: 40px; color: #c5c5c5; font-size: 10px;}
+    	#btn input { width: 90%; margin-left:5%; height: 40px; font-size:16px; color: gray; border: 1px solid #66cc66; background: #66cc66; border-radius: 8px;outline: none;border:none;}
+    </style>
+</head>
+<body>
+	<div id="titles"><input id="search_input" type="text" placeholder="请输入世通昵称" value=""oninput="check();" /></div>
+	<div id="detail">注意：与世通易物业务或买家品牌冲突的昵称，世通易物将有权收回</div>
+	<div id="btn" disabled="true" onclick="submit();"><input id="submitbtn" type="button" value="保存" /></div>
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+	getNick();
+	};
+	function getNick(){
+	$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+					   // $api.setStorage("nickname",data.data.nickname);
+					   var search_input=document.getElementById("search_input");
+		                search_input.value=data.data.nickname;
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						console.log(JSON.stringify(xmlHttpRequest.getResponseHeader('loginToken')));
+					} else {
+					}
+				},
+				error : function(err) {
+					//console.log(JSON.stringify(err));
+				}
+			});
+	
+	}
+	function check(){	    
+	if(	document.getElementById('search_input').value!="")
+	{
+	document.getElementById('submitbtn').style.color="#fff";
+	document.getElementById('submitbtn').disabled=false;
+	}
+	else{
+	document.getElementById('submitbtn').style.color="gray";
+	document.getElementById('submitbtn').disabled=true;
+	}
+	}
+	
+	 function submit(){
+	   var search_input = document.getElementById("search_input").value;
+	        dataone = {
+	                nickname:search_input,
+	            };
+	       $.ajax({	            
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member/setNickname',
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				context : "document.body",
+				data : dataone,
+				success : function(data, status, xmlHttpRequest) {
+				console.log(JSON.stringify(dataone));
+					if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));	
+					    console.log(JSON.stringify(xmlHttpRequest.getResponseHeader('loginToken')));
+					    api.toast({
+								msg : '修改成功',
+								location:'middle'
+							});	
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+			
+			api.sendEvent({
+    			name: 'nickname_change',
+    			extra: {
+       				nickname:search_input
+    			} 	
+			});
+			
+	 }
+</script>
+</html>

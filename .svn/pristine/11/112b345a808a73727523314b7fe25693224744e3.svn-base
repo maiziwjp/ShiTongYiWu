@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+  	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <title>收藏管理</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		body{ background-color: #fff; font-family: "宋体";width:100%;font-weight:600; margin:0; font-size: 0.44rem;}
+    	#switch{  width: 9.0rem; padding-left: 0.5rem; padding-right: 0.5rem; height: 44px; display:-webkit-box;font-size: 0.46rem; border-bottom: 1px solid #d1d1d1;}
+    	#shopping,#store{ width:4.0rem; text-align: right; height: 42px; line-height: 42px;}
+    	#shopping{ padding-right: 1.0rem; color: #66cc66;}
+    	#store{ text-align: left;}
+    	.shopping{ height: 120px;display:-webkit-box; width:10.0rem;border-bottom: 1px solid #d1d1d1;font-size: 0.46rem; }
+    	.pic{ height: 120px; width:3.0rem;}
+    	.pic img{ width:3.0rem; height: auto; position: relative;top:6px;}
+    	.content{ width:6.0rem; height: 120px; font-size: 0.40rem;}
+    	.name{ padding-left: 0.5rem; padding-bottom: 54px; height: 20px; padding-top: 10px;}
+    	.point{padding-left: 0.5rem; height: 20px;}
+    	.point img{ width:22px; height: 22px;position: relative;top:4px;}
+    	.collection{ width:1.0rem; height: 20px; margin-top: 90px;}
+    	.collection img{ width:22px; height: auto;}
+    </style>
+</head>
+<body>
+	<div id="switch">
+		<div id="shopping" onclick="CloseStore()">商品</div>
+		<div id="store" onclick="OpenStoreCollec()">店铺</div>
+	</div>
+	<div class="shopping">
+		<div class="pic"><img src="../../image/cloth.gif"/></div>
+		<div class="content">
+		  <div class="name">商品名</div>
+		  <div class="point">￥<span>9.0</span>(<img src="../../icon/public/integral_g.png"/><span>890</span>)</div>
+		</div>
+		<div class="collection"><img src="../../icon/public/garbage.png"/></div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		
+	};
+	function CloseStore()
+	{
+		var shopping=document.getElementById('shopping');
+		var store=document.getElementById('store');
+		shopping.style.color="#66cc66";
+		store.style.color="#000";
+		api.closeFrame({
+    	name: 'CollectionStore_frame'
+		});
+	}
+	function OpenStoreCollec()
+	{
+		var shopping=document.getElementById('shopping');
+		var store=document.getElementById('store');
+		shopping.style.color="#000";
+		store.style.color="#66cc66";
+		api.openFrame({
+	        name: 'CollectionStore_frame',
+	        url: './CollectionStore_frame.html',
+	        rect: {
+		        x:0,
+		        y:120,
+	        },
+	        vScrollBarEnabled:false,
+	        hScrollBarEnabled:false,
+	        reload:true,
+	        allowEdit:true
+        });
+	}
+</script>
+</html>

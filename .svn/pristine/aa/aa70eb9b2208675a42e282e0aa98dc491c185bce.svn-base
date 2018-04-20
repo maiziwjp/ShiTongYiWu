@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>金券兑换</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+
+	  	#main{width:100%;height:auto;margin-top: 10px;}
+			.likecontent{width: 100%; height: 175px;display: -webkit-box;border-bottom: 1px solid #E4E4E4;}
+	 		.likeleft{ width: 43%; height: 100%;text-align: center; position:relative;left: center;}
+			.likeright{ width: 45%; text-align: center; position:relative;left: center;}
+			.likeleft{border-right: 1px solid #E4E4E4}
+	 		.llu{height: 135px;width: 90%;}
+	 		.llu img{max-height: 115px; max-width: auto;position:relative;top: 15px}
+	 		.lld{height: 40px;position:relative;}
+	 		.lld img{max-height: 14px; max-width: 14px;position:relative;top:2px;float:left}
+	  </style>
+</head>
+<body>
+
+        <div id="main">
+					<div class="likecontent">
+						<div style="width:6%;height:100%;"></div>
+						<div class="likeleft" >
+							<div class="llu"><img src="../../image/goods1.gif"/></div>
+							<div class="lld"style="font-size:12px;float:left">
+							白皙日记美牙套装<br/>
+						  <div style="float:left;margin-top:4px"><span ><img src="../../icon/public/integral_y.png"/></span><span style="color: orange">1200</span></div>
+							</div>
+						</div>
+            <div style="width:4%;height:100%;"></div>
+						<div class="likeright">
+							<div class="llu"><img src="../../image/goods1.gif"/></div>
+							<div class="lld"style="font-size:12px;float:left">
+							白皙日记美牙套装<br/>
+						  <div style="float:left;margin-top:4px"><span ><img src="../../icon/public/integral_y.png"/></span><span style="color: orange">1200</span></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="likecontent">
+						<div style="width:6%;height:100%;"></div>
+						<div class="likeleft" >
+							<div class="llu"><img src="../../image/goods1.gif"/></div>
+							<div class="lld"style="font-size:12px;float:left">
+							白皙日记美牙套装<br/>
+							<div style="float:left;margin-top:4px"><span ><img src="../../icon/public/integral_y.png"/></span><span style="color: orange">1200</span></div>
+							</div>
+						</div>
+						<div style="width:4%;height:100%;"></div>
+						<div class="likeright">
+							<div class="llu"><img src="../../image/goods1.gif"/></div>
+							<div class="lld"style="font-size:12px;float:left">
+							白皙日记美牙套装<br/>
+							<div style="float:left;margin-top:4px"><span ><img src="../../icon/public/integral_y.png"/></span><span style="color: orange">1200</span></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+
+	apiready = function(){
+
+		 }
+</script>
+</html>

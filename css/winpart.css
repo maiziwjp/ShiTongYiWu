@@ -1,0 +1,8 @@
+/* win 状态栏样式 */
+html, body {height: 100%;background: #000;margin:0;}
+.body{height:100%;background:#FFFFFF;width:100%;position: fixed;}
+/* win header */
+#winpart{background: white;height:45px;line-height: 45px;border-bottom:  1px solid #e6e1e1;display:-webkit-box;}
+#img1{width:15%;margin-left:5%;margin-top:10px;position:relative;}
+#title1{width:60%;height:25px;text-align: center;font-size: 18px;}
+.back_icon{height:25px;width:25px;float:left;}

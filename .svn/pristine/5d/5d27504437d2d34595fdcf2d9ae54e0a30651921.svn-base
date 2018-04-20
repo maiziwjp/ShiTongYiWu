@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    	html,body{
+        height: 100%;
+        font-family: "宋体";
+    }
+    #wrap{
+        height: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-flex-flow: column;
+               flex-flow: column;
+    }
+    #header{
+        text-align: center;
+        width: 100%;
+        height:45px;
+
+				background: #66cc66;
+    }
+
+    #wraper{display:-webkit-box;position: fixed;width:100%;height:45px;}
+    #myorder_font{height: 45px;line-height:45px;font-size: 20px;	color:white;margin-left: 37%}
+    #myorder_num{height: 45px;line-height:45px;font-size: 20px;	color:white;}
+
+		#main{
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        display:-webkit-box;
+   	 	}
+
+    </style>
+</head>
+<body>
+	<div id="wrap">
+        <div id="header" >
+        		<div id="wraper">
+	    					<div id="myorder_font" >购物车</div>
+								<div id="myorder_num">(2)</div>
+        		</div>
+        </div>
+
+        <div id="main">
+				</div>
+
+</div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		        var header = $api.byId('header');
+		        //适配iOS 7+，Android 4.4+状态栏
+		        $api.fixStatusBar(header);
+		        var headerPos = $api.offset(header);
+		        var main = $api.byId('main');
+		        var mainPos = $api.offset(main);
+						api.openFrame({
+								name: 'myorder_frame',
+								url: './shoppingbags_frame.html',
+								bounces: true,
+								rect: {
+										x: 0,
+										y: headerPos.h ,
+										w: 'auto',
+										h: mainPos.h
+								}
+						});
+	};
+
+</script>
+</html>

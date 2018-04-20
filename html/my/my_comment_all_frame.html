@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+   <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		  <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+    html, body {margin:0;width:100%;}
+		#comment{margin-top: -10px;width:100%; height: 25px;display:-webkit-box;border-bottom: 1px solid #d4d4d4;position:relative;top:20px;display: -webkit-box;}
+        .choosefont1{width:50%;height:20px;text-align:center;font-size:15px;color:#66cc66;}
+        .choosefont{width:50%;height:20px;text-align:center;font-size:15px;}
+		.detailed_comment{margin-top:20px;display:-webkit-box;}
+		.de_com{height:200px;width:98%;border-bottom:7px solid #F4F4F4;display:-webkit-box;}
+		.order_comment{font-size: 13px;height:90%;width: 60px;
+		border: 1px solid  #000;border-radius:20px;float: right;margin-right: 10px;outline:none;}
+		#main{width:100%;height:100%;margin-top:30px;}
+		.box1{height:22%;position:relative;top:3%;width:100%;display: -webkit-box;}
+	    .box1_font{font-size:14px;margin-left:4%;margin-top:7px;}  
+	    .box2{height:28%;width:100%;}   
+	    .box2_time_size{height:45%;width:100%;display:-webkit-box;color:gray;font-size:12px}  
+	    .box2_content{height:40%;width:100%;display:-webkit-box;font-size:14px;margin-top:2%;}
+	    .box3{height:30%;width:100%;background:#F4F4F4;display:-webkit-box;}
+		.box3_left_ph{width:70%;height:100%;margin-left:5%;font-size:13px}
+    </style>
+</head>
+<body>
+<div id="comment">
+	<div class="choosefont1"id="choosefont" >全部 </div>
+	<div class="choosefont" id="choosefont1">有图</div>
+</div>
+
+<div id="main"></div>
+<script type="text/template" id="temp">
+	    
+	   {@each datalist as item}   
+	   <div class="de_com" >
+	         <div style="width:5%;height:100%;"></div>	
+	         <div style="width:92%;height:100%;"> 	         	 	
+				    <div id="username"class="box1">
+							<img class="sh_store_image"src="../../icon/public/store.png"style="width: 30px;height:auto"}/ >
+							<div class="box1_font">商铺</div>
+					</div>
+					<div class="box2"class="box2_time_size">
+							<div>
+								${item.xxGoods.modifyDate}&nbsp;${item.xxGoods.attributeValue0}
+							</div>
+							<div class="box2_content">
+							     ${item.content}
+							</div>
+				    </div>
+				    <div style="height:30%;width:100%;background:#F4F4F4;display:-webkit-box;">
+							<img src="${item.xxGoods.image}" style="height:100%;;width:auto;"/ >
+							<div class="left_ph"style="width:70%;height:100%;margin-left:5%;font-size:13px">
+								   <div style="width:100%;height:40%;padding-top:4%;">${item.xxGoods.name}|&nbsp;${item.xxGoods.keyword}</div>
+ 									 <div style="width:100%;height:30%;padding-top:3.5%;display:-webkit-box;">
+											 <div style="font-size:13px;" >￥${item.xxGoods.price}&nbsp;</div>
+											 <img src="../../icon/public/integral_g.png" style="height:12px;width:auto;position: relative;top:2px"/>
+											 <div style="font-size:12px;">${item.xxGoods.point}</div>
+										</div>
+
+							</div>
+				   </div>
+					<div style="height:20%;width:100%;display:-webkit-box;">
+						<div style="height:70%;width:70%;color:gray;font-size:12px;padding-top:4%;">
+						
+					    </div>
+					<div style="height:70%;width:30%;color:gray;padding-top:2%;">
+						 <button class="order_comment" onclick="deleteadd(${item.id})">删除评价</button></div>
+
+					</div>
+		  </div>
+     </div>
+	 {@/each}	
+    </script>
+	
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/juicer.js"></script>
+<script src="../../script/global_variables.js"></script>
+<script src="../../script/zepto.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+	      get_all_comment();
+    	  api.setRefreshHeaderInfo({
+	        visible: true,
+	        bgColor: '#ccc',
+	        textColor: '#fff',
+	        textDown: '下拉刷新...',
+	        textUp: '松开刷新...',
+	        showTime: true
+	    }, function(ret, err){
+	    	 get_all_comment();	
+	        api.refreshHeaderLoadDone();
+	    });
+		
+		      
+		 };
+	   function get_all_comment(){
+	     $.ajax({
+								type : 'get',
+								url : 'http://116.62.22.98:8080/shop/review/findAll',
+								contentType : "application/json",
+								headers : {
+									loginToken : $api.getStorage('loginToken'),
+									csrfToken : $api.getStorage('csrfToken')
+								},
+							   success : function(data, status, xmlHttpRequest) {
+								if (data.responseCode == 0) {
+								 $api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+								 $api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));								
+								 console.log(JSON.stringify(data));
+								 render("temp", data.data,"main");
+							  }
+							   else {
+							  }
+									},
+									error : function() {
+								 console.log(JSON.stringify(err));
+									}
+							});
+	   
+	   }  
+       function deleteadd(elem) {
+		$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/review/'+elem+'',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+				console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						$api.setStorage("address_data", data.data);
+						document.getElementById('main').innerHTML="";
+						get_all_comment();
+						//document.getElementById('main').innerHTML=" ";
+					     //render("temp",data.data,"main");						
+						//loading.style.display="none";
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+	  function render(temp_id, data_item, div_id) {
+				document.getElementById(div_id).innerHTML = "";
+				var tmp = document.getElementById(temp_id);
+				var data = {
+					datalist : data_item,
+				}
+				var onelist = juicer(tmp.innerHTML, data);
+				document.getElementById(div_id).innerHTML += onelist;;
+			}
+	 var choosefont=document.getElementById('choosefont');
+	 var choosefont1=document.getElementById('choosefont1');
+	 choosefont.onclick= function() {
+	     choosefont.style.color="#66cc66";
+	     choosefont1.style.color="#000";
+	 }
+	 choosefont1.onclick= function() {
+	     choosefont1.style.color="#66cc66";
+	     choosefont.style.color="#000";
+	 }
+</script>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				background: #dadada;
+				margin: 0;
+				-webkit-tap-highlight-color: transparent;
+			}
+			.first_line {
+				width: 95%;
+				height: 70px;
+				padding-left: 5%;
+				border-bottom: 1px solid #d4d4d4;
+				display: -webkit-box;
+				background: #FFFFFF;
+			}
+			.first_line .titles {
+				width: 25%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 15px;
+				margin-top: 15px;
+			}
+			.first_line .contents {
+				width: 60%;
+				padding-right: 5%;
+				height: 60px;
+				font-size: 14px;
+				color: #a6a6a6;
+				margin-top: 8px;
+			}
+			.first_line .modifily {
+				width: 5%;
+				margin-top: 20px;
+			}
+			.first_line .modifily img {
+				height: 25px;
+				width: 25px;
+			}
+			#upload {
+				display: inline-block;
+				width: 50px;
+				height: 50px;
+				border-radius: 50px;
+				border: 2px solid #fff;
+				overflow: hidden;
+				-webkit-box-shadow: 0 0 3px #ccc;
+				float: right;
+			}
+			.second_line {
+				width: 95%;
+				height: 50px;
+				padding-left: 5%;
+				border-bottom: 1px solid #d4d4d4;
+				display: -webkit-box;
+				background: #FFFFFF;
+			}
+			.second_line .titles {
+				width: 25%;
+				height: 40px;
+				line-height: 40px;
+				font-size: 15px;
+				margin-top: 5px;
+			}
+			.second_line .contents {
+				width: 60%;
+				padding-right: 5%;
+				line-height: 20px;
+				font-size: 14px;
+				color: #a6a6a6;
+				text-align: right;
+				margin-top: 15px;
+			}
+			.second_line .modifily {
+				width: 5%;
+				margin-top: 13px;
+			}
+			.second_line .modifily img {
+				height: 25px;
+				width: 25px;
+			}
+		</style>
+	</head>
+	<body>
+	<div class="first_line" id="getpic">
+			<div class="titles">
+				世通头像
+			</div>
+			<div class="contents"><img id="upload" src="../../icon/public/photo.png" />
+			</div>
+			<div class="modifily"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div class="second_line">
+			<div class="titles">
+				会员名
+			</div>
+			<div class="contents" id="username"> 
+			</div>
+			
+		</div>
+		<div class="second_line" onclick="chagetitles()">
+			<div class="titles">
+				世通昵称
+			</div>
+			<div class="contents" id="shitongname"> 
+			</div>
+			<div class="modifily"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div class="second_line" style="margin-top:10px;" id="sex">
+			<div class="titles">
+				性别
+			</div>
+			<div class="contents" id="sexvalue">
+			</div>
+			<div class="modifily"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		
+		
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript">
+	   var flag=0,gender; 
+		apiready = function() {
+		getData();
+		getNickname();
+		api.addEventListener({
+    		name: 'nickname_change'
+			}, function(ret, err) {
+			var nickname_change1= document.getElementById("shitongname");
+			nickname_change1.innerHTML=ret.value.nickname;
+			//alert(ret.value.nickname);
+	    });
+	    if(	document.getElementById('shitongname').value!="")
+			{
+			document.getElementById('shitongname').value="还是空的，快来取个有趣的...";
+			
+			}
+		};
+		document.getElementById('getpic').onclick=function(){
+		uploadphoto();
+		}
+		document.getElementById('sex').onclick=function(){
+		sexmodify();
+		}
+		function sexmodify(){
+		api.actionSheet({
+		cancelTitle : '取消',
+				buttons : ['男', '女']
+        },function(ret,err){
+        if(ret){
+        	var index=ret.buttonIndex;
+        	if(index==1){
+        	document.getElementById('sexvalue').innerHTML='男';
+        	flag=0;
+        	}
+        	else if(index==2){
+        	document.getElementById('sexvalue').innerHTML='女';
+        	flag=1;
+        	}
+        	dataone={
+	                gender:flag,
+	            };
+	            $.ajax({	            
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member/setNickname',
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				context : "document.body",
+				data : dataone,
+				success : function(data, status, xmlHttpRequest) {
+				console.log(JSON.stringify(dataone));
+					if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+        	
+        	}
+        	   
+        });	 
+        }
+		function sex_change(){
+		    dataone={
+	                gender:flag,
+	            };
+	            $.ajax({	            
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member/setNickname',
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				context : "document.body",
+				data : dataone,
+				success : function(data, status, xmlHttpRequest) {
+				console.log(JSON.stringify(dataone));
+					if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));	
+						alert(gender);
+					    //console.log(JSON.stringify(xmlHttpRequest.getResponseHeader('loginToken')));
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		
+		}
+		function getNickname(){
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+					$api.setStorage("nickname",data.data.nickname);
+					document.getElementById('shitongname').innerHTML = data.data.nickname;
+					
+					if(data.data.gender==0){
+					document.getElementById('sexvalue').innerHTML ="男";
+					}
+					else{
+					document.getElementById('sexvalue').innerHTML ="女";
+					}
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					} else {
+					}
+				},
+				error : function(err) {
+					//console.log(JSON.stringify(err));
+				}
+			});
+		
+		}
+		function uploadphoto(){
+		api.actionSheet({
+				cancelTitle : '取消',
+				buttons : ['拍照', '从手机相册选择']
+			}, function(ret, err) {
+				var index = ret.buttonIndex;
+				if (index == 1) {
+					api.getPicture({
+						sourceType : 'camera',
+						encodingType : 'jpg',
+						mediaValue : 'pic',
+						destinationType : 'url',
+						allowEdit : true,
+						quality : 100,
+						preview : true,
+						targetWidth : 100,
+						targetHeight : 100,
+						saveToPhotoAlbum : false
+					}, function(ret, err) {
+					if(ret){
+					document.getElementById('upload').src=ret.data;
+					}
+					else{}
+					});
+				} else if(index==2) {
+					api.getPicture({
+						sourceType : 'library',
+						encodingType : 'jpg',
+						mediaValue : 'pic',
+						destinationType : 'url',
+						allowEdit : true,
+						quality : 100,
+						preview : true,
+						targetWidth : 100,
+						targetHeight : 100,
+						saveToPhotoAlbum : false
+					}, function(ret, err) {
+					if(ret){
+					document.getElementById('upload').src=ret.data;
+					$api.setStorage("headphoto",ret.data);
+					}
+					else{}
+					});
+					
+				}
+				
+			});
+		}
+		function getData(){
+		document.getElementById('username').innerText=$api.getStorage('username');		
+		}
+		function chagetitles()
+		{
+			api.openWin({
+				name : 'changetitles_win',
+				url : './changetitles_win.html'
+			});
+		}
+	</script>
+</html>

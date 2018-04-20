@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    
+    <style>
+    	body {
+			margin:0;
+				width: 100%;
+				height: 100%;
+				background: #ffffff;
+			}
+			#comment{
+			width:100%;
+				background: #FFFFFF;
+				height: 45px;
+				line-height: 45px;
+				display: -webkit-box;
+				position:fixed;
+				top:20px;
+			}
+			#img1 {
+				width: 10%;
+				margin-left: 5%;
+				margin-top: 10px;
+				position: relative;
+				
+			}
+			#title1 {
+				width: 60%;
+				height: 25px;
+				text-align: center;
+				font-size: 17px;
+			
+			}
+			#announce{width:20%;height:25px;color:#66CC66;text-align:center;font-size:16px;}
+			.back_icon {
+				height: 25px;
+				width: 25px;
+				float: left;
+			}
+    </style>
+</head>
+<body>
+	<header id="comment">
+			<div id="img1"><img class="back_icon" src="../../icon/public/back_black.png" onclick="api.closeWin();" />
+			</div>
+			<div id="title1">
+				金券转赠
+			</div>
+			<div id="announce">转赠记录</div>
+		</header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+	
+	var height=document.getElementById('comment').offsetHeight;
+	api.openFrame({
+	    name: 'coupon_give_frame',
+	    url: './coupon_give_frame.html',
+	    rect: {
+		    x:0,
+		    y:height+20,
+	    }
+    });
+		
+	};
+</script>
+</html>

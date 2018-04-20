@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+    
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		body{ background-color: #fff; font-family: "宋体";margin:0;width:100%;font-weight:600;}
+			#main {
+				width: 100%;
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			/*历史搜索*/
+			#history {
+				width: 100%;
+				font-size: 16px;
+				color: #515151;
+				margin-top: 30px;
+			}
+			.new {
+				width: 100%;
+				font-size: 16px;
+				color: #515151;
+			}
+			.hi {
+				height: 48px;
+				line-height: 48px;
+				padding-left: 5%;
+				width: 9.4rem;
+			}
+			.buttones {
+				height: auto;
+				line-height: 26px;
+				font-size:0.42rem;
+				padding-left: 5%;
+				padding-right: 5%;
+				background: #f5f5f5;
+				border: 1px solid #f5f5f5;
+				border-radius: 20px;
+				margin-left: 5%;
+				margin-right: 5%;
+				margin-bottom: 5%;
+			}
+			.con {
+				font-size: 28px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main" >
+			<div id="history">
+				<div class="hi" style="display: -webkit-box;">
+					<div style="width: 8.4rem;">
+						<h5 style=" font-size: 18px;">历史搜索</h5>
+					</div>
+					<div style="width: 0.6rem;" id="dustbin">
+						<img src="../image/delete.png" style="max-height: 32px; max-width: 32px; position: relative;top:6px; "/>
+					</div>
+				</div>
+				<div class="btn" style=" width:100%;" id="historycotent">
+					
+				</div>
+			</div>
+			<div class="new">
+				<div class="hi">
+					<h5 style=" font-size: 18px;">热门搜索</h5>
+				</div>
+				<div class="btn" id="shoppingnameorstorename" style=" height: auto; width:100%;">
+				
+				</div>
+			</div>
+		</div>
+		<script type="text/template" id="temp">
+		{@each datalist as item}
+			<span class="buttones shoppingid">${item.name}</span>
+		{@/each}
+		</script>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../script/juicer.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		
+        var dt = localStorage.getItem("demokey");
+		var historycotent=document.getElementById("historycotent");
+		var searchcontentflag=[];
+		if(dt!=null)
+		{
+		var j=0;
+		for(var i=0;i<6;i++)
+		{
+		var dtson=dt.split("|")[i];
+		if(dtson!=undefined&&dtson!='')
+		{
+		for(j=0;j<i;j++)
+		{
+			if(dtson==dt.split("|")[j])
+			{
+			break;
+			}
+		}
+		if(j==i)
+		{
+		searchcontentflag+='<span class="buttones searchnew">'+dtson+'</span>';
+		}
+		}
+		}
+		historycotent.innerHTML=searchcontentflag;
+		}
+		//历史搜索点击事件
+		var searchnew=document.getElementsByClassName('searchnew');
+		for(var i=0;i<searchnew.length;i++){ 
+            				(function(i){ 
+               				 	searchnew[i].onclick=function(){ 
+               				 	var name=searchnew[i].innerHTML;
+               				 	api.openWin({
+			 						name: 'product_display_win',
+	 		 						url: './shopping/product_display_win.html',
+	 		 						pageParam:{
+                          				name:name
+                    				},
+	  		 						reload:true
+ 									});
+                				}
+           				 	})(i);//这是循环中的i,被作为参数传入
+        }
+		//加载热门搜索
+		$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/goods/search/findHotGoodsList?size=20',
+				success : function(data, status, xmlHttpRequest) {
+				if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						render("temp", data.data, "shoppingnameorstorename");
+						var shoppingid=document.getElementsByClassName('shoppingid');
+						for(var i=0;i<shoppingid.length;i++){ 
+            				(function(i){ 
+               				 	shoppingid[i].onclick=function(){ 
+               				 	api.openWin({
+			 						name: 'product_display_win',
+	 		 						url: './shopping/product_display_win.html',
+	 		 						pageParam:{
+                          				name:data.data[i].name
+                    				},
+	  		 						reload:true
+ 									});
+                				}
+           				 	})(i);//这是循环中的i,被作为参数传入
+        				}
+					}
+				},
+				error : function() {
+				}
+	});
+		};
+		document.getElementById('dustbin').onclick=function()
+		{	
+			var historycotent=document.getElementById("historycotent");
+			historycotent.innerHTML='';
+			localStorage.clear();
+		}
+		function render(temp_id, data_item, div_id) {
+				document.getElementById(div_id).innerHTML = "";
+				var tmp = document.getElementById(temp_id);
+				var data = {
+					datalist : data_item
+				}
+				var onelist = juicer(tmp.innerHTML, data);
+				document.getElementById(div_id).innerHTML += onelist;
+	}
+	</script>
+</html>

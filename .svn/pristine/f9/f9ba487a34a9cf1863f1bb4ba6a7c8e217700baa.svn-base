@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+	<script type="text/javascript" src="../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../script/api.js"></script>
+    <title>金券排行榜</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<style>
+		body{ background-color: #fff; font-family: "宋体";margin:0;width:100%;font-weight:600;}
+		#green{ width: 100%;height: 140px; background:url(../icon/money/bg.png); repeat:none; color:#fff; font-size:0.44rem; text-align:center; }
+    	#sign{ width:1.8rem;  display:-webkit-box; height: 22px; position:relative;left:8.2rem; padding-top: 10px;}
+    	#sign img,#detailed span img{ width:18px; height: 18px; position: relative;top:3px;}
+   		#detailed{ height: 50px;text-align: center; width: 10.0rem; line-height: 50px;}
+
+    	#money{ height: 64px; display:-webkit-box; border-bottom: 1px solid #c4c4c4;}
+    	.money{ width:3.3rem; height: 32px; border-right: 1px solid #c4c4c4; margin-top: 7px; text-align: center;font-size: 0.34rem;}
+    	#money div img{ max-width: 32px; max-height: 32px; }
+
+   		#ranking{ width: 3.0rem; margin-left: 0.4rem; border-left:2px solid #66CC66; font-size: 0.42rem; padding-left: 0.1rem; margin-top: 12px;margin-bottom: 12px;}
+
+    	#search{ height: 60px; display: -webkit-box; text-align: center;}
+   		#selectc,#selects{ padding-left:0.2rem; padding-right:0.2rem; margin-bottom:10px; float:left;margin-left: 0.3rem; max-width: 3.6rem; border:1px solid #a4a4a4; height: 28px;line-height: 28px;font-size: 0.37rem;text-align: center;}
+   		#selectc img,#selects img{ width: 16px; height: 16px; position:relative;top:5px;}
+   		#s{ width: 2.0rem;font-size: 0.42rem;text-align: center; float: right; height: 28px;line-height: 28px; color: #66CC66;}
+
+    	#four{ height: 40px; width: 10.0rem; display:-webkit-box; background: #66CC66;}
+   		#four div{ width: 2.5rem; text-align: center; line-height: 40px; font-size: 0.42rem; color:#fff;}
+
+    	.content{ height: 40px; width:10.0rem; border-bottom: 1px solid #d4d4d4; display:-webkit-box;}
+    	.content div{ width: 2.5rem; text-align: center; line-height: 40px; font-size: 0.42rem;}
+    	.Icon img{ width:26px; height: 26px; position:relative;top:5px;}
+    	#theone,#thethree,#thetwo{   opacity: 0;}
+    </style>
+</head>
+<body id="bg">
+    <div id="green">
+    	<div id="sign">
+    		<img src="../icon/money/sign.png"/>&nbsp;<span>签到</span>
+    	</div>
+    	<div class="mymoney">我的金券</div>
+    	<div cllass="mymoney" id="detailed"><span id="mymoneynumber">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    	<span id="mycouponnumber" style=" font-size: 0.6rem;  position: relative;top:4px; width:3.0rem">0</span>
+    	<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    	<span>明细</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span onclick="openmygoldenticket()"><img src="../icon/public/into_w.png"/></span></div>
+    	<div class="mymoney" id="howgetmoney">如何获得更多金券?</div>
+    </div>
+	<div id="money">
+		<div id="one" class="money"><img src="../icon/money/Luckdraw.png"/><div>金券抽奖</div></div>
+		<div id="two" class="money"><img src="../icon/money/exchange.png" /><div>金券兑换</div></div>
+		<div id="three" class="money" style="border:none;"><img src="../icon/money/Donation.png"/><div>金券转赠</div></div>
+	</div>
+	<div id="ranking">&nbsp;&nbsp;&nbsp;排行榜</div>
+	<div>
+		<div id="selectc">
+			<span id="province" number>请选择查询条件</span>&nbsp;&nbsp;<img src="../icon/public/down.png"/>
+		</div>
+		<div id="selects">
+			<span id="town">请选择查询条件</span>&nbsp;&nbsp;<img src="../icon/public/down.png"/>
+		</div>
+		<div id="s">搜索</div>
+	</div>
+	<div id="four">
+		<div>排名</div><div>昵称</div><div>金券数</div><div>私聊</div>
+	</div>
+	<div class="content theone" id="theone">
+		<div class="Icon"><img src="../icon/money/one.png"/></div>
+		<div class='username' id="numonename"></div><div class='point' id='numonepoint'></div>
+		<div class="Icon"><img src="../icon/money/Privatechat.png"/></div>
+	</div>
+	<div class="content" id="thetwo">
+		<div class="Icon" ><img src="../icon/money/two.png"/></div>
+		<div class='username' id="numtwoname"></div><div class='point' id='numtwopoint'></div>
+		<div class="Icon"><img src="../icon/money/Privatechat.png"/></div>
+	</div>
+	<div class="content" id="thethree">
+		<div class="Icon"><img src="../icon/money/three.png"/></div>
+		<div class='username' id="numthreename"></div><div class='point' id='numthreepoint'></div>
+		<div class="Icon"><img src="../icon/money/Privatechat.png"/></div>
+	</div>
+	<template id="dialog_tpl">
+	<div class="content">
+		<div class="Icon"><div class="grade"></div></div>
+		<div class='username'></div><div class='point'>0</div>
+		<div class="Icon"><img src="../icon/money/Privatechat.png"/></div>
+	</div>
+	</template>
+</body>
+<script>
+	
+	var luckdraw=document.getElementById('one');
+	luckdraw.onclick=function()
+	{
+		api.openWin({
+				name : 'main',
+				url : './money/luckdraw_win.html',
+				bounces : false,
+				rect : {
+					x : 0,
+					w : 'auto',
+				}
+			});
+	}
+  document.getElementById('two').onclick=function(){
+  api.openWin({
+    name: 'money_exchange',
+    url: './money/money_exchange_win.html',
+  });
+  };
+  //点击进入明细
+  function openmygoldenticket()
+  {
+  	api.openWin({
+    name: 'my_golden_ticket_win.html',
+    url: './my/my_golden_ticket_win.html',
+  });
+  }
+  //选择省份
+ document.getElementById('selectc').onclick=function()
+  { 
+  	api.openFrame({
+	        name: 'selectcounty',
+	        url: './money/selectcounty.html',
+	        rect: {
+		        x:0,
+		        y:220,
+	        },
+	        vScrollBarEnabled:false,
+	        hScrollBarEnabled:false,
+	        reload:true,
+	        allowEdit:true
+        });
+  }
+  //选择城市
+ document.getElementById('selects').onclick=function()
+  { 
+  	api.openFrame({
+	        name: 'selecttown',
+	        url: './money/selecttown.html',
+	        rect: {
+		        x:0,
+		        y:220,
+	        },
+	        pageParam:{
+                          townid:townid,
+                    },
+	        vScrollBarEnabled:false,
+	        hScrollBarEnabled:false,
+	        reload:true,
+	        allowEdit:true
+        });
+  }
+document.getElementById('three').onclick=function(){
+api.openWin({
+	name: 'coupon_give_win',
+	url: './coupon/coupon_give_win.html'
+});
+};
+
+//获取个人金券值
+function initialfunction()
+{
+	//获取个人积分
+	$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member/getPointById',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						console.log(JSON.stringify(data));
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					}
+					var mycouponnumber=document.getElementById('mycouponnumber');
+					if(data.data==undefined)
+					{mycouponnumber.innerHTML=0;}
+					else
+					{
+						mycouponnumber.innerHTML=data.data;
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+}
+apiready = function() {
+initialfunction();
+var towmid;
+var zone;
+//打开如何获得更多金券
+var howgetmoney=document.getElementById('howgetmoney');
+	howgetmoney.onclick=function()
+	{	
+		api.openWin({
+			name: 'coupon_give_win',
+			url: './money/detail_win.html'
+		});
+			}
+//城市选择
+	api.addEventListener({
+    		name: 'myEvent'
+			}, function(ret, err) {
+			var province=document.getElementById('province');
+			province.innerHTML=ret.value.key2;
+			var town=document.getElementById('town');
+			town.innerHTML='请选择查询条件';
+			province.number=ret.value.key1;
+			townid=ret.value.key1;
+	});
+	api.addEventListener({
+    		name: 'towndetail'
+			}, function(ret, err) {
+			var town=document.getElementById('town');
+			town.innerHTML=ret.value.key2;
+			
+			zone=ret.value.key1;
+	});
+//获取积分排行
+document.getElementById('s').onclick=function()
+{	
+	$.ajax({
+					type : 'post',
+					url : 'http://116.62.22.98:8080/shop/Member/findByArea?area='+zone+'&page=1&size=10',
+					contentType : "application/json",
+					headers : {
+						loginToken : $api.getStorage('loginToken'),
+						csrfToken : $api.getStorage('csrfToken')
+					},
+					success : function(data, status, xmlHttpRequest) {
+						if (data.responseCode == 0) {
+							$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+							$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+							console.log(JSON.stringify(data));
+							if(data.data.length==0)
+							{
+								document.getElementById('theone').style.opacity=0;
+								document.getElementById('thetwo').style.opacity=0;
+								document.getElementById('thethree').style.opacity=0;
+								alert("此地区没有数据！");
+							}else if(data.data.length==1)
+							{
+							document.getElementById('theone').style.opacity=1;
+							document.getElementById('numonename').innerHTML=data.data[0].username;
+							document.getElementById('numonepoint').innerHTML=data.data[0].point;
+							}else if(data.data.length==2)
+							{
+							document.getElementById('theone').style.opacity=1;
+							document.getElementById('thetwo').style.opacity=1;
+							document.getElementById('numonename').innerHTML=data.data[0].username;
+							document.getElementById('numonepoint').innerHTML=data.data[0].point;
+							document.getElementById('numtwoname').innerHTML=data.data[1].username;
+							document.getElementById('numtwopoint').innerHTML=data.data[1].point;
+							}
+							else if(data.data.length>=3)
+							{
+							document.getElementById('theone').style.opacity=1;
+							document.getElementById('thetwo').style.opacity=1;
+							document.getElementById('thethree').style.opacity=1;
+							document.getElementById('numonename').innerHTML=data.data[0].username;
+							document.getElementById('numonepoint').innerHTML=data.data[0].point;
+							document.getElementById('numtwoname').innerHTML=data.data[1].username;
+							document.getElementById('numtwopoint').innerHTML=data.data[1].point;
+							document.getElementById('numthreename').innerHTML=data.data[2].username;
+							document.getElementById('numthreepoint').innerHTML=data.data[2].point;
+							var dialog = document.querySelector('#dialog_tpl');
+							for(var i=3;i<data.data.length;i++)
+							{
+							dialog.content.querySelector('.username').innerHTML =data.data[i].username;
+							dialog.content.querySelector('.point').innerHTML =data.data[i].point;
+							dialog.content.querySelector('.grade').innerHTML =i+1;
+							document.body.appendChild(dialog.content.cloneNode(true));
+							}
+							}
+						} 
+					},
+					error : function(err) {
+					}
+				});
+}
+};
+
+function cancle(){
+document.getElementById('mycouponnumber').innerText=0;
+
+}
+</script>
+</html>

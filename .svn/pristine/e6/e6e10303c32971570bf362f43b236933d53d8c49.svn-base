@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<script>
+			! function(a, b) {
+				function c() {
+					var b = f.getBoundingClientRect().width;
+					b / i > 540 && ( b = 540 * i);
+					var c = b / 10.0;
+					f.style.fontSize = c + "px", k.rem = a.rem = c
+				}
+
+				var d, e = a.document, f = e.documentElement, g = e.querySelector('meta[name="viewport"]'), h = e.querySelector('meta[name="flexible"]'), i = 0, j = 0, k = b.flexible || (b.flexible = {});
+				if (g) {
+					console.warn("将根据已有的meta标签来设置缩放比例");
+					var l = g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+					l && ( j = parseFloat(l[1]), i = parseInt(1 / j))
+				} else if (h) {
+					var m = h.getAttribute("content");
+					if (m) {
+						var n = m.match(/initial\-dpr=([\d\.]+)/), o = m.match(/maximum\-dpr=([\d\.]+)/);
+						n && ( i = parseFloat(n[1]), j = parseFloat((1 / i).toFixed(2))), o && ( i = parseFloat(o[1]), j = parseFloat((1 / i).toFixed(2)))
+					}
+				}
+				if (!i && !j) {
+					var p = (a.navigator.appVersion.match(/android/gi), a.navigator.appVersion.match(/iphone/gi)), q = a.devicePixelRatio;
+					i = p ? q >= 3 && (!i || i >= 3) ? 3 : q >= 2 && (!i || i >= 2) ? 2 : 1 : 1, j = 1 / i
+				}
+				if (f.setAttribute("data-dpr", i), !g)
+					if ( g = e.createElement("meta"), g.setAttribute("name", "viewport"), g.setAttribute("content", "initial-scale=" + j + ", maximum-scale=" + j + ", minimum-scale=" + j + ", user-scalable=no"), f.firstElementChild)
+						f.firstElementChild.appendChild(g);
+					else {
+						var r = e.createElement("div");
+						r.appendChild(g), e.write(r.innerHTML)
+					}
+				a.addEventListener("resize", function() {
+					clearTimeout(d), d = setTimeout(c, 300)
+				}, !1), a.addEventListener("pageshow", function(a) {
+					a.persisted && (clearTimeout(d), d = setTimeout(c, 300))
+				}, !1), "complete" === e.readyState ? e.body.style.fontSize = 12 * i + "px" : e.addEventListener("DOMContentLoaded", function() {
+					e.body.style.fontSize = 12 * i + "px"
+				}, !1), c(), k.dpr = a.dpr = i, k.refreshRem = c, k.rem2px = function(a) {
+					var b = parseFloat(a) * this.rem;
+					return "string" == typeof a && a.match(/rem$/) && (b += "px"), b
+				}, k.px2rem = function(a) {
+					var b = parseFloat(a) / this.rem;
+					return "string" == typeof a && a.match(/px$/) && (b += "rem"), b
+				}
+			}(window, window.lib || (window.lib = {}));
+		</script>
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			body, html {
+				width: 100%;
+				height: 100%;
+				background: #fff;
+				font-family: "宋体";
+				margin: 0;
+			}
+			/*注册手机号*/
+			.input_item {
+				width: 95%;
+				height: 45px;
+				padding-left: 5%;
+				background: #ffffff;
+				border-top: 1px solid #e1e3e5;
+				display: -webkit-box;
+				position: relative;
+			}
+			.input_item label {
+				font-size: 15px;
+				line-height: 45px;
+			}
+			.into {
+				color: #949494;
+				position: absolute;
+				right: 5%;
+				top: 8px;
+			}
+			.input_item img {
+				width: 20px;
+				height: 20px;
+				position: relative;
+				top: 5px;
+			}
+			.clearbtn {
+				height: 19px;
+				position: absolute;
+				top: 45px;
+				right: 10%;
+				display: none;
+			}
+			.visuable {
+				height: 25px;
+				position: absolute;
+				top: 205px;
+				right: 10%;
+			}
+			#code {
+				width: 35%;
+				border-right: 1px solid #999999;
+			}
+			/*发送验证码*/
+			.send_code {
+				color: #66CC66;
+				position: relative;
+				right: -5%;
+				top: 0px;
+			}
+			/*提交*/
+			#submit {
+				outline: none;
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				background: #66cc66;
+				font-size: 20px;
+				text-align: center;
+				color: white;
+				font-size:17px;
+				position: absolute;
+				bottom:0;
+			}
+			#da {
+				border-top: 1px solid #dadada;
+				border-bottom: 16px solid #dadada;
+				padding-left: 5%;
+				outline: none;
+			}
+			.inputv {
+				outline: none;
+				font-size: 15px;
+				line-height: 25px;
+				width: 60%;
+				height: 45px;
+				position:absolute;top:1px;right:5%;
+			}
+			#default {
+				position: absolute;
+				top: 10px;
+				right: 5%;
+			}
+			#setdefault{display:none;}
+		</style>
+	</head>
+	<body>
+		<div class="input_item">
+			<label > 收货人</label>
+			<input class="inputv" id="receiver"value=""/>
+		</div>
+		<div class="input_item">
+			<label > 联系电话</label>
+			<input class="inputv" id="tel" value=""/>
+		</div>
+		<div class="input_item">
+			<label > 请选择所在地区</label>
+			<div class="into" id="city">
+				<span id="cc">请选择</span><img src="../../icon/public/into_black.png"/>
+			</div>
+		</div>
+		<!--<div class="input_item">
+		<label  > 街道</label>
+		<div class="into">
+		<span>请选择</span><img src="../../icon/public/into_black.png"/>
+		</div>
+		</div>-->
+		<div id="da">
+			<textarea  placeholder="请填写详细地址，不少于5个字" id="address" style=" width: 9.0rem; height: 100px; outline: none; font-size: 0.42rem; line-height: 26px; resize:none; padding-top: 6px;"></textarea>
+		</div>
+		<div class="input_item" id="setdefault">
+			<label> 设为默认地址</label><span></span>
+			<img id="default" src="../../icon/address_manage/uncheck.png"/>
+		</div>
+		<div id="submit">保存</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script src="../../script/clear_info_and_show_btn.js"></script>
+	<script type="text/javascript"></script>
+</html><!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+			}
+		</style>
+	</head>
+	<body></body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		address_id=api.pageParam.address_id;
+			isdefault = false;
+			id=1;
+			getdata(address_id);
+			area=[{"name":"北京市","sub":[{"name":"东城区","id":2},{"name":"西城区","id":3},{"name":"朝阳区","id":4},{"name":"丰台区","id":5},{"name":"石景山区","id":6},{"name":"海淀区","id":7},{"name":"门头沟区","id":8},{"name":"房山区","id":9},{"name":"通州区","id":10},{"name":"顺义区","id":11},{"name":"昌平区","id":12},{"name":"大兴区","id":13},{"name":"怀柔区","id":14},{"name":"平谷区","id":15},{"name":"密云县","id":16},{"name":"延庆县","id":17}],"id":1},
+{"name":"天津市","sub":[{"name":"和平区","id":19},{"name":"河东区","id":20},{"name":"河西区","id":21},{"name":"南开区","id":22},{"name":"河北区","id":23},{"name":"红桥区","id":24},{"name":"东丽区","id":25},{"name":"西青区","id":26},{"name":"津南区","id":27},{"name":"北辰区","id":28},{"name":"武清区","id":29},{"name":"宝坻区","id":30},{"name":"滨海新区","id":31},{"name":"宁河县","id":32},{"name":"静海县","id":33},{"name":"蓟县","id":34}],"id":18},
+{"name":"河北省","sub":[{"name":"石家庄市","id":36},{"name":"唐山市","id":60},{"name":"秦皇岛市","id":75},{"name":"邯郸市","id":83},{"name":"邢台市","id":103},{"name":"保定市","id":123},{"name":"张家口市","id":149},{"name":"承德市","id":167},{"name":"沧州市","id":179},{"name":"廊坊市","id":196},{"name":"衡水市","id":207}],"id":35},
+{"name":"山西省","sub":[{"name":"太原市","id":220},{"name":"大同市","id":231},{"name":"阳泉市","id":243},{"name":"长治市","id":249},{"name":"晋城市","id":263},{"name":"朔州市","id":270},{"name":"晋中市","id":277},{"name":"运城市","id":289},{"name":"忻州市","id":303},{"name":"临汾市","id":318},{"name":"吕梁市","id":336}],"id":219},
+{"name":"内蒙古自治区","sub":[{"name":"呼和浩特市","id":351},{"name":"包头市","id":361},{"name":"乌海市","id":371},{"name":"赤峰市","id":375},{"name":"通辽市","id":388},{"name":"鄂尔多斯市","id":397},{"name":"呼伦贝尔市","id":406},{"name":"巴彦淖尔市","id":421},{"name":"乌兰察布市","id":429},{"name":"兴安盟","id":441},{"name":"锡林郭勒盟","id":448},{"name":"阿拉善盟","id":461}],"id":350},
+{"name":"辽宁省","sub":[{"name":"沈阳市","id":466},{"name":"大连市","id":480},{"name":"鞍山市","id":491},{"name":"抚顺市","id":499},{"name":"本溪市","id":507},{"name":"丹东市","id":514},{"name":"锦州市","id":521},{"name":"营口市","id":529},{"name":"阜新市","id":536},{"name":"辽阳市","id":544},{"name":"盘锦市","id":552},{"name":"铁岭市","id":557},{"name":"朝阳市","id":565},{"name":"葫芦岛市","id":573}],"id":465},
+{"name":"吉林省","sub":[{"name":"长春市","id":581},{"name":"吉林市","id":592},{"name":"四平市","id":602},{"name":"辽源市","id":609},{"name":"通化市","id":614},{"name":"白山市","id":622},{"name":"松原市","id":629},{"name":"白城市","id":635},{"name":"延边朝鲜族自治州","id":641}],"id":580},
+{"name":"黑龙江省","sub":[{"name":"哈尔滨市","id":651},{"name":"齐齐哈尔市","id":670},{"name":"鸡西市","id":687},{"name":"鹤岗市","id":697},{"name":"双鸭山市","id":706},{"name":"大庆市","id":715},{"name":"伊春市","id":725},{"name":"佳木斯市","id":743},{"name":"七台河市","id":754},{"name":"牡丹江市","id":759},{"name":"黑河市","id":770},{"name":"绥化市","id":777},{"name":"大兴安岭地区","id":788}],"id":650},
+{"name":"上海市","sub":[{"name":"黄浦区","id":793},{"name":"徐汇区","id":794},{"name":"长宁区","id":795},{"name":"静安区","id":796},{"name":"普陀区","id":797},{"name":"闸北区","id":798},{"name":"虹口区","id":799},{"name":"杨浦区","id":800},{"name":"闵行区","id":801},{"name":"宝山区","id":802},{"name":"嘉定区","id":803},{"name":"浦东新区","id":804},{"name":"金山区","id":805},{"name":"松江区","id":806},{"name":"青浦区","id":807},{"name":"奉贤区","id":808},{"name":"崇明县","id":809}],"id":792},
+{"name":"江苏省","sub":[{"name":"南京市","id":811},{"name":"无锡市","id":823},{"name":"徐州市","id":832},{"name":"常州市","id":843},{"name":"苏州市","id":851},{"name":"南通市","id":861},{"name":"连云港市","id":870},{"name":"淮安市","id":878},{"name":"盐城市","id":887},{"name":"扬州市","id":897},{"name":"镇江市","id":904},{"name":"泰州市","id":911},{"name":"宿迁市","id":918}],"id":810},
+{"name":"浙江省","sub":[{"name":"杭州市","id":925},{"name":"宁波市","id":939},{"name":"温州市","id":951},{"name":"嘉兴市","id":963},{"name":"湖州市","id":971},{"name":"绍兴市","id":977},{"name":"金华市","id":984},{"name":"衢州市","id":994},{"name":"舟山市","id":1001},{"name":"台州市","id":1006},{"name":"丽水市","id":1016}],"id":924},
+{"name":"安徽省","sub":[{"name":"合肥市","id":1027},{"name":"芜湖市","id":1037},{"name":"蚌埠市","id":1046},{"name":"淮南市","id":1054},{"name":"马鞍山市","id":1061},{"name":"淮北市","id":1068},{"name":"铜陵市","id":1073},{"name":"安庆市","id":1078},{"name":"黄山市","id":1090},{"name":"滁州市","id":1098},{"name":"阜阳市","id":1107},{"name":"宿州市","id":1116},{"name":"六安市","id":1122},{"name":"亳州市","id":1130},{"name":"池州市","id":1135},{"name":"宣城市","id":1140}],"id":1026},
+{"name":"福建省","sub":[{"name":"福州市","id":1149},{"name":"厦门市","id":1163},{"name":"莆田市","id":1170},{"name":"三明市","id":1176},{"name":"泉州市","id":1189},{"name":"漳州市","id":1202},{"name":"南平市","id":1214},{"name":"龙岩市","id":1225},{"name":"宁德市","id":1233}],"id":1148},
+{"name":"江西省","sub":[{"name":"南昌市","id":1244},{"name":"景德镇市","id":1254},{"name":"萍乡市","id":1259},{"name":"九江市","id":1265},{"name":"新余市","id":1279},{"name":"鹰潭市","id":1282},{"name":"赣州市","id":1286},{"name":"吉安市","id":1305},{"name":"宜春市","id":1319},{"name":"抚州市","id":1330},{"name":"上饶市","id":1342}],"id":1243},
+{"name":"山东省","sub":[{"name":"济南市","id":1356},{"name":"青岛市","id":1367},{"name":"淄博市","id":1378},{"name":"枣庄市","id":1387},{"name":"东营市","id":1394},{"name":"烟台市","id":1400},{"name":"潍坊市","id":1413},{"name":"济宁市","id":1426},{"name":"泰安市","id":1439},{"name":"威海市","id":1446},{"name":"日照市","id":1451},{"name":"莱芜市","id":1456},{"name":"临沂市","id":1459},{"name":"德州市","id":1472},{"name":"聊城市","id":1484},{"name":"滨州市","id":1493},{"name":"菏泽市","id":1501}],"id":1355},
+{"name":"河南省","sub":[{"name":"郑州市","id":1512},{"name":"开封市","id":1525},{"name":"洛阳市","id":1536},{"name":"平顶山市","id":1552},{"name":"安阳市","id":1563},{"name":"鹤壁市","id":1573},{"name":"新乡市","id":1579},{"name":"焦作市","id":1592},{"name":"濮阳市","id":1603},{"name":"许昌市","id":1610},{"name":"漯河市","id":1617},{"name":"三门峡市","id":1623},{"name":"南阳市","id":1630},{"name":"商丘市","id":1644},{"name":"信阳市","id":1654},{"name":"周口市","id":1665},{"name":"驻马店市","id":1676},{"name":"济源市","id":1687}] ,"id":1511},
+{"name":"湖北省","sub":[{"name":"武汉市","id":1689},{"name":"黄石市","id":1703},{"name":"十堰市","id":1710},{"name":"宜昌市","id":1719},{"name":"襄阳市","id":1733},{"name":"鄂州市","id":1743},{"name":"荆门市","id":1747},{"name":"孝感市","id":1753},{"name":"荆州市","id":1761},{"name":"黄冈市","id":1770},{"name":"咸宁市","id":1781},{"name":"随州市","id":1788},{"name":"恩施土家族苗族自治州","id":1792},{"name":"仙桃市","id":1801},{"name":"潜江市","id":1802},{"name":"天门市","id":1803},{"name":"神农架林区","id":1804}],"id":1688},
+{"name":"湖南省","sub":[{"name":"长沙市","id":1806},{"name":"株洲市","id":1816},{"name":"湘潭市","id":1826},{"name":"衡阳市","id":1832},{"name":"邵阳市","id":1845},{"name":"岳阳市","id":1858},{"name":"常德市","id":1868},{"name":"张家界市","id":1878},{"name":"益阳市","id":1883},{"name":"郴州市","id":1890},{"name":"永州市","id":1902},{"name":"怀化市","id":1914},{"name":"娄底市","id":1927},{"name":"湘西土家族苗族自治州","id":1933}],"id":1805},
+{"name":"广东省","sub":[{"name":"广州市","id":1943},{"name":"韶关市","id":1956},{"name":"深圳市","id":1967},{"name":"珠海市","id":1974},{"name":"汕头市","id":1978},{"name":"佛山市","id":1986},{"name":"江门市","id":1992},{"name":"湛江市","id":2000},{"name":"茂名市","id":2010},{"name":"肇庆市","id":2017},{"name":"惠州市","id":2026},{"name":"梅州市","id":2032},{"name":"汕尾市","id":2041},{"name":"河源市","id":2046},{"name":"阳江市","id":2053},{"name":"清远市","id":2058},{"name":"东莞市","id":2067},{"name":"中山市","id":2068},{"name":"潮州市","id":2069},{"name":"揭阳市","id":2073},{"name":"云浮市","id":2079}],"id":1942},
+{"name":"广西壮族自治区","sub":[{"name":"南宁市","id":2086},{"name":"柳州市","id":2099},{"name":"桂林市","id":2110},{"name":"梧州市","id":2128},{"name":"北海市","id":2136},{"name":"防城港市","id":2141},{"name":"钦州市","id":2146},{"name":"贵港市","id":2151},{"name":"玉林市","id":2157},{"name":"百色市","id":2165},{"name":"贺州市","id":2178},{"name":"河池市","id":2183},{"name":"来宾市","id":2195},{"name":"崇左市","id":2202}],"id":2085},
+{"name":"海南省","sub":[{"name":"海口市","id":2211},{"name":"三亚市","id":2216},{"name":"三沙市","id":2217},{"name":"五指山市","id":2221},{"name":"琼海市","id":2222},{"name":"儋州市","id":2223},{"name":"文昌市","id":2224},{"name":"万宁市","id":2225},{"name":"东方市","id":2226},{"name":"定安县","id":2227},{"name":"屯昌县","id":2228},{"name":"澄迈县","id":2229},{"name":"临高县","id":2230},{"name":"白沙黎族自治县","id":2231},{"name":"昌江黎族自治县","id":2232},{"name":"乐东黎族自治县","id":2233},{"name":"陵水黎族自治县","id":2234},{"name":"保亭黎族苗族自治县","id":2235},{"name":"琼中黎族苗族自治县","id":2236}],"id":2210},
+{"name":"重庆市","sub":[{"name":"万州区","id":2238},{"name":"涪陵区","id":2239},{"name":"渝中区","id":2240},{"name":"大渡口区","id":2241},{"name":"江北区","id":2242},{"name":"沙坪坝区","id":2243},{"name":"九龙坡区","id":2244},{"name":"南岸区","id":2245},{"name":"北碚区","id":2246},{"name":"綦江区","id":2247},{"name":"大足区","id":2248},{"name":"渝北区","id":2249},{"name":"巴南区","id":2250},{"name":"黔江区","id":2251},{"name":"长寿区","id":2252},{"name":"江津区","id":2253},{"name":"合川区","id":2254},{"name":"永川区","id":2255},{"name":"南川区","id":2256},{"name":"潼南县","id":2257},{"name":"铜梁县","id":2258},{"name":"荣昌县","id":2259},{"name":"璧山县","id":2260},{"name":"梁平县","id":2261},{"name":"城口县","id":2262},{"name":"丰都县","id":2263},{"name":"垫江县","id":2264},{"name":"武隆县","id":2265},{"name":"忠县","id":2266},{"name":"开县","id":2267},{"name":"云阳县","id":2268},{"name":"奉节县","id":2269},{"name":"巫山县","id":2270},{"name":"巫溪县","id":2271},{"name":"石柱土家族自治县","id":2272},{"name":"秀山土家族苗族自治县","id":2273},{"name":"酉阳土家族苗族自治县","id":2274},{"name":"彭水苗族土家族自治县","id":2275}],"id":2237},
+{"name":"四川省","sub":[{"name":"成都市","id":2277},{"name":"自贡市","id":2297},{"name":"攀枝花市","id":2304},{"name":"泸州市","id":2310},{"name":"德阳市","id":2318},{"name":"绵阳市","id":2325},{"name":"广元市","id":2335},{"name":"遂宁市","id":2343},{"name":"内江市","id":2349},{"name":"乐山市","id":2355},{"name":"南充市","id":2367},{"name":"眉山市","id":2377},{"name":"宜宾市","id":2384},{"name":"广安市","id":2395},{"name":"达州市","id":2402},{"name":"雅安市","id":2410},{"name":"巴中市","id":2419},{"name":"资阳市","id":2425},{"name":"阿坝藏族羌族自治州","id":2430},{"name":"甘孜藏族自治州","id":2444},{"name":"凉山彝族自治州","id":2463}],"id":2276},
+{"name":"贵州省","sub":[{"name":"贵阳市","id":2482},{"name":"六盘水市","id":2493},{"name":"遵义市","id":2498},{"name":"安顺市","id":2513},{"name":"毕节市","id":2520},{"name":"铜仁市","id":2529},{"name":"黔西南布依族苗族自治州","id":2540},{"name":"黔东南苗族侗族自治州","id":2549},{"name":"黔南布依族苗族自治州","id":2566}],"id":2481},
+{"name":"云南省","sub":[{"name":"昆明市","id":2580},{"name":"曲靖市","id":2595},{"name":"玉溪市","id":2605},{"name":"保山市","id":2615},{"name":"昭通市","id":2621},{"name":"丽江市","id":2633},{"name":"普洱市","id":2639},{"name":"临沧市","id":2650},{"name":"楚雄彝族自治州","id":2659},{"name":"红河哈尼族彝族自治州","id":2670},{"name":"文山壮族苗族自治州","id":2684},{"name":"西双版纳傣族自治州","id":2693},{"name":"大理白族自治州","id":2697},{"name":"德宏傣族景颇族自治州","id":2710},{"name":"怒江傈僳族自治州","id":2716},{"name":"迪庆藏族自治州","id":2721}],"id":2579},
+{"name":"西藏自治区","sub":[{"name":"拉萨市","id":2726},{"name":"昌都地区","id":2735},{"name":"山南地区","id":2747},{"name":"日喀则地区","id":2760},{"name":"那曲地区","id":2779},{"name":"阿里地区","id":2791},{"name":"林芝地区","id":2799}],"id":2725},
+{"name":"陕西省","sub":[{"name":"西安市","id":2808},{"name":"铜川市","id":2822},{"name":"宝鸡市","id":2827},{"name":"咸阳市","id":2840},{"name":"渭南市","id":2855},{"name":"延安市","id":2867},{"name":"汉中市","id":2881},{"name":"榆林市","id":2893},{"name":"安康市","id":2906},{"name":"商洛市","id":2917}],"id":2807},
+{"name":"甘肃省","sub":[{"name":"兰州市","id":2926},{"name":"嘉峪关市","id":2935},{"name":"金昌市","id":2936},{"name":"白银市","id":2939},{"name":"天水市","id":2945},{"name":"武威市","id":2953},{"name":"张掖市","id":2958},{"name":"平凉市","id":2965},{"name":"酒泉市","id":2973},{"name":"庆阳市","id":2981},{"name":"定西市","id":2990},{"name":"陇南市","id":2998},{"name":"临夏回族自治州","id":3008},{"name":"甘南藏族自治州","id":3017}],"id":2925},
+{"name":"青海省","sub":[{"name":"西宁市","id":3027},{"name":"海东市","id":3035},{"name":"海北藏族自治州","id":3042},{"name":"黄南藏族自治州","id":3047},{"name":"海南藏族自治州","id":3052},{"name":"果洛藏族自治州","id":3058},{"name":"玉树藏族自治州","id":3065},{"name":"海西蒙古族藏族自治州","id":3072}],"id":3026},
+{"name":"宁夏回族自治区","sub":[{"name":"银川市","id":3079},{"name":"石嘴山市","id":3086},{"name":"吴忠市","id":3090},{"name":"固原市","id":3096},{"name":"中卫市","id":3102}],"id":3078},
+{"name":"新疆维吾尔自治区","sub":[{"name":"乌鲁木齐市","id":3107},{"name":"克拉玛依市","id":3116},{"name":"吐鲁番地区","id":3121},{"name":"哈密地区","id":3125},{"name":"昌吉回族自治州","id":3129},{"name":"博尔塔拉蒙古自治州","id":3137},{"name":"巴音郭楞蒙古自治州","id":3142},{"name":"阿克苏地区","id":3152},{"name":"克孜勒苏柯尔克孜自治州","id":3162},{"name":"喀什地区","id":3167},{"name":"和田地区","id":3180},{"name":"伊犁哈萨克自治州","id":3189},{"name":"塔城地区","id":3200},{"name":"阿勒泰地区","id":3208},{"name":"石河子市","id":3216},{"name":"阿拉尔市","id":3217},{"name":"图木舒克市","id":3218},{"name":"五家渠市","id":3219}],"id":3106},
+{"name":"台湾省","sub":[],"id":3220},
+{"name":"香港特别行政区","sub":[],"id":3221},
+{"name":"澳门特别行政区","sub":[],"id":3222}]
+		
+		};
+		document.getElementById('default').onclick = function() {
+			if (!isdefault) {
+				document.getElementById('default').src = "../../icon/address_manage/check.png";
+				isdefault = true;
+			} else {
+				document.getElementById('default').src = "../../icon/address_manage/uncheck.png";
+				isdefault = false;
+			}
+		};
+		function getdata(id) {
+		
+			$.ajax({
+				type : 'get',
+				url : "http://116.62.22.98:8080/shop/receiver/"+id+"",
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						document.getElementById('receiver').value=data.data.consignee;
+						document.getElementById('tel').value=data.data.phone;
+						document.getElementById('cc').innerHTML=data.data.areaName;
+						document.getElementById('address').value=data.data.address;
+						id=data.data.id;
+						isdefault=data.data.isDefault;
+						if(data.data.isDefault==false)
+						{
+						document.getElementById('setdefault').style.display="block";
+						}
+						
+				
+					}
+					console.log(JSON.stringify(data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		} 
+		document.getElementById('submit').onclick = function() {
+			check();
+			
+		};
+		document.getElementById('default').onclick = function() {
+			if (!isdefault) {
+				document.getElementById('default').src = "../../icon/address_manage/check.png";
+				isdefault = true;
+			} else {
+				document.getElementById('default').src = "../../icon/address_manage/uncheck.png";
+				isdefault = false;
+			}
+		};
+		function check(){
+		name=document.getElementById("receiver").value;
+		tel=document.getElementById("tel").value;
+		far=document.getElementById("cc").innerHTML;
+		near=document.getElementById("address").value;
+		if(name!="" && tel!="" && far!="" && near!=""){
+		edit_address(name, tel, far, near,id,isdefault)
+		}
+		else{
+		api.toast({
+								msg : '请将信息填写完整',
+								location:'middle'
+							});
+		}
+		}
+		function edit_address(name, tel, far_address, near_address,id,isdefault) {
+			datavalue = {
+				areaName : far_address,
+				address : near_address,
+				zipCode : "226521",
+				phone : tel,
+				area : id,
+				consignee :name,
+				isDefault:isdefault
+			};
+			$.ajax({
+				type : 'put',
+				url : 'http://116.62.22.98:8080/shop/receiver/'+address_id+'',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				data : JSON.stringify(datavalue),
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+					$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					api.toast({
+								msg : '修改成功',
+								location:'middle'
+							});
+							api.sendEvent({
+				name : 'reflash_address'
+			});
+							api.closeWin();
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+
+		document.getElementById('city').onclick = function() {
+			 citysheet(area);
+		};
+		function citysheet(area) {
+			var UIActionSelector = api.require('UIActionSelector');
+			UIActionSelector.open({
+				datas :  area,
+				layout : {
+					row : 5,
+					col : 2,
+					height : 30,
+					size : 12,
+					sizeActive : 14,
+					rowSpacing : 5,
+					colSpacing : 10,
+					maskBg : 'rgba(0,0,0,0.5)',
+					bg : '#E5E5E5',
+					color : '#888',
+					colorActive : '#000',
+					colorSelected : '#000'
+				},
+				animation : true,
+				cancel : {
+					text : '取消',
+					size : 13,
+					w : 90,
+					h : 35,
+					bg : '#fff',
+					bgActive : '#fff',
+					color : '#66CC66',
+					colorActive : '#66CC66'
+				},
+				ok : {
+					text : '确定',
+					size : 13,
+					w : 90,
+					h : 35,
+					bg : '#fff',
+					bgActive : '#fff',
+					color : '#66CC66',
+					colorActive : '#66CC66'
+				},
+				title : {
+					text : '',
+					size : 12,
+					h : 44,
+					bg : '#fff',
+					color : '#fff'
+				},
+				fixedOn : api.frameName
+			}, function(ret, err) {
+				if (ret.level1!="") {
+				document.getElementById('cc').innerHTML=ret.level1+ret.level2;
+				id=ret.selectedInfo[0].id;
+				//alert(JSON.stringify(id));
+				
+				} else {
+					//alert(JSON.stringify(err));
+				}
+			});
+		}
+
+		function seleceCity() {
+			$.ajax({
+				type : 'get',
+				url : '../../address.json',
+				contentType : "application/json",
+				success : function(data, status, xmlHttpRequest) {
+					//console.log(data);
+				    //area=data;
+					citysheet(data);
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function selecetown(id) {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/area/search/' + id + '',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+					$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					town = data.data;
+					for (var i = 0; i < data.data.length; i++) {
+						sub.push({
+							"name" : data.data[i].name,
+							"id" : data.data[i].id
+						})
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+	</script>
+</html>

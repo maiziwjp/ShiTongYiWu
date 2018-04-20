@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>Hello APP</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/api.css" />
+		<style>
+			body {
+				font-family: "宋体";
+			}
+			#main {
+				display: -webkit-box;
+				position: absolute;
+				left: 23%;
+				top: 0px;
+			}
+			#leftone {
+				width: 22.5%;
+				height: auto;
+				margin-top: 3px;	
+				position:fixed;	
+				border-right: 1px solid gray;		
+			}
+
+			.slide {
+				height: 38px;
+				text-align: center;
+				line-height: 30px;
+				float: left
+			}
+			.li {
+				font-size: 14px
+			}
+			.lifont {
+				width: 98%;
+				height: 20px;
+				padding-bottom: 5px
+			}
+			#right {
+				width: 76%;
+				height: auto;
+				
+				position:absolute;top:5px;
+				left:22%;
+			}
+			#right_goods {
+				width: 98%;
+				height: 100%;
+				margin-top: 10px;
+			}
+			._font {
+				height: 45px;
+				text-align: center;
+				line-height: 45px;
+				font-size:15px;
+			}
+			._header {
+				display: -webkit-box;
+				height: 45px;
+				width: 100%;
+			}
+			#goods_header {
+				height: 45px;
+				width: 100%;
+			}
+			.goods_head_left {
+				width: 80%;
+				height: 100%;
+				display: -webkit-box;
+			}
+			.line {
+				width: 16%;
+				height: 1px;
+				position: relative;
+				top:10px;
+			}
+			.goods_more {
+				width: 20%;
+				height: 100%;
+				display: -webkit-box;
+			}
+			.more_font {
+				font-size: 14px;
+				height: 45px;
+				line-height: 45px;
+				color: #66cc66;
+			}
+			.goods_content {
+				height: 240px;
+				width: 100%;				
+			}
+			.goods_list {
+				height: 120px;
+				width: 100%;
+				display: -webkit-box;
+			}
+			#goods_list{	
+			    height: 120px;
+				width: 100%;
+				}
+			.goods {
+				width: 32%;
+				height: 120px;
+			}
+			.goods_1 {
+				width: 90%;
+				height: auto;
+				margin-left: 12px
+			}
+			.goods_2 {
+				max-height: 11.5px;
+				width: auto;
+				position: relative;
+				top: 2px;
+				margin-left: 0px;
+			}
+			.price1 {
+				margin-left: 12px;
+				font-size: 12px;
+				color: red;
+			}
+			.price11{color:#c3c3c3;font-size:11px;position: relative;}
+			.price{color:#c3c3c3;font-size:11px;top:-3px;}
+			.left {
+				width: 90%;
+				height: 20px;
+				margin-top: 10px;
+				margin-bottom: 5px;
+				padding-left:6%;
+				display: inline-block;			
+				font-size: 14px;
+			}
+			.goods_font{font-size: 18px;color:#666666;}
+			.xuanran{color:#c3c3c3;font-size:11px;position: relative;}
+			.pointxuanran{color:#c3c3c3;font-size:11px;top:-3px;}
+		</style>
+	</head>
+	<body>
+		<div id="leftone"></div>
+		<div id="right">
+		</div>
+		<script type="text/template" id="temp">
+			{@each datalist as item}
+			<div class="left">${item.name}</div>
+			{@/each}
+		</script>
+        <script type="text/template" id="temp2">
+		    {@each datalist as item}		    		
+			<!--头部-->
+			<div class="box1" style="width:100%;">
+					<div class="goods_head_left" style="height: 30px;">
+							<div class="line" style="background: #dcdfe8; height: 1px;margin-left:25% ;margin-right:3%"></div>
+							<div class="goods_font">${item.name}</div>
+							<div class="line" style="background: #dcdfe8; height: 1px;margin-left:3%"></div>
+					</div>
+			  <div id="${item.id}">
+	
+			  </div>
+		    </div>	 
+			
+			 {@/each}
+        </script>
+        <script type="text/template" id="temp3">
+        {@each datalist as item}
+        <span class="goods" onclick="open_single_shop(${item.id})">
+        	<img class="goods_1" src="${item.image}"/ ><br/>
+        	<span class="price1">¥${item.price}</span><span class="xuanran" >(</span><img class="goods_2" src="../icon/public/integral_g.png" /><span class="pointxuanran">${item.point})</span>
+        </span>
+        {@/each}
+        </script>
+		<script type="text/javascript" src="../script/api.js"></script>
+		<script type="text/javascript" src="../script/jquery.min.js"></script>
+		<script type="text/javascript" src="../script/juicer.js"></script>
+		<script src="../script/global_variables.js"></script>
+		<script src="../script/zepto.js"></script>
+		<script type="text/javascript">
+			arr = new Array();
+		  	for(var k=0;k<100;k++){
+		        arr[k]=new Array();
+		        for(var j=0;j<100;j++){
+		           arr[k][j]="";
+		         }
+		    }
+		   var data1;
+		   var data2;
+		   var flag0 = 0;
+			apiready = function() {
+				 getcategories();
+				 // getgoods();	
+		    	 api.setRefreshHeaderInfo({
+			        visible: true,
+			        bgColor: '#ccc',
+			        textColor: '#fff',
+			        textDown: '下拉刷新...',
+			        textUp: '松开刷新...',
+			        showTime: true
+			    }, function(ret, err){
+			    	 getcategories()
+			        api.refreshHeaderLoadDone();
+			    });
+			};
+			function open_single_shop(id)
+			{
+				api.openWin({
+					name : 'single_shopping_win',
+					url : './shopping/single_shopping_win.html',
+					pageParam : {
+						id : id
+					}
+				});
+			}
+	   		function getcate_parent(elem) {
+				$.ajax({
+					type : 'get',
+					url : 'http://116.62.22.98:8080/shop/product/category/' + elem + '',
+					success : function(data, status, xmlHttpRequest) {
+						console.log(JSON.stringify(data));
+						if (data.responseCode == 0) {
+							document.getElementById('right').innerHTML="";	
+							render2("temp2", data.data, "right");
+							var dd='';
+							for(var i=0;i<data.data.length;i++)
+							{
+							dd=data.data[i].id;
+							threexuanran(dd);
+							}
+												 
+						} else {
+						}
+					},
+					error : function() {
+					}
+				});
+				
+			}
+			function getcategories() {
+				$.ajax({
+					type : 'get',
+					url : 'http://116.62.22.98:8080/shop/product/category/first',
+					contentType : "application/json",
+					success : function(data, status, xmlHttpRequest) {
+						color="green";
+						//console.log(JSON.stringify(data.data));
+						if (data.responseCode == 0) {
+
+							// render("temp2", data.data,"right" );
+                            var left=document.getElementsByClassName('left');
+			                var flag=0;
+							render("temp", data.data, "leftone");
+							left[0].style.color='#66cc66';
+							left[0].style.borderLeft="2px solid #66cc66";
+							for(var i=0;i<data.data.length;i++)
+		                    {
+		                       arr[i][1]=data.data[i].name;
+		                       arr[i][2]=data.data[i].id;
+		                       //alert(data.data[i].id);		                      
+		                    }
+		                     getcate_parent(data.data[0].id);	
+		                     
+							
+			                  for(var i=0;i<data.data.length;i++){
+			                         (function(i){
+			                               left[i].onclick=function(){
+			                                 left[flag].style.color="#000";
+			                                 left[i].style.color='#66cc66';
+			                                 left[flag].style.borderLeft="0px solid #66cc66";
+			                                 //left[i].style.paddingLeft="2%";
+			                                 left[i].style.borderLeft="2px solid #66cc66";
+			                                 getcate_parent(arr[i][2]);			             
+			                               	 flag=i;
+			                             }
+			                           })(i);//这是循环中的i,被作为参数传入
+			                     }
+						} else {
+						}
+					},
+					error : function() {
+						//console.log(JSON.stringify(err));
+					}
+				});
+			}
+
+			function render(temp_id, data_item, div_id) {
+				document.getElementById(div_id).innerHTML = "";
+				var tmp = document.getElementById(temp_id);
+				var data = {
+					datalist : data_item
+				}
+				var onelist = juicer(tmp.innerHTML, data);
+				document.getElementById(div_id).innerHTML += onelist;
+			}
+			function render2(temp_id, data_item, div_id) {
+				var tmp = document.getElementById(temp_id);
+				var data = {
+					datalist : data_item,
+					//datalist2: data_item2,
+				}
+				var onelist = juicer(tmp.innerHTML, data);
+				document.getElementById(div_id).innerHTML += onelist;
+			}
+			function threexuanran(num)
+			{
+			$.ajax({
+							type : 'get',
+							url : 'http://116.62.22.98:8080/shop/product/category/' + num + '/goods',
+							contentType : "application/json",
+							success : function(data, status, xmlHttpRequest) {
+							
+							
+								if (data.responseCode == 0) {
+								
+									if(data.data!="")
+							{
+							//var arr1='';
+							//for(var i=0;i<data.data.length;i++)
+							//{
+							//arr1+='<span class="goods"><img class="goods_1" src="../image/goods1.gif"/ ><br/><span class="price1">¥'+data.data[i].price+'&nbsp;</span><span class="xuanran" >(</span><img class="goods_2" src="../icon/public/integral_g.png" /><span class="pointxuanran"><span>'+data.data[i].point+'</span>)</span></span>';
+							
+							//}
+							//document.getElementById(num).innerHTML=arr1;
+							render2("temp3", data.data, num);
+							
+							}
+								console.log(JSON.stringify(data));
+								} else {
+								}
+							},
+							error : function() {
+								//console.log(JSON.stringify(err));
+							}
+						});
+			}
+		    function opensigleshopping(elem)
+		    {
+		    alert(elem);
+			api.openWin({
+						name : 'single_shopping_win',
+						url : '../shopping/single_shopping_win.html',
+						pageParam : {
+							id : elem
+						}
+			});
+		   }
+		</script>
+	</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<link rel="stylesheet" href="../../css/winpart.css">
+		<style>
+			body {
+				background: #FFFFFF;
+				margin: 0;
+			}
+			footer {
+				width: 100%;
+				height: 50px;
+				background: #FFFFFF;
+				position: fixed;
+				bottom: 0;
+				display: -webkit-box;
+				border-top: 1px solid #d4d4d4;
+			}
+			.amount {
+				width: 68%;
+				padding-right: 2%;
+				text-align: right;
+				margin-top: 14px;
+			}
+			.amount img {
+				width: 15px;
+				height: 15px;
+				position: relative;
+				top: 2px;
+			}
+			#rmb {
+				color: #f72933;
+			}
+			.coin {
+				color: #66CC66;
+			}
+			.submit_order {
+				width: 30%;
+				background: #66CC66;
+				color: #FFFFFF;
+				font-size: 17px;
+				text-align: center;
+			}
+			.submit_order span {
+				margin-top: 13px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="body" >
+			<header id="winpart">
+				<div id="img1"><img class="back_icon" src="../../icon/public/back_black.png" onclick="api.closeWin();" />
+				</div>
+				<div id="title1">
+					确认订单
+				</div>
+			</header>
+		</div>
+		<footer>
+			<div class="amount">
+				<span>应付：</span><span id="rmb">￥59.0</span><span style="margin-left:2px;margin-right:2px;">+</span><img src="../../icon/public/integral_green.png" /><span class="coin" id="point">590</span>
+			</div>
+			<div class="submit_order" id="submit">
+				<span>提交订单</span>
+			</div>
+		</footer>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			$api.fixStatusBar($api.dom('header'));
+			/* 状态栏适配 */
+			var header = document.getElementById("header");
+			var height = document.getElementById("winpart").offsetHeight;
+			var frameH = api.winHeight - height - $api.dom('footer').offsetHeight;
+			api.setStatusBarStyle({
+				style : 'dark',
+				color : '#fff'
+			});
+			shoppingDetails = $api.getStorage('shoppingDetails');
+			shopping_param = $api.getStorage("shopping_param");
+			num = api.pageParam.num;
+			selected_shopping=api.pageParam.selected_shopping;
+			shippingMethod_id=api.pageParam.shippingMethod_id,
+			store=api.pageParam.store,
+			address=api.pageParam.address;
+			good_index = 1;
+			pay_style_id = 1;
+			settle_sn="1";
+			my_pointNum=0;
+			memo="";
+			total=0;
+			
+				price = selected_shopping.price;
+				api.openFrame({
+					name : 'submit_order_frame',
+					url : './submit_order_frame.html',
+					rect : {
+						x : 0,
+						y : height,
+						w : api.winWidth,
+						h : frameH
+					},
+					reload : true,
+					bounces : true,
+					pageParam : {
+						num : num,
+						selected_shopping:selected_shopping,
+						shippingMethod_id:shippingMethod_id,
+			            store:store,
+			            address:address
+					},
+					vScrollBarEnabled : false
+				});
+				api.addEventListener({
+				name : 'my_pointNum'
+			}, function(ret, err) {
+				my_pointNum = ret.value.my_pointNum;
+			});
+				
+				
+				api.addEventListener({
+					name : 'order_info'
+				}, function(ret, err) {
+					num = ret.value.num;
+					pay_style_id = ret.value.pay_style_id;
+					address = ret.value.address;
+					//alert( num +"*"+selected_shopping.price+"+"+num+"*"+selected_shopping.point+"-"+my_pointNum);
+					total=num * selected_shopping.price + num*selected_shopping.point-my_pointNum;
+					document.getElementById('rmb').innerText = "￥" +total;
+					document.getElementById('point').innerText = my_pointNum;
+				});
+				
+                    total=num * selected_shopping.price + num*selected_shopping.point-my_pointNum;
+					document.getElementById('rmb').innerText = "￥" +total;
+					document.getElementById('point').innerText = my_pointNum;
+			api.addEventListener({
+				name : 'return_address'
+			}, function(ret, err) {
+				address = ret.value.address;
+			});
+			
+			api.addEventListener({
+				name : 'memo_info'
+			}, function(ret, err) {
+				memo = ret.value.memo;
+			});
+			
+			api.addEventListener({
+				name : 'order_success'
+			}, function(ret, err) {
+				settle_sn = ret.value.settle_sn;
+			});
+		};
+		document.getElementById('submit').onclick=function(){
+		     product_id = selected_shopping.id;
+		    get_order_sn(3, pay_style_id, address, memo, "发票头", "发票内容",shippingMethod_id, num, product_id);
+		  
+		
+		};
+		function pay(settle_sn) {
+			body = "";
+			subject = shoppingDetails.name;
+			tradeNO = settle_sn;
+			var aliPayPlus = api.require('aliPayPlus');
+			/*aliPayPlus.payOrder({
+			 orderInfo: 'app_id="2017101209264130"&biz_content={"timeout_express":"30m","seller_id":"15967150525","product_code":"QUICK_MSECURITY_PAY","total_amount":"0.02","subject":"1","body":"我是测试数据","out_trade_no":"34213545"}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA&tamp=2017-02-16 10:12:18&version=1.0&sign=*******'
+			 }, function(ret, err) {
+			 api.alert({
+			 title: '支付结果',
+			 msg: ret.code,
+			 buttons: ['确定']
+			 });
+			 });*/
+			aliPayPlus.config({
+				appId : '2017101209264130',
+				rsaPriKey : 'MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAKDcT9+4RLDyALsIpYk+/fNmnWayYnm/UbFgOkMRG2NyzcT3FiFQ6phY/xMG89y7KWpMC6Fn37fv48rVXT62sMf8YZgWEgwMlR6mF8PKPM88YK/0DCwVeFfEmKQp8327m68uYJXHwJqJ8OBmPY5b2v2YxmwICrVUKK8EtGfv9xcbAgMBAAECgYEAlpVm2EFBXHtPH8c6Xz5usHnxAwAem2Xz7Z3tLHdJMlF4OtgrCUkcMz2smn05r/otDOrfQFti3Gde0LPntBuFZFJKmotZEDii0octgaupI2TKfte/amKg1ZlunD6MKIW2XacEZOBNERZeM3WQoEkFJ9/uS1T+7I0intoIN+TexsECQQDkg3pneU8nwl/LkxyOzQkJfaKEbaPZMGO2TCfyFFJpwzRaxKYy597PPqCnU5Aa9eK8NYsAhL60KB+9U/2inZNRAkEAtDWfvUlU6ND/Ft+EIlz5wgfIZonI2LrrudL7zOFI1qczsQ7uBJXlc3pvRC8UDbbGZmaFIY1RVSeCKkvV3Q6wqwJBAJGnUGUWCKMyHPdYfLJ09FatUuKQNAji9BulbSy7UVCCkSNuBvWZoAZ/R81/0PGuWuhWRJR/CEMy9BAsshVt1RECQB7uiWGjIajonrBdYz/Gt7P/Q/2drtTMmMOHnGLZVHhLsMq2ZlJxLDY7ELgiYI3ODpXrCPTuXcSBCI2cALR13gsCQQC6JbVwfZHYEF9/drFnDdfkEBQAoBJynHm9T5wRYWChXr13NBFfQHmnF2bf2xop1V+IHCPImwUoBwV5zleB3shC'
+			}, function(ret, err) {
+				aliPayPlus.pay({
+					subject : subject,
+					body : body ,
+					//amount : num * price,
+					amount : 0.01,
+					tradeNO : tradeNO,
+					rsa : true
+				}, function(ret, err) {
+					if (ret.code == 9000) {
+							api.toast({
+								msg : '付款成功！',
+								location:'middle'
+							});
+						pay_notify(settle_sn);
+						if(shoppingDetails.specificationItems == "" || shoppingDetails.specificationItems == "[]"){
+						api.openWin({
+							name : 'order_detail_win',
+							url : './order_detail_win.html',
+							pageParam : {
+								shoppingDetails : shoppingDetails,
+								address:address,
+								status:true,
+								settle_sn:settle_sn
+							}
+						});
+						}
+						else{
+						api.openWin({
+							name : 'order_detail_win',
+							url : './order_detail_win.html',
+							pageParam : {
+								shoppingDetails : shoppingDetails,
+								shopping_param:shopping_param,
+								good_index:good_index,
+								address:address,
+								status:true,
+								settle_sn:settle_sn
+							}
+						});
+						
+						}
+					}
+					if (ret.code == 6001) {
+					api.toast({
+								msg : '付款取消！',
+								location:'middle'
+							});
+							//pay_notify(settle_sn);
+						if(shoppingDetails.specificationItems == "" || shoppingDetails.specificationItems == "[]"){
+						api.openWin({
+							name : 'order_detail_win',
+							url : './order_detail_win.html',
+							pageParam : {
+								shoppingDetails : shoppingDetails,
+								address:address,
+								status:false,
+								settle_sn:settle_sn
+								
+							}
+						});
+						}
+						else{
+						api.openWin({
+							name : 'order_detail_win',
+							url : './order_detail_win.html',
+							pageParam : {
+								shoppingDetails : shoppingDetails,
+								shopping_param:shopping_param,
+								good_index:good_index,
+								address:address,
+								status:false,
+								settle_sn:settle_sn
+							}
+						});
+						}
+					}
+				});
+			});
+		}
+		
+
+		function get_order_sn(good_type, pay_style_id, address, memo, title, content, shippingMethod, quantity, product_id) {
+			dataone = {
+				paymentMethod : {
+					"id" : pay_style_id
+				},
+				type : good_type,
+				receiver : {
+					"id" : address.id
+				},
+				memo:memo,
+				title : title,
+				content : content,
+				shippingMethod : {
+					"id" : shippingMethod
+				},
+				quantity : quantity,
+				product : {
+					"id" : product_id
+				},
+				
+			}
+			console.log(JSON.stringify(dataone));
+			$.ajax({
+				type : 'post',
+				url : 'http://116.62.22.98:8080/shop/order/directToOrder',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				data : JSON.stringify(dataone),
+				success : function(data, status, xmlHttpRequest) {
+				console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						order_sn = data.data;
+						$.ajax({
+							type : 'get',
+							url : 'http://116.62.22.98:8080/shop/payment/payForOrder',
+							contentType : "application/json",
+							headers : {
+								loginToken : $api.getStorage('loginToken'),
+								csrfToken : $api.getStorage('csrfToken')
+							},
+							data : {
+								sn : order_sn
+							},
+							success : function(data, status, xmlHttpRequest) {
+							   console.log("get_sn"+JSON.stringify(data));
+								if (data.responseCode == 0) {
+									settle_sn = data.data;
+									 pay(data.data);
+									api.sendEvent({
+										name : 'order_success',
+										extra : {
+											settle_sn : settle_sn
+										}
+									});
+								
+								}
+								else{
+								api.toast({
+								msg : data.responseMsg,
+								location:'middle'
+							});
+								}
+								console.log(JSON.stringify(data));
+							},
+							error : function(err) {
+								console.log(JSON.stringify(err));
+							}
+						});
+					}
+					
+					
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function pay_notify(settle_sn) {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/payment/notify',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				data : {
+					sn : settle_sn
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					}
+					console.log(JSON.stringify(data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function settle_order(order_sn) {
+			
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/payment/payForOrder',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				data : {
+					sn : order_sn
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						settle_sn = data.data.sn;
+					}
+					console.log(JSON.stringify(data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+	</script>
+</html>

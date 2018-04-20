@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>文档</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <style>
+    html, body {background: #ffffff;margin:0;width:100%;font-weight:600;}
+        .empty{ text-align: center; padding: 120px 0; }
+        .selfimg {height:5.0rem;text-align:center;margin-bottom:20px;margin-top:20px;}
+        .selfimg img{width:7.0rem;height:7.0rem;text-align: center;}
+        .inputgroup {height:4.0rem;text-align:center;display: block;}
+        .inputItem{width:18.0rem;height:2.8rem;border: 1px solid #999999; text-align: center;margin-top:20px;border-radius:10px;}
+        .clearbtn{position:absolute;height:1.4rem;right:16%;top:32%;display: none;}
+        .inputblock{display:inline;position:relative;}
+        .inputblock #getcode{color: #66cc66;font-size:1.0rem;position:absolute;right:5%;top:1%;}
+          #login{color:white;font-size:1.5rem;}
+          .loginbtn{width:18.0rem;height:2.8rem; text-align: center;margin-top:20px;background-color:#66cc66;border-radius:15px;}
+        #yscode{width:18.0rem;height:2.8rem;border: 1px solid #999999; text-align: left;margin-top:20px;border-radius:10px;}
+        #register{line-height:normal;color:#66cc66;font-size: 1.2rem;display:inline-block;margin-top:15px;padding-right: 100px;}
+        #fgtpass{line-height:normal;color:gray;font-size: 1.2rem;display:inline-block;margin-top:15px;}
+    </style>
+</head>
+<body>
+    <!--<div class="selfimg">
+    <img  src="../icon/selfphoto.png" />
+    </div>
+    <div class="inputgroup">
+    <div class="inputblock">
+    <input id="tele" class="inputItem" placeholder="输入手机号码" oninput="showclear(this)"/>
+    <img class="clearbtn" src="../icon/clearbtn.png" onclick="clearinfo(this)"/>
+    </div>
+    </div>
+    <div class="inputgroup">
+    <div class="inputblock">
+    <input id="yscode"  placeholder="请输入验证码"/><button id="getcode">获取验证码</button>
+    </div>
+  <button class="loginbtn" id="login" onclick="login()">登录</button>
+  <br/>
+  
+  <span id="register" onclick="register()">立即注册</span>
+  <span id="fgtpass" onclick="fgtpwd()">忘记密码？</span>-->
+  <button class="loginbtn" id="login1" onclick="login1()">店铺名称</button>
+   <button class="loginbtn" id="login2" onclick="login2()">我的订单</button>
+   <button class="loginbtn" id="login3" onclick="login3()">商品列表</button>
+
+</body>
+<script>
+  function login1()
+ {
+ api.openWin({
+	 name: 'store_win',
+	 url: './store_win.html',
+	  reload:true
+ });
+
+ }
+  function login2()
+ {
+ api.openWin({
+	 name: 'myorder_win',
+	 url: './myorder_win.html',
+	  reload:true
+ });
+ }
+  function login3()
+ {
+ api.openWin({
+	 name: 'product_display_win',
+	 url: './product_display_win.html',
+	  reload:true
+ });
+
+ }
+</script>
+</html>

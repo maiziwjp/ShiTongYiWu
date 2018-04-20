@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>金券兑换</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <style>
+	    #four_order{width:100%; height: 45px;display:-webkit-box;border-bottom: 1px solid #d4d4d4;position:relative;top:-3px;}
+ 		.order{width: 25%;height: 43px;}
+        .order_font{height: 43px;font-size: 14px;line-height:45px;text-align: center;}
+	  	#main{width:100%;height:auto;margin-top: 10px;}
+			.likecontent{width: 100%; height: 175px;display: -webkit-box;border-bottom: 1px solid #E4E4E4;}
+	 		.likeorder_font{ width: 43%; height: 100%;text-align: center; position:relative;order_font: center;}
+			.likeright{ width: 45%; text-align: center; position:relative;order_font: center;}
+			.likeorder_font{border-right: 1px solid #E4E4E4}
+	 		.llu{height: 135px;width: 90%;}
+	 		.llu img{max-height: 115px; max-width: auto;position:relative;top: 15px}
+	 		.lld{height: 40px;position:relative;}
+	 		.lld img{max-height: 14px; max-width: 14px;position:relative;top:2px;float:order_font}
+	  </style>
+</head>
+<body>
+<div id="four_order">
+
+				<div class="order">
+					 <div class="order_font" id="order_font1" onclick="myorder_all()">数码办公</div>
+				</div>
+				<div class="order">
+					 <div class="order_font" id="order_font2" onclick="myorder_all()">个人洗护</div>
+				</div>
+				<div class="order">
+					 <div class="order_font" id="order_font3" onclick="myorder_all()">箱包饰品</div>
+				</div>
+				<div class="order">
+					 <div class="order_font" id="order_font4" onclick="myorder_all()">家居用品</div>
+				</div>
+
+	 </div>
+       
+       <script type="text/template" id="temp">
+			{@each datalist as item}
+			<ul id="ul1" onclick="detail(${item.id})">
+			<li>
+			<div class="one">
+			<div class="picture">
+			<img  src="${item.image}"/>
+			</div>
+			<div class="one_info">
+			<div id="name">
+			${item.name} ${item.attributeValue0}
+			</div>
+			<div class="second_line">
+			<span class="rmb">￥${item.price}</span><span>（</span><img  class="coin_logo" src="../../icon/public/integral_y.png" /><span id="coin" >${item.point}</span><span>）</span>
+			</div>
+			</div>
+			</div>
+			</li>
+			</ul>
+			{@/each}
+		</script>
+       <div id="list"></div>
+       <script type="text/template" id="temp">
+       {@each datalist as item}
+        <div id="main">
+					<div class="likecontent">
+						<div style="width:6%;height:100%;"></div>
+						<div class="likeorder_font" >
+							<div class="llu"><img src="${item.img}"/></div>
+							<div class="lld"style="font-size:12px;float:order_font">
+							${item.name}<br/>
+						  <div style="float:order_font;margin-top:4px"><span ><img src="../../icon/public/integral_y.png"/></span><span style="color: orange">${item.point}</span></div>
+							</div>
+						</div>
+                     <div style="width:4%;height:100%;"></div>
+						<div class="likeright">
+							<div class="llu"><img src="../../image/goods1.gif"/></div>
+							<div class="lld"style="font-size:12px;float:order_font">
+							白皙日记美牙套装<br/>
+						  <div style="float:order_font;margin-top:4px"><span ><img src="../../icon/public/integral_y.png"/></span><span style="color: orange">1200</span></div>
+							</div>
+						</div>
+					</div>
+	</div>
+	{@/each}
+	</script>
+
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/juicer.js"></script>
+<script src="../../script/global_variables.js"></script>
+<script src="../../script/zepto.js"></script>
+<script type="text/javascript">
+
+	apiready = function(){
+         myorder_all();
+		 } 
+  var cat=0;
+   function getgoods(elem){
+   $.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/goods/search/findPoint/' + elem + '?page=0&size=20',
+				contentType : "application/json",
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+					console.log(JSON.stringify(data));
+					render("temp", data.data, list);
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+   }
+   
+   function  myorder_all(){
+    var order_font=document.getElementsByClassName('order_font');
+    var order_border=document.getElementsByClassName('order_border');
+	var flag=0;
+	order_font[0].style.color='#66cc66';
+	order_font[0].style.borderBottom='3px solid #66cc66';
+	
+    for(var i=0;i<4;i++){
+			          (function(i){
+			                     order_font[i].onclick=function(){
+			                     order_font[flag].style.color="#000";
+			                     order_font[i].style.color='#66cc66';
+			                     order_font[flag].style.borderBottom="0px solid #66cc66";
+			                     order_font[i].style.borderBottom='3px solid #66cc66';
+			                     if(i==0){
+			                     getgoods(2);
+			                     }
+			                     if(i==1){
+			                     getgoods(3);
+			                     }
+			                     if(i==2){
+			                     getgoods(7);
+			                     }
+			                     flag=i;
+			                             }
+			                           })(i);//这是循环中的i,被作为参数传入
+			                     }
+    
+    }
+    
+    function render(temp_id, data, div_id) {
+			document.getElementById("list").innerHTML = "";
+			document.getElementById("list2").innerHTML = "";
+			var tmp = document.getElementById(temp_id);
+			var data = {
+				datalist : data
+			}
+			var onelist = juicer(tmp.innerHTML, data);
+			document.getElementById(div_id).innerHTML += onelist;
+		}
+</script>
+</html>

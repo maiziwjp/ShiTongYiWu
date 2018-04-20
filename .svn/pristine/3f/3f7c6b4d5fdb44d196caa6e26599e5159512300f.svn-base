@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {background:#d4d4d4;
+			margin:0;
+			}
+			input{width:86%;height:35px;margin-left:7%;outline:none;border-radius: 5px;text-align: center;border:none;margin-top:5px;margin-bottom:5px;}
+		</style>
+	</head>
+	<body>
+	<input id="friend" placeholder="搜索" oninput="searchfriend()"/>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			myfriend();
+		};
+		function myfriend(){
+		var UIListContacts = api.require('UIListContacts');
+            UIListContacts.open({
+                rect : {
+                    x : 0,
+                    y : 45,
+                    w : api.frameWidth,
+                    h : api.frameHeight/1.5
+                },
+       
+                contacts : [{
+                    "employee_id" : 1,
+                    "remark" : "王科研",
+                    "phonetic" : "WangKeYang", //名字的拼音
+             
+                    "phones" : [{
+                        "phone" : "13366148872",
+                        "type" : "1"
+                    }]
+                }, {
+                    "employee_id" : 2,
+                    "remark" : "艾瑞雪",
+                    "phonetic" : "AiXueRui", //名字的拼音
+      
+                    "phones" : [{
+                        "phone" : "13366148872",
+                        "type" : "1"
+                    }]
+                }, {
+
+                    "employee_id" : 3,
+                    "remark" : "刘军",
+                    "phonetic" : "LiuJun", //名字的拼音
+                    "phones" : [{
+                        "phone" : "13366148872",
+                        "type" : "1"
+                    }]
+                },
+                 {
+
+                    "employee_id" : 4,
+                    "remark" : "猪猪",
+                    "phonetic" : "Zhu", //名字的拼音
+                    "phones" : [{
+                        "phone" : "13366148872",
+                        "type" : "1"
+                    }]
+                }],
+                fixedOn : api.frameName
+            }, function(ret) {
+                if (ret) {
+                    /*alert(JSON.stringify(ret).remark);*/
+                }
+            });
+		
+		}
+		function searchfriend() {
+		var UIListSearch = api.require('UIListSearch');
+    UIListSearch.open({
+    rect: {
+        x: 0,
+        y: 45,
+        w: api.winWidth,
+        h: api.frameHeight
+    },
+    contacts:[{
+        "remark": "张三",
+        "position": "工程师",
+        "dept_name": "研发部"
+    },{
+        "remark": "李四",
+        "position": "销售经理",
+        "dept_name": "销售部"
+    }],
+    fixedOn: api.frameName
+}, function(ret, err) {
+    if (ret) {
+        alert(JSON.stringify(ret));
+    } 
+});
+		
+		
+			/*var listContact = api.require('listContact');
+			listContact.open({
+				h : api.frameHeight,
+				bgColor:'#dadada',
+				borderColor:'#dadada',
+				cellBgColor:'#fff',
+				cellSelectColor:'#dadada',
+				data : {
+					common : [{
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '刘军',
+						subTitle:'1596845230'
+					}],
+					A : [{
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '阿三'
+					}, {
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '阿四'
+					}, {
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '阿五'
+					}, {
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '阿六'
+					}],
+					B : [{
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '笨蛋'
+					}, {
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '笨环'
+					}, {
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '笨看'
+					}, {
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '伴郎'
+					}],
+					C : [{
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '陈晨'
+					}, {
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '陈丽'
+					}, {
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '沉香'
+					}, {
+						placeholderImg : 'widget://res/img/ic/listContact.png',
+						img : 'http://img1.3lian.com/gif/more/11/201206/a5194ba8c27b17def4a7c5495aba5e32.jpg',
+						title : '陈坤'
+					}]
+				},
+				indicator:{},
+				searchBar:{
+				 bgColor:'#fff',       //（可选项）搜索条背景色，字符串，默认透明，支持 rgb，rgba，#
+				  textFieldBgColor:'#fff',
+				   placeholder:"  "
+				},
+				fixedOn : api.frameName
+			}, function(ret, err) {
+				if (ret) {
+					alert(JSON.stringify(listContact.data));
+					api.openWin({
+	                    name: 'chat_win',
+	                    url: './chat_win.html'
+                    });
+
+				} else {
+					alert(JSON.stringify(err));
+				}
+			});*/
+		}
+	</script>
+</html>

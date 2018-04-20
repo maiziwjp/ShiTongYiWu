@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>我的订单</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			#main {
+			    width: 100%;
+				height: 100%;
+			}
+			.someorders {
+				width: 100%;
+				height: auto;
+			}
+			.orders1 {
+				width: 100%;
+				height: auto;
+			}
+			.box1 {
+				width: 100%;
+				height: 40px;
+				display: -webkit-box;
+			}
+			.marketcentre {
+				width: 75%;
+				height: 40px;
+				display: -webkit-box;
+			}
+			.store_image {
+				width: 14px;
+				height: 14px;
+				padding-top: 15px;
+			}
+			.store_name {
+				line-height: 30px;
+				font-size: 13px;
+				padding-top: 8px;
+			}
+			.buysuccess {
+				width: 18%;
+				height: 30px;
+				font-size: 14px;
+				color: #66cc66;
+				padding-top: 15px;
+			}
+			.box2 {
+				width: 100%;
+				height: 100px;
+				display: -webkit-box;
+			}
+			.order_goods_name_font {
+				height: 50%;
+				width: 100%;
+				font-size: 12px;
+				padding-top: 10px;
+				padding-left: 5px;
+			}
+			.order_goods_gets_font {
+				height: 50%;
+				width: 100%;
+				font-size: 14px;
+				color: #66cc66;
+				padding-left: 10px;
+			}
+			.order_goods_prnum {
+			}
+			.order_goods_price1 {
+				height: 18px;
+				font-size: 14px;
+				padding-top: 8px;
+			}
+			.order_goods_price2 {
+				height: 18px;
+				width: 100%;
+			}
+			.order_goods_jifen {
+				height: 18px;
+				width: 100%;
+				display: -webkit-box;
+			}
+			.order_goods_num {
+				height: 18px;
+				width: 100%;
+			}
+			.box3 {
+				width: 100%;
+				height: 80px;
+			}
+			.order_goods_sump {
+				height: 37.5%;
+				display: -webkit-box;
+				float:right;
+				margin-right:10px;
+				
+			}
+			.order_button {
+				width: 100%;
+				height: 50%;
+			}
+			.deletebtn {
+				font-size: 14px;
+				height: 30px;
+				width: 70px;
+				border: 1px solid #969696;
+				border-radius: 20px;
+				margin-left: 54%;
+				margin-top: 5px
+			}
+			.deletebtn1 {
+				font-size: 14px;
+				height: 30px;
+				width: 70px;
+				border: 1px solid #969696;
+				border-radius: 20px;
+				margin-left: 75%;
+				margin-top: 5px
+			}
+			.pendingPay{
+			    font-size: 14px;
+				height: 30px;
+				width: 70px;
+				border: 1px solid #969696;
+				border-radius: 20px;
+				outline:none;
+			    position:relative;
+				top:40px;
+				left:75%;			
+			}
+			.order_comment {
+				color: #66cc66;
+				font-size: 14px;
+				height: 30px;
+				width: 60px;
+				border: 1px solid #66cc66;
+				border-radius: 20px;
+				float: right;
+				margin-right: 10px;
+				margin-top: 5px
+			}
+		</style>
+	</head>
+	<body>
+			<div id="main">
+		     <img style="height:500px;width: auto;position:relative;left: 10%;"src="../../image/wait_loading.jpg"/ >
+			</div>
+			<script type="text/template" id="temp">
+				{@each datalist as item1}
+				<div class="orders1">
+				<div style="height:7px;width:100%;background:#E4E4E4"></div>
+				<div class="box1">
+					<div class="box1_1" style="width:3%;height:100%;"></div>
+					<div class="marketcentre">
+						<img class="store_image"src="../../image/store.png"/ >&nbsp;
+						<div class="store_name">${item1.storeName}</div>
+					</div>
+					<div class="buysuccess">待付款</div>
+					<div class="box1_2" style="width:3%;height:100%;"></div>
+				</div>
+				{@each item1.selectOrderItems as item2}
+				<div class="box2" style="background:#FAFAFA;" onclick="opensigleshopping(${item2.product})" >
+					<div class="box2_1" style="width:3%;height:100%;"></div>
+					<div style="height: 100px; width:20%;">
+					<img src="${item2.img}" style="height:75px;width:75px;padding:10px 10px 0px 0px"/ >
+					</div>
+				<div class="box2_1" style="width:2.5%;height:100%;"></div>
+					<div class="order_goods" style="height: 98px; width:59%;">
+					<div class="order_goods_name_font"style="" >${item2.productName}</div>
+					<div class="order_goods_gets_font">${item1.shippingMethodName}</div>
+					</div>
+				<div class="order_goods_prnum" style="height: 100px; width:13%;">
+				<div class="order_goods_price1"style="font:bold;font-size:13px;margin-top:3px" >¥${item2.price}<br/>	</div>
+				<div class="order_goods_price2"style="font-size:13px;color: #818082;text-decoration:line-through;" >¥${item2.markertPrice}<br/> </div>
+				<div class="order_goods_jifen">
+				<img src="../../icon/public/integral_g.png" style="height:13px;width:auto;"/>
+				<div style="font-size:12px;padding-top:2px">${item2.point}</div><br/></div>
+				<div class="order_goods_num"style="font-size:13px;">×${item2.quantity}</div>
+				</div>
+				<div class="box2_2" style="width:2%;height:100%;"></div>
+				</div>
+				{@/each}
+				
+				<div class="box3" >
+					<div class="order_goods_sump" >
+					    <div class="amount"style="font-size:13px;padding-top:5px;">共${item1.productCount} </div>
+						<div style="font-size:13px;padding-top:5px;">件商品 合计:¥${item1.totalPrice}</div>
+						<img src="../../icon/public/integral_g.png"style="height:13px;width:auto;padding-top:6px;"/>
+						<div style="font-size:13px;padding-top:5px">${item1.totalPoint}(含运费¥${item1.freight})</div>
+					</div>
+				   <div class="order_button">
+						<div style="border-top:2px solid #F4F4F4;width:100%"></div>
+						<button class="pendingPay"onclick="pendingPay(${item1.order})">去付款</button>
+						<div style="border-bottom:2px solid #F4F4F4;width:100%;margin-top:5px">
+						</div>
+					</div>
+			
+				</div>
+				{@/each}
+			</script>
+	</body>
+	
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script type="text/javascript" src="../../script/juicer.js"></script>
+	<script src="../../script/global_variables.js"></script>
+	<script src="../../script/zepto.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		   
+			get_myorder_all();
+		};
+		var order_state=[];
+		function get_myorder_all() {
+		 if(!$api.getStorage('csrfToken')){
+		api.toast({
+								msg : '请先登录',
+								location:'middle'
+							});
+							api.openWin({
+				name : 'login_win',
+				url : '../login_win.html',
+				reload : true,
+			});
+		
+		}
+		else{
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/order/all?page=0&size=20',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						var arr = [];
+						//alert(1234);
+					   console.log(JSON.stringify(data));
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						k=0;
+						for(i=0;i<data.data.length;i++){
+						        if(data.data[i].status=="pendingPayment"){
+						        order_state[k]=data.data[i];
+						        k++;
+						        }
+						     }
+						
+						if(order_state==""){
+						document.getElementById('main').innerHTML="暂时无相关订单";   
+						document.getElementById('main').style.cssText="color: gray;text-align:center;";
+						}
+						else {
+						render("temp", order_state, "main");
+						}
+						var amount=document.getElementsByClassName('amount');
+						for(var i=0;i<order_state.length;i++){
+						    sum=0;
+						    for(var j=0;j<order_state[i].selectOrderItems.length;j++){
+						        
+						         sum=sum+order_state[i].selectOrderItems[j].quantity;
+						          
+						         amount[i].innerHTML="共"+sum;
+						    }
+						}
+					} else {
+						//alert(data.responseCode);
+						 //console.log(JSON.stringify(data));
+						 	api.toast({
+								msg : data.responseMsg,
+								location:'middle'
+							});
+					}
+				},
+				error : function() {
+					console.log(JSON.stringify(err));
+				}
+			});
+			}
+		}
+         
+      
+     
+		function render(temp_id, data_item, div_id) {
+			document.getElementById(div_id).innerHTML = "";
+			var tmp = document.getElementById(temp_id);
+			var data = {
+				datalist : data_item,
+			}
+			var onelist = juicer(tmp.innerHTML, data);
+			document.getElementById(div_id).innerHTML += onelist;
+		}
+
+      
+		function render(temp_id, data_item, div_id) {
+			document.getElementById(div_id).innerHTML = "";
+			var tmp = document.getElementById(temp_id);
+			var data = {
+				datalist : data_item,
+			}
+			var onelist = juicer(tmp.innerHTML, data);
+			document.getElementById(div_id).innerHTML += onelist;
+		}
+
+		function opensigleshopping(elem)
+	    {
+	   
+		 var proId=0;
+	              $.ajax({
+							type : 'get',
+							url : 'http://116.62.22.98:8080/shop/product/' + elem + '',
+							contentType : "application/json",
+							headers : {
+								loginToken : $api.getStorage('loginToken'),
+								csrfToken : $api.getStorage('csrfToken')
+							},
+							success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+						//alert(JSON.stringify(data.data));
+						proId=data.data;
+						api.openWin({
+						name : 'single_shopping_win',
+						url : '../shopping/single_shopping_win.html',
+						pageParam : {
+							id : proId
+						}
+						});
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+					} else {
+						//alert(data.responseCode);
+							api.toast({
+								msg : data.responseMsg,
+								location:'middle'
+							});
+					}
+				},
+				error : function() {
+					console.log(JSON.stringify(err));
+				}
+	           });
+	   }
+
+		function pendingPay(elem) {
+		elem_pro={};
+		 for(i=0;i<order_state.length;i++){
+                                     if(order_state[i].order==elem)
+                                     {
+                                        elem_pro=order_state[i];
+                                     }
+								    
+			}
+
+			body = "";
+			subject =elem_pro.sn;
+			var aliPayPlus = api.require('aliPayPlus');
+			/*aliPayPlus.payOrder({
+			 orderInfo: 'app_id="2017101209264130"&biz_content={"timeout_express":"30m","seller_id":"15967150525","product_code":"QUICK_MSECURITY_PAY","total_amount1":"0.02","subject":"1","body":"我是测试数据","out_trade_no":"34213545"}&charset=utf-8&method=alipay.trade.app.pay&sign_type=RSA&tamp=2017-02-16 10:12:18&version=1.0&sign=*******'
+			 }, function(ret, err) {
+			 api.alert({
+			 title: '支付结果',
+			 msg: ret.code,
+			 buttons: ['确定']
+			 });
+			 });*/
+			aliPayPlus.config({
+				appId : '2017101209264130',
+				rsaPriKey : 'MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAKDcT9+4RLDyALsIpYk+/fNmnWayYnm/UbFgOkMRG2NyzcT3FiFQ6phY/xMG89y7KWpMC6Fn37fv48rVXT62sMf8YZgWEgwMlR6mF8PKPM88YK/0DCwVeFfEmKQp8327m68uYJXHwJqJ8OBmPY5b2v2YxmwICrVUKK8EtGfv9xcbAgMBAAECgYEAlpVm2EFBXHtPH8c6Xz5usHnxAwAem2Xz7Z3tLHdJMlF4OtgrCUkcMz2smn05r/otDOrfQFti3Gde0LPntBuFZFJKmotZEDii0octgaupI2TKfte/amKg1ZlunD6MKIW2XacEZOBNERZeM3WQoEkFJ9/uS1T+7I0intoIN+TexsECQQDkg3pneU8nwl/LkxyOzQkJfaKEbaPZMGO2TCfyFFJpwzRaxKYy597PPqCnU5Aa9eK8NYsAhL60KB+9U/2inZNRAkEAtDWfvUlU6ND/Ft+EIlz5wgfIZonI2LrrudL7zOFI1qczsQ7uBJXlc3pvRC8UDbbGZmaFIY1RVSeCKkvV3Q6wqwJBAJGnUGUWCKMyHPdYfLJ09FatUuKQNAji9BulbSy7UVCCkSNuBvWZoAZ/R81/0PGuWuhWRJR/CEMy9BAsshVt1RECQB7uiWGjIajonrBdYz/Gt7P/Q/2drtTMmMOHnGLZVHhLsMq2ZlJxLDY7ELgiYI3ODpXrCPTuXcSBCI2cALR13gsCQQC6JbVwfZHYEF9/drFnDdfkEBQAoBJynHm9T5wRYWChXr13NBFfQHmnF2bf2xop1V+IHCPImwUoBwV5zleB3shC'
+			}, function(ret, err) {
+				aliPayPlus.pay({
+					subject : subject,
+					body :body,
+					amount : 0.01,
+					tradeNO : elem_pro.sn,
+					rsa : true
+				}, function(ret, err) {
+					if (ret.code == 9000) {
+						pay_notify(elem_pro.sn);
+						get_myorder_all()
+					}
+					if (ret.code == 6001) {
+						api.toast({
+							msg : '付款取消！',
+							location : 'middle'
+						});
+					}
+				});
+			});
+		}
+		
+		function pay_notify(settle_sn) {
+		
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/payment/notify',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				data : {
+					sn : settle_sn
+				},
+				success : function(data, status, xmlHttpRequest) {
+					if (data.responseCode == 0) {
+					}
+					console.log(JSON.stringify(data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+	</script>
+</html>

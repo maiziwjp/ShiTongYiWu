@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+		<style>
+			body {
+				margin: 0;
+				width: 100%;
+				height: auto;
+				background: #ffffff;
+				font-size: 14px;
+			}
+			.address {
+				width: 95%;
+				height: 80px;
+				padding-left: 5%;
+				display: -webkit-box;
+				background: #FFFFFF;
+			}
+			.address img {
+				width: 25px;
+				height: 25px;
+			}
+			.posotionp {
+				width: 5%;
+				margin-top: 25px;
+			}
+			.send_info {
+				width: 75%;
+				margin-left: 5%;
+			}
+			.send_name {
+				padding-top: 5px;
+				padding-bottom: 5px;
+			}
+			.tel {
+				float: right;
+			}
+			.send_address {
+			}
+			.address .more {
+				width: 5%;
+				margin-top: 30px;
+			}
+			.pay_style {
+				width: 95%;
+				height: 30px;
+				padding-left: 5%;
+				border-top: 10px solid #d4d4d4;
+				border-bottom: 10px solid #d4d4d4;
+				display: -webkit-box;
+				background: #ffffff;
+				padding-top: 10px;
+			}
+			.pay_style .contents {
+				width: 50%;
+				text-align: right;
+				padding-right: 5%;
+			}
+			.pay_style .title {
+				width: 30%;
+			}
+			.pay_style .more {
+				width: 5%;
+			}
+			.more img {
+				width: 20px;
+				height: 20px;
+			}
+			#my_shopping {
+				width: 100%;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				background: #ffffff;
+				
+			}
+			.shopping_info {
+				padding: 5px 5% 5px 5%;
+				width: 90%;
+				height: 100px;
+				display: -webkit-box;
+				background: #fafafa;
+			}
+			.param {
+				margin-left: 5%;
+				width: 70%;
+				height: 90px;
+			}
+			.shopping_info img {
+				width: 90px;
+				height: 90px;
+			}
+			.box {
+				width: 90%;
+				height: 30px;
+				border-bottom: 1px solid #d4d4d4;
+				background: #ffffff;
+				display: -webkit-box;
+				padding-top: 15px;
+				padding-left: 5%;
+				padding-right: 5%;
+				position: relative;
+			}
+			.send_title {
+				width: 25%;
+			}
+			.send_content {
+				width: 70%;
+				color: #9b9b9b;
+				border: none;
+				outline: none;
+				position:relative;
+			}
+			#message {
+			    line-height:25px;
+				text-align: left;
+				border: none;
+				outline: none;
+				width:200px;
+				position:absolute;top:14px;left:25%;
+			}
+			.box .more {
+				width: 5%;
+			}
+			.settlement {
+				width: 100%;
+			}
+			.place {
+				width: 50%;
+				text-align: right;
+				margin-top: 10px;
+				margin-right: 5%;
+				float: right;
+			}
+			.cost {
+				display: -webkit-box;
+				width: 90%;
+				height: 50px;
+				text-align: right;
+				margin-top: 10px;
+				margin-right: 5%;
+				float: right;
+			}
+			#num {
+				width: 95%;
+				text-align:right;
+				margin-right:5%;
+			}
+			#fond {
+				width: 95%;
+				margin-right:5%;
+					color: #9b9b9b;
+			}
+			
+			#rmb {
+				color: #FF9900;
+			}
+			.coin {
+				color: #e59e1e;
+			}
+			.numpart {
+				display: -webkit-box;
+				height: 30px;
+				width: 90%;
+				margin: 5px 5% 5px 5%;
+			}
+			.amount {
+				width: 30px;
+				height: 30px;
+				background: #f5f5f5;
+				text-align: center;
+			}
+			.amount img {
+				width: 18px;
+				height: 18px;
+				padding: 6px;
+			}
+			.amount span {
+				position: relative;
+				top: 5px;
+			}
+			#price {
+				color: #FF9900;
+			}
+			#size {
+				margin-top: 5px;
+				margin-bottom: 5px;
+			}
+			.price_point{display:-webkit-box;}
+			.price_point img{width:15px;height:15px;position: relative;top:3px;}
+			#point{color:#66CC66;position: relative;top:3px;}
+			#total_point{color:#66CC66;}
+			.fond_title{width:75%;text-align:right;}
+			.point_logo{width:5%;display:inline-block;position: relative;left:15%;}
+			.fond_content{width:15%;text-align:right;float:right;position: relative;top:4px;}
+			#fond img{width:15px;height:15px;position: relative;top:3px;}
+			#point_warn{display:none;}
+		</style>
+	</head>
+	<body>
+		<div class="address" onclick="choose_address();">
+			<div class="posotionp"><img src="../../icon/position.png" />
+			</div>
+			<div class="send_info" id="add_address">
+				<div class="send_name">
+					<span id="receiver_name"></span><span class="tel" id="receiver_tel"></span>
+				</div>
+				<p class="send_address" id="receiver_address">
+					快去添加收获地址
+				</p>
+			</div>
+			<div class="more"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div class="pay_style" onclick="choose_pay_style();">
+			<div class="title">
+				支付方式：
+			</div>
+			<div class="contents" id="pay_style_content">
+				网上支付
+			</div>
+			<div class="more"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>
+		<div id="my_shopping">
+			<div class="shopping_info">
+				<img  id="pimg" src="../../image/cloth.gif" />
+				<div calss="param">
+					<div id="name">
+						******
+					</div>
+					<div id="size"></div>
+					<div class="price_point">
+					<div id="price">
+						￥***
+					</div>
+					+
+					<img src="../../icon/public/integral_green.png" />
+					<div id="point">10</div>
+					</div>
+				</div>
+			</div>
+			<div class="numpart">
+				<div>
+					购买数量
+				</div>
+				<div class="amount" style="margin-left:50%;"  onclick="minus();"><img src="../../icon/minus.png" />
+				</div>
+				<div class="amount">
+					<span id="number">1</span>
+				</div>
+				<div class="amount"  onclick="add();"><img src="../../icon/add.png" />
+				</div>
+			</div>
+			<!--<div class="pay_style" onclick="point();">
+			<div class="title">
+				金券抵扣：
+			</div>
+			<div class="contents" id="pay_style_content">
+				网上支付
+			</div>
+			<div class="more"><img src="../../icon/public/into_black.png" />
+			</div>
+		</div>-->
+			<div class="box">
+				<div class="send_title">
+					配送方式
+				</div>
+				<div class="send_content" id="shippingMethod">
+					快递 免邮
+				</div>
+				</div>
+			<div class="box">
+				<div class="send_title">
+					买家留言
+				</div>
+				<textarea  id="message" placeholder="（选填）对本次交易的说明" oninput="send_memo();"></textarea>
+			</div>
+			<div class="box">
+				<div class="send_title">
+					发货方
+				</div>
+				<div class="send_content" id="supply">
+					运营中心
+				</div>
+				</div>
+		<div calss="settlement">
+				<div id="num">
+					共一件商品
+				</div>
+				<div id="fond">
+					<span  class="fond_title">应付金额：</span><span id="rmb" class="fond_content">￥10.0</span><!--<span style="margin-left:2px;margin-right:2px;">+</span><img src="../../icon/public/integral_y.png" /><span class="coin">590</span>-->
+				<br />
+				<span class="fond_title">金券总计：</span><div class="point_logo"><img  src="../../icon/public/integral_green.png" /></div><span id="total_point"  class="fond_content" style="color:#66CC66;">10</span>
+				<br />
+				<span class="fond_title">剩余金券：</span><div class="point_logo"><img  src="../../icon/public/integral_green.png" /></div><span  class="fond_content" id="my_point" style="color:#66CC66;">10</span>
+				<div id="point_warn" ><span class="fond_title" style="color:#f72933">温馨提示：金券不足需要抵扣现金：</span><span  class="fond_content" id="exchange_point" style="color:#FF9900;">10</span></div>
+				</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/jquery.min.js"></script>
+	<script>
+	</script>
+	<script type="text/javascript">
+		apiready = function() {
+		    address = [];
+			shoppingDetails = $api.getStorage('shoppingDetails');
+			shopping_param = $api.getStorage("shopping_param");
+			num = api.pageParam.num;
+			selected_shopping =api.pageParam.selected_shopping;
+			price=selected_shopping.price;
+			pay_style_id = 1;
+			pay_style_arr = [];
+			shippingMethod_id=2;
+			memo="";
+			my_pointNum=0;
+			exchange_pointNum=0;
+			get_pay_style();
+			get_my_intergral();
+			//getDefault_address();
+			shippingMethod_id=api.pageParam.shippingMethod_id,
+			store=api.pageParam.store,
+			address=api.pageParam.address;
+			if(JSON.stringify(address)=="{}")
+			{}
+			else{
+			
+			    document.getElementById('receiver_name').innerText = "收货人:" + address.consignee;
+				document.getElementById('receiver_tel').innerText = address.phone;
+				document.getElementById('receiver_address').innerText = "收货地址:" + address.areaName + address.address;
+				}
+			     document.getElementById('pimg').src = shoppingDetails.image;
+			    document.getElementById('name').innerText = shoppingDetails.name;
+				document.getElementById('price').innerText = "￥" + selected_shopping.price;
+				document.getElementById('point').innerText = selected_shopping.point;
+				document.getElementById('number').innerText = num;
+				document.getElementById('num').innerText = "共" + num + "件商品";
+				document.getElementById('rmb').innerText = "￥" + selected_shopping.price * num;
+				document.getElementById('total_point').innerText = selected_shopping.point * num;
+				document.getElementById('my_point').innerText = my_pointNum;
+				if(my_pointNum<(selected_shopping.point * num))
+				{
+				exchange_pointNum=selected_shopping.point * num-my_pointNum;
+				document.getElementById('exchange_point').innerText = "￥"+exchange_pointNum;
+				document.getElementById('point_warn').style.display="block";
+				
+				}
+				
+				if(shippingMethod_id==2){
+				document.getElementById('shippingMethod').innerText = "快递";
+				}
+				else{
+				document.getElementById('shippingMethod').innerText = "门店自提";
+				}
+				if(shippingMethod_id==4){
+					document.getElementById('supply').innerText = "实体店";
+					}
+					else{
+					if(shoppingDetails.isDelivery==true && shoppingDetails.isSupplierDelivery==true)
+					{
+					document.getElementById('supply').innerText = "供应商";
+					}
+					else{
+					document.getElementById('supply').innerText = "运营中心";
+					}
+					}
+				
+				
+			
+			api.addEventListener({
+				name : 'return_address'
+			}, function(ret, err) {
+				address = ret.value.address;
+				document.getElementById('receiver_name').innerText = "收货人:" + address.consignee;
+				document.getElementById('receiver_tel').innerText = address.phone;
+				document.getElementById('receiver_address').innerText = "收货地址:" + address.areaName + address.address;
+			});
+			
+			api.sendEvent({
+					name : 'order_info',
+					extra : {
+						num : num,
+						pay_style_id : pay_style_id,
+						address : address,
+						shippingMethod_id:shippingMethod_id
+						
+					}
+				});
+				
+				
+				
+		};
+		function send_memo(){
+		api.sendEvent({
+				name : 'memo_info',
+				extra : {
+					memo : document.getElementById('message').value
+				}
+			});
+		}
+		function get_my_intergral(){
+		$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/Member/getPointById',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+				console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						var mycouponnumber=document.getElementById('my_point');
+						mycouponnumber.innerHTML=data.data;
+						my_pointNum=data.data;
+							api.sendEvent({
+				name : 'my_pointNum',
+				extra : {
+					my_pointNum : my_pointNum
+				}
+			});
+						
+
+					}
+					
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		
+		}
+		function minus() {
+			if (num == 1) {
+			} else {
+				num--;
+			}
+			document.getElementById('number').innerHTML = num;
+			document.getElementById('num').innerText = "共" + num + "件商品";
+			document.getElementById('rmb').innerText = "￥" + num * price;
+			document.getElementById('total_point').innerText = selected_shopping.point * num;
+				if(my_pointNum<(selected_shopping.point * num))
+				{
+				exchange_pointNum=selected_shopping.point * num-my_pointNum;
+				document.getElementById('exchange_point').innerText = "￥"+exchange_pointNum;
+				document.getElementById('point_warn').style.display="bolck";
+				
+				}
+			api.sendEvent({
+				name : 'order_info',
+				extra : {
+					num : num,
+					pay_style_id : pay_style_id,
+					address : address
+				}
+			});
+		}
+
+		function add() {
+			num++;
+			document.getElementById('number').innerHTML = num;
+			document.getElementById('num').innerText = "共" + num + "件商品";
+			document.getElementById('rmb').innerText = "￥" + num * price;
+				document.getElementById('total_point').innerText = selected_shopping.point * num;
+				if(my_pointNum<(selected_shopping.point * num))
+				{
+			exchange_pointNum=selected_shopping.point * num-my_pointNum;
+				document.getElementById('exchange_point').innerText = "￥"+exchange_pointNum;
+				document.getElementById('point_warn').style.display="bolck";
+				
+				}
+			api.sendEvent({
+				name : 'order_info',
+				extra : {
+					num : num,
+					pay_style_id : pay_style_id,
+					address : address
+				}
+			});
+		}
+
+		function get_pay_style() {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/payment/method/findAll',
+				
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+						pay_style_arr = data.data;
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function choose_pay_style() {
+			buttons = [];
+			for (var i = 0; i < pay_style_arr.length; i++) {
+				buttons[i] = pay_style_arr[i].name;
+			}
+			api.actionSheet({
+				buttons : buttons
+			}, function(ret, err) {
+				if (ret) {
+					var index = ret.buttonIndex;
+					for (var i = 0; i < pay_style_arr.length; i++) {
+						if (index == i + 1) {
+							document.getElementById('pay_style_content').innerText = buttons[i];
+							pay_style_id = pay_style_arr[i].id;
+						}
+					}
+				}
+			});
+		}
+
+		function choose_address() {
+			api.openWin({
+				name : 'choose_shopping_address',
+				url : './choose_shopping_address_win.html'
+			});
+		}
+
+		function getDefault_address() {
+			$.ajax({
+				type : 'get',
+				url : 'http://116.62.22.98:8080/shop/receiver/findAll',
+				contentType : "application/json",
+				headers : {
+					loginToken : $api.getStorage('loginToken'),
+					csrfToken : $api.getStorage('csrfToken')
+				},
+				success : function(data, status, xmlHttpRequest) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+						$api.setStorage("csrfToken", xmlHttpRequest.getResponseHeader('csrfToken'));
+						$api.setStorage("loginToken", xmlHttpRequest.getResponseHeader('loginToken'));
+						$api.setStorage("address_data", data.data);
+						if( data.data=="")
+						{
+							//document.getElementById('add_address').innerText="快去添加收获地址";
+						
+						}
+						else{
+						var index = 0;
+						for (var i = 0; i < data.data.length; i++) {
+							if (data.data[i].isDefault == true)
+								index = i;
+							else
+								{};
+						}
+						address=data.data[index];
+							document.getElementById('receiver_name').innerText = "收货人:" + data.data[index].consignee;
+						document.getElementById('receiver_tel').innerText = data.data[index].phone;
+						document.getElementById('receiver_address').innerText = "收货地址:" + data.data[index].areaName + data.data[index].address;
+						api.sendEvent({
+							name : 'order_info',
+							extra : {
+								address : data.data[index],
+								num:num,
+								pay_style_id:pay_style_id
+								
+							}
+						});
+						}
+						
+			
+						
+					}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+		function point(){
+		api.openWin({
+				name : 'baskets_settlement_win',
+				url : '../shopping_baskets/baskets_settlement_win.html'
+			});
+		
+		}
+	</script>
+</html>

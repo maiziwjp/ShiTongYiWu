@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body, html {
+				width: 100%;
+				height: 100%;
+				background: #e1e3e5;
+				font-family: "宋体";
+				margin: 0;
+			}
+			/*注册手机号和密码设置栏*/
+			.input_item {
+				width: 90%;
+				height: 45px;
+				padding-left: 5%;
+				padding-right: 5%;
+				background: #ffffff;
+				margin-top: 35px;
+				overflow: hidden;
+			}
+			.input_item label {
+				font-size: 15px;
+				width: 30%;
+				line-height: 45px;
+			}
+			.input_item input {
+				outline: none;
+				font-size: 15px;
+				line-height: 25px;
+				width: 50%;
+			}
+			.clearbtn {
+				height: 19px;
+				position: absolute;
+				top: 45px;
+				right: 10%;
+				display: none;
+			}
+			.visuable {
+				height: 25px;
+				position: absolute;
+				top: 205px;
+				right: 10%;
+			}
+			/*注册按钮*/
+			#registerbtn {
+				outline: none;
+				width: 80%;
+				height: 40px;
+				line-height: 20px;
+				margin-top: 25px;
+				background: #66CC66;
+				border-radius: 5px;
+				font-size: 18px;
+				text-align: center;
+				margin-left: 10%;
+				color: white;
+			}
+			/*分割线*/
+			.vline {
+				height: 25px;
+				width: 1px;
+				background: #999999;
+			}
+			/*发送验证码*/
+			.send_code {
+				color: #66CC66;
+				position: relative;
+				right: -5%;
+				top: 0px;
+			}
+			#code {
+				width: 35%;
+				border-right: 1px solid #999999;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="input_item">
+			<label> 手机号码</label>
+			<input id="telephone" placeholder="请输入注册手机号" oninput="showclear(this);check_info()" />
+			<img class="clearbtn" onclick="clearinfo(this)" src="../icon/public/clearbtn.png"/>
+		</div>
+		<div class="input_item">
+			<label > 验证码</label>
+			<input  id="code" placeholder="请输入验证码" oninput="check_info()"/>
+			<button id="send_code1" class="send_code" onclick="send_code();">
+				发送验证码
+			</button>
+		</div>
+		<div class="input_item">
+			<label class="set_passwd"> 设置密码</label>
+			<input type="password" id="passwd" placeholder="请设置账号密码" oninput="check_info()" />
+			<img  class="visuable" id="visuable_style" onclick="passwd_see()"src="../icon/dis_visual.png"/>
+		</div>
+		<button id="registerbtn"  onclick="register()">
+			注册
+		</button>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script src="../script/clear_info_and_show_btn.js"></script>
+	<script type="text/javascript" src="../script/jquery.min.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+			/*密码可见按钮控制赋初值*/
+			pwd_flag = true;
+			/*注册按钮初始化*/
+			register_flag = true;
+			register_color = "gray";
+			document.getElementById('registerbtn').disabled=register_flag;
+			document.getElementById('registerbtn').style.color=register_color;
+		};
+		function show_send_code() {
+			clearInterval(reflash);
+			var send_code1 = document.getElementById('send_code1');
+			send_code1.disabled = false;
+			send_code1.innerHTML = "发送验证码";
+			send_code1.style.color = "#66CC66";
+		}
+
+		function counttime() {
+			var send_code1 = document.getElementById('send_code1');
+			var time = 59;
+			send_code1.disabled = true;
+			send_code1.innerHTML = '发送成功';
+			send_code1.style.color = 'gray';
+			/*setInterval每隔一定的时间刷新时，不影响后面函数的执行，即异步执行*/
+			reflash = setInterval(function() {
+				send_code1.innerHTML = time + '秒后重试';
+				time--;
+			}, 1000);
+			setTimeout("show_send_code()", 60000);
+		}
+
+		function passwd_see() {
+			var change_icon = document.getElementById('visuable_style');
+			var change_type = document.getElementById('passwd');
+			if (pwd_flag) {
+				change_icon.src = "../icon/visuable.png";
+				change_type.type = "text";
+				pwd_flag = false;
+			} else {
+				change_icon.src = "../icon/dis_visual.png";
+				change_type.type = "password";
+				pwd_flag = true;
+			}
+		}
+
+		function send_code() {
+			/*检查手机号码是否合法*/
+			var tel = document.getElementById("telephone").value;
+			var pattern = /^1[3,5,8]\d{9}$/;
+			if (!pattern.test(tel)) {
+				api.toast({
+					msg : '请输入合法的手机号码'
+				});
+			} else {
+				get_code(tel);
+				counttime();
+			}
+		}
+
+		function get_code(tel) {
+			//var telephone = document.getElementById("telephone");
+			var code = document.getElementById("code");
+			datavalue = {
+				phone : tel
+			};
+			$.ajax({
+				type : 'post',
+				url : 'http://116.62.22.98:8080/shop/member/aliyunCheckNumber',
+				/*header:*/
+				contentType : "application/json",
+				data : JSON.stringify(datavalue),
+				success : function(data) {
+					console.log(JSON.stringify(data));
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+				}
+			});
+		}
+
+		function check_info() {
+			if ((document.getElementById("telephone").value != "") && (document.getElementById("code").value != "") && (document.getElementById("passwd").value != "")) {
+				register_flag = false;
+				register_color = "#fff";
+			} else {
+				register_flag = true;
+				register_color = "gray";
+			}
+			document.getElementById("registerbtn").disabled = register_flag;
+			document.getElementById("registerbtn").style.color = register_color;
+		}
+
+		function register() {
+			var telephone = document.getElementById("telephone").value;
+			var code = document.getElementById("code").value;
+			var passwd = document.getElementById("passwd").value;
+			datavalue = {
+				phone : telephone,
+				password : passwd,
+				aliyunCheckNumber : code
+			};
+			$.ajax({
+				type : 'post',
+				url : 'http://116.62.22.98:8080/shop/member/register',
+				contentType : "application/json",
+				data : JSON.stringify(datavalue),
+				context : "document.body",
+				success : function(data) {
+					console.log(JSON.stringify(data));
+					if (data.responseCode == 0) {
+							api.toast({
+								msg : '可以去登录啦',
+								location:'middle'
+							});
+							api.openWin({
+	                            name: 'login',
+	                            url: './login_win.html',
+	                             animation:{
+	                            type:"reveal",               
+                               subType:"from_top",     
+                               duration:300  
+                               }
+                            });
+							}
+							else{
+							api.toast({
+								msg : data.responseMsg,
+									location:'middle'
+							});
+							}
+				},
+				error : function(err) {
+					console.log(JSON.stringify(err));
+					alert(JSON.stringify(err));
+				}
+			});
+		}
+	</script>
+</html>

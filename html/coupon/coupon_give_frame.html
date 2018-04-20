@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>title</title>
+		<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+		<style>
+			body {
+				margin: 0;
+				width: 100%;
+				height: auto;
+				background: #d4d4d4;
+			}
+			.search {
+				width: 100%;
+				height: 50px;
+				background: #ffffff;
+				margin-top: 10px;
+				margin-bottom: 10px;
+				display: inline-block;
+			}
+			.search img {
+				width: 30px;
+				height: 30px;
+				margin: 13px 5% 13px 5%;
+			}
+			.search_input {
+				width: 70%;
+				outline-style: none;
+				border: none;
+				height: 30px;
+				line-height: 25px;
+				font-size: 17px;
+				position: absolute;
+				top: 18px;
+				color: #a1a1a1;
+				-webkit-tap-highlight-color: transparent;
+			}
+			.friend {
+				width: 100%;
+				height: 60px;
+				background: #ffffff;
+				display: inline-block;
+				position: relative;
+			}
+			.friend img {
+				width: 40px;
+				height: 40px;
+				margin: 10px 5% 10px 5%;
+			}
+			.friend span {
+				position: absolute;
+				top: 20px;
+			}
+			.title {
+				margin-left: 5%;
+				height: 25px;
+				position: relative;
+				top: 10px;
+				color: #a1a1a1;
+			}
+			.recent {
+				width: 100%;
+				height: auto;
+				background: #FFFFFF;
+			}
+			ul {
+				height: auto;
+			}
+			ul li {
+				list-style: none;
+				width: 100%;
+				height: 60px;
+				padding-top: 5px;
+				padding-bottom: 10px;
+				margin-left: -8%;
+				display: -webkit-box;
+				border-bottom: 1px solid #d4d4d4;
+				position: relative;
+			}
+			li img {
+				width: 50px;
+				height: 50px;
+				margin-top: 10px;
+				border-radius: 5px;
+			}
+			.info {
+				position: relative;
+				margin-left: 5%;
+			}
+			.tel {
+				position: relative;
+				top: -13px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="search">
+			<img src="../../icon/public/search_icon.png" />
+			<input class="search_input" placeholder="搜索" />
+		</div>
+		<div class="friend">
+			<img src="../../icon/public/give_friend.png" />
+			<span>转赠给我的朋友</span>
+		</div>
+		<div class="title">
+			最近
+		</div>
+		<div class="recent">
+			<ul >
+				<li>
+					<img src="../../image/girl.jpg" />
+					<div class="info">
+						<p class="name">
+							魏举鹏
+						</p>
+						<p class="tel">
+							159****0525
+						</p>
+					</div>
+				</li>
+				<li>
+					<img src="../../image/girl.jpg" />
+					<div class="info">
+						<p class="name">
+							刘玉琪
+						</p>
+						<p class="tel">
+							159****3265
+						</p>
+					</div>
+				</li>
+				<li>
+					<img src="../../image/girl.jpg" />
+					<div class="info">
+						<p class="name">
+							魏举鹏
+						</p>
+						<p class="tel">
+							159****0525
+						</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript">
+		apiready = function() {
+		};
+		document.getElementsByClassName('friend')[0].onclick = function() {
+			var contact = api.require('contact');
+			contact.queryContact({
+			 ids: []
+			}, function(ret, err) {
+				if (ret.status) {
+					var array = ret.contacts;
+					var first = array[0];
+					var arrayPho = first.phones;
+					var firstnum = arrayPho[0];
+					var secondnum = arrayPho[1];
+					var thirdnum = arrayPho[2];
+				} else {
+					api.alert({
+						msg : '获取失败'
+					});
+				}
+			});
+			/*api.openContacts(function(ret, err) {
+			 if ( ret) {
+			 var name = ret.name;
+			 var phone = ret.phone;
+			 alert(phone);
+			 } else {
+			 alert("取消");
+			 }
+			 });
+			 /*api.openWin({
+			 name: 'give_friend_win',
+			 url: './give_friend_win.html'
+			 });*/
+		};
+		document.getElementsByClassName('friend')[0].onclick=function()
+		{
+			api.openWin({
+				name: 'vouchers_win',
+				url: './vouchers_win.html'
+			});
+		}
+	</script>
+</html>

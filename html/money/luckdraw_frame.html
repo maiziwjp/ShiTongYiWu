@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <script>!function(a,b){function c(){var b=f.getBoundingClientRect().width;b/i>540&&(b=540*i);var c=b/10.0;f.style.fontSize=c+"px",k.rem=a.rem=c}var d,e=a.document,f=e.documentElement,g=e.querySelector('meta[name="viewport"]'),h=e.querySelector('meta[name="flexible"]'),i=0,j=0,k=b.flexible||(b.flexible={});if(g){console.warn("将根据已有的meta标签来设置缩放比例");var l=g.getAttribute("content").match(/initial\-scale=([\d\.]+)/);l&&(j=parseFloat(l[1]),i=parseInt(1/j))}else if(h){var m=h.getAttribute("content");if(m){var n=m.match(/initial\-dpr=([\d\.]+)/),o=m.match(/maximum\-dpr=([\d\.]+)/);n&&(i=parseFloat(n[1]),j=parseFloat((1/i).toFixed(2))),o&&(i=parseFloat(o[1]),j=parseFloat((1/i).toFixed(2)))}}if(!i&&!j){var p=(a.navigator.appVersion.match(/android/gi),a.navigator.appVersion.match(/iphone/gi)),q=a.devicePixelRatio;i=p?q>=3&&(!i||i>=3)?3:q>=2&&(!i||i>=2)?2:1:1,j=1/i}if(f.setAttribute("data-dpr",i),!g)if(g=e.createElement("meta"),g.setAttribute("name","viewport"),g.setAttribute("content","initial-scale="+j+", maximum-scale="+j+", minimum-scale="+j+", user-scalable=no"),f.firstElementChild)f.firstElementChild.appendChild(g);else{var r=e.createElement("div");r.appendChild(g),e.write(r.innerHTML)}a.addEventListener("resize",function(){clearTimeout(d),d=setTimeout(c,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(d),d=setTimeout(c,300))},!1),"complete"===e.readyState?e.body.style.fontSize=12*i+"px":e.addEventListener("DOMContentLoaded",function(){e.body.style.fontSize=12*i+"px"},!1),c(),k.dpr=a.dpr=i,k.refreshRem=c,k.rem2px=function(a){var b=parseFloat(a)*this.rem;return"string"==typeof a&&a.match(/rem$/)&&(b+="px"),b},k.px2rem=function(a){var b=parseFloat(a)/this.rem;return"string"==typeof a&&a.match(/px$/)&&(b+="rem"),b}}(window,window.lib||(window.lib={}));</script>
+    <title>退款/售后</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <script src="../../script/jquery.min.js"></script>
+<script src="../../script/rotaryDraw.js"></script>
+
+    <style>
+     html,body{
+        height: auto;
+        width:100%;
+        margin: 0;font-weight:600;background-color:#7cd8e3;
+        position: fixed;
+    }
+    #wrap{
+    	margin: 0;
+     	width:100%;
+        height: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-flex-flow: column;
+               flex-flow: column;
+    }
+*{padding:0;margin:0;}
+body{
+	background-image:url(../../icon/money/luck/bg.gif);position: fixed;
+}
+.box{
+	position:relative;
+	max-width:10.0rem;
+	margin:0 auto;
+}
+.box .img01{
+	width:9.0rem;
+	margin-left: 0.5rem;
+}
+.box .drawBtn{
+	position:absolute;top:100px;
+	width:3.0rem;
+	height:auto;
+	left:3.48rem;
+}
+#list{ font-size:0.42rem; width:9.0rem; height: 40px; display:-webkit-box; background: #e2e3b7; margin-left:0.5rem; margin-top: 10px;margin-bottom: 20px; border: 1px solid #e2e3b7; border-radius: 8px;}
+#list img,#rule img{ width: 3.0rem; height: auto; position:relative;top:-36px; left: -14px;}
+#list div{ line-height: 40px;}
+#list div span{ padding-right: 0.1rem;}
+#rule{ font-size:0.36rem; color:#a09a68; width:9.0rem; height: 120px;  background: #e2e3b7; margin-left:0.5rem;margin-bottom: 40px; border: 1px solid #e2e3b7; border-radius: 8px;}
+#rule div{ width: 8.0rem; position:relative;top:-70px; margin-left: 0.5rem;}
+
+.one{position: absolute;filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  display:block;
+  font-size:0.5rem;
+  text-align:center;color:#fff;}
+.one img{ max-width: 1.6rem; max-height: 48px;}
+#picu1{top:30px; left: 3.9rem; width: 2.2rem; height: 30px; }
+#picd1{top:60px; left: 4.2rem; width: 1.6rem; height: 48px; }
+
+#picu2{top:66px; left: 6.2rem; width: 2.2rem; height: 30px; 
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg); }
+#picd2{top:84px; left: 5.7rem; width: 1.6rem; height: 48px;-webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg); }
+
+#picu3{top:148px; left: 7.1rem; width: 2.2rem; height: 30px;-webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg); } 
+#picd3{top:138px; left: 6.4rem; width: 1.6rem; height: 48px;-webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg); } 
+  
+#picu4{top:226px; left: 6.2rem; width: 2.2rem; height: 30px; 
+  -webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg); }
+#picd4{top:194px; left: 5.7rem; width: 1.6rem; height: 48px;-webkit-transform: rotate(135deg);
+  -moz-transform: rotate(135deg); }
+
+#picu5{top:260px; left: 3.9rem; width: 2.2rem; height: 30px;-webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg); } 
+#picd5{top:214px; left: 4.2rem; width: 1.6rem; height: 48px;-webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg); } 
+  
+#picu6{top:230px; left: 1.6rem; width: 2.2rem; height: 30px; 
+  -webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg); }
+#picd6{top:190px; left: 2.6rem; width: 1.6rem; height: 48px;-webkit-transform: rotate(-135deg);
+  -moz-transform: rotate(-135deg); }
+  
+#picu7{top:148px; left: 0.7rem; width: 2.2rem; height: 30px;-webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg); } 
+#picd7{top:138px; left: 2.0rem; width: 1.6rem; height: 48px;-webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg); } 
+  
+#picu8{top:66px; left: 1.5rem; width: 2.2rem; height: 30px; 
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg); }
+#picd8{top:84px; left: 2.6rem; width: 1.6rem; height: 48px;-webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg); }
+</style>
+</head>
+<body>
+<div class="box">
+	<img src="../../icon/money/luck/img_01.png" class="img01" alt="">
+	<img src="../../icon/money/luck/img_02.png" class="drawBtn">
+</div>
+<div id="list">
+	<img src="../../icon/money/luck/list.png"/><div><span>2017-4-25</span><span>17:52</span><span>老王</span><span>ipnone8</span></div>
+</div>
+<div id="rule">
+	<img src="../../icon/money/luck/rule.png"/ style="top:-30px;">
+	<div>1.点击页面“GO”按钮，进入抽奖流程，按提示操作即可（参与活动无需支付任何费用）。</div>
+	<div>2.活动期间，每个手机号，获得的“券号”后7位作为本次活动的“抽奖号”。</div>
+</div>
+<div id="picu1" class="one">iPnone8</div><div id="picd1" class="one"><img src="../../icon/money/luck/iPhone.png"></div>
+<div id="picu2" class="one">iPnone8</div><div id="picd2" class="one"><img src="../../icon/money/luck/iPhone.png"></div>
+<div id="picu3" class="one">iPnone8</div><div id="picd3" class="one"><img src="../../icon/money/luck/iPhone.png"></div>
+<div id="picu4" class="one">iPnone8</div><div id="picd4" class="one"><img src="../../icon/money/luck/iPhone.png"></div>
+<div id="picu5" class="one">iPnone8</div><div id="picd5" class="one"><img src="../../icon/money/luck/iPhone.png"></div>
+<div id="picu6" class="one">iPnone8</div><div id="picd6" class="one"><img src="../../icon/money/luck/iPhone.png"></div>
+<div id="picu7" class="one">iPnone8</div><div id="picd7" class="one"><img src="../../icon/money/luck/iPhone.png"></div>
+<div id="picu8" class="one">iPnone8</div><div id="picd8" class="one"><img src="../../icon/money/luck/iPhone.png"></div>
+<script>
+$(".box .img01").load(function() {
+	var obj = $(".drawBtn");
+	var hei = $(this).height();
+	var hei2 = obj.height();
+	obj.css("top",(hei - hei2)/2);
+});
+</script>
+<script>
+//share份额[数字没有默认],
+//speed速度[单位s,最小0.1s],
+//velocityCurve速度曲线[linear匀速，ease慢快慢，ease-in慢慢开始，ease-out慢慢结束，ease-in-out慢快慢等，用的是css3的速度曲线],可以不写，ease默认值；
+//callback回调函数
+//weeks几周[默认2周，可以不写]
+
+//几份和回调函数这两个参数是必填
+
+
+function callbackA(ind)
+{
+	alert("第一个回调"+ind);
+};
+function callbackB(ind)
+{
+	alert("第二个回调"+ind);
+};
+var newdraw =new turntableDraw('.drawBtn',{
+	share:8,
+	speed:"3s",
+	velocityCurve:"ease",
+	weeks:6,
+	callback:function(num)
+	{
+		callbackA(num);
+	},
+});
+var newdraw2 =new turntableDraw('.drawBtn2',{
+	share:12,
+	speed:"3s",
+	velocityCurve:"ease",
+	weeks:6,
+	callback:function(num)
+	{
+		callbackB(num);
+	},
+});
+$(".drawBtn").click(function(event) {
+	//ajax
+	newdraw.goto(parseInt(Math.random()*8)+1);
+});
+$(".drawBtn2").click(function(event) {
+	//ajax
+	newdraw2.goto(parseInt(Math.random()*12)+1);
+});
+</script>
+</body>
+</html>
